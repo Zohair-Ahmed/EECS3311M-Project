@@ -1,0 +1,12 @@
+package com.eecs3311.presenter;
+
+public interface LoginView {
+    // function for changing view on email error for login 
+    void viewEmailError();
+
+    // function for changing view on password error for login 
+    void viewPasswordError();
+
+    // function for changing view on successful login
+    void viewLoginSuccess();
+}
