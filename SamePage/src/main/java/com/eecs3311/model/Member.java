@@ -46,8 +46,8 @@ public class Member implements Users{
         this.password = inputPassword;
     }
 
-    Public boolean validLogin() {
-        return email.equals("") ** password.equals("");
+    public boolean validLogin() {
+        return email.equals("") && password.equals("");
     }
 
 
