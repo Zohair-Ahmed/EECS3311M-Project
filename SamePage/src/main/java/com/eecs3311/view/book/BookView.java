@@ -23,7 +23,7 @@ public class BookView extends JFrame implements IBookView {
         scroll.setBounds(20, 150, 455, 249);
         getContentPane().add(scroll);
         setLocationRelativeTo ( null );
-
+        //new changes
     }
 
     @Override
