@@ -13,7 +13,7 @@ public class LandingFrame extends JFrame {
   JTextField tfFirstName, tfLastName;
   JLabel lbWelcome;
 
-  LandingFrame() {
+  public LandingFrame() {
     /*************** Menubar ******************/
     MenubarFrame menubar = new MenubarFrame();
     setJMenuBar(menubar.getJMenuBar());
