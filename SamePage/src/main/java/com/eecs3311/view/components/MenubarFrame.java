@@ -1,13 +1,12 @@
-package com.eecs3311.view;
+package com.eecs3311.view.components;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-public class LandingFrame extends JFrame implements ActionListener {
+public class MenubarFrame extends JFrame implements ActionListener {
 
   JMenuBar menubar;
   JMenu home_menu;
@@ -15,13 +14,7 @@ public class LandingFrame extends JFrame implements ActionListener {
   JMenu register_menu;
   JMenu profile_menu;
 
-  LandingFrame() {
-    setTitle("Demo");
-    setSize(500, 500);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setLocationRelativeTo(null);
-    setLayout(new FlowLayout());
-
+  public MenubarFrame() {
     menubar = new JMenuBar();
 
     home_menu = new JMenu("Home");
@@ -39,8 +32,6 @@ public class LandingFrame extends JFrame implements ActionListener {
     menubar.add(login_menu);
     menubar.add(register_menu);
     menubar.add(profile_menu);
-
-    setVisible(true);
   }
 
   @Override
@@ -58,6 +49,6 @@ public class LandingFrame extends JFrame implements ActionListener {
   }
 
   public static void main(String[] args) {
-    new LandingFrame();
+    new MenubarFrame();
   }
 }

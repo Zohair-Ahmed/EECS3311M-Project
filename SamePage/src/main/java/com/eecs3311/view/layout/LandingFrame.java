@@ -1,4 +1,4 @@
-package com.eecs3311.view;
+package com.eecs3311.view.layout;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class TestFrame extends JFrame {
+import com.eecs3311.view.components.MenubarFrame;
+
+public class LandingFrame extends JFrame {
   final private Font mainFont = new Font("Segoe print", Font.BOLD, 18);
   JTextField tfFirstName, tfLastName;
   JLabel lbWelcome;
 
-  TestFrame() {
+  LandingFrame() {
+    /*************** Menubar ******************/
+    MenubarFrame menubar = new MenubarFrame();
+    setJMenuBar(menubar.getJMenuBar());
 
     /*************** Form Panel ******************/
 
@@ -85,5 +90,9 @@ public class TestFrame extends JFrame {
     setMinimumSize(new Dimension(300, 400));
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setVisible(true);
+  }
+
+  public static void main(String[] args) {
+    new LandingFrame();
   }
 }
