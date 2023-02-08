@@ -3,14 +3,16 @@ package com.eecs3311.presenter.Book;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.view.Book.IBookView;
 
+import java.util.ArrayList;
+
 public interface IBookPresenter {
-    public IBookModel getModel();
+    IBookModel getModel();
 
-    public void setModel(IBookModel bm);
+    void setModel();
 
-    public IBookView getView();
+    IBookView getView();
 
-    public void setView(IBookView bv);
+    void setView(IBookView bv);
 
     /**
      * To be used when a UI component is changing any information on the screen.
@@ -19,15 +21,15 @@ public interface IBookPresenter {
      * 
      * @param title - Attribute(s) to be changed
      */
-    public void updateModelFromView(String title);
+    void updateModelFromView(String title);
 
     /**
      * Used when fetching updated Model data. getModel()
      * can be used but this class is more of a customizable class
      * based on the object. May need to implement separate methods
      * for each attribute - TBD
-     * 
+     *
      * @return any updated attribute(s)
      */
-    public String getUpdatedViewFromModel();
+    ArrayList<String> getUpdatedViewFromModel();
 }
