@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-public class MenuFrame extends JFrame implements ActionListener {
+public class LandingFrame extends JFrame implements ActionListener {
 
   JMenuBar menubar;
   JMenu home_menu;
@@ -15,7 +15,7 @@ public class MenuFrame extends JFrame implements ActionListener {
   JMenu register_menu;
   JMenu profile_menu;
 
-  MenuFrame() {
+  LandingFrame() {
     setTitle("Demo");
     setSize(500, 500);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,5 +55,9 @@ public class MenuFrame extends JFrame implements ActionListener {
     } else if (e.getSource() == profile_menu) {
       System.out.println("Profile Screen");
     }
+  }
+
+  public static void main(String[] args) {
+    new LandingFrame();
   }
 }
