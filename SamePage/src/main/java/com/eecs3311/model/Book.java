@@ -1,24 +1,27 @@
 package com.eecs3311.model;
 
 import com.eecs3311.model.enums.Genre;
+import com.sun.tools.javac.jvm.Gen;
 
 import java.util.ArrayList;
 
 public class Book implements Product{
-    private String title = "Harry Potter and the Philosopher's Stone";
-    private String description = "Harry Potter has never even heard of Hogwarts when the letters start dropping on " +
-            "the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with " +
-            "a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's " +
-            "eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with " +
-            "some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of " +
-            "Witchcraft and Wizardry. An incredible adventure is about to begin!";
+    private String title;
+    private String description;
     private ArrayList<Reviews> reviews;
-    private int ISBN = 1408855895;
-    private String author = "J.K. Rowling";
+    private int ISBN;
+    private String author;
 
-    private Genre genre = Genre.FANTASY;
+    private Genre genre;
 
-    // TODO initialize constructor
+    public Book(String title, String author, String description, ArrayList<Reviews> reviews, int ISBN, Genre genre){
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.reviews = reviews;
+        this.ISBN = ISBN;
+        this.genre = genre;
+    }
     public String getTitle() {
         return title;
     }
