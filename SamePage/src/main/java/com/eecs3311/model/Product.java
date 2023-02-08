@@ -7,6 +7,6 @@ public interface Product {
     //genre is enum
     String getTitle();
     String getDescription();
-    ArrayList<String> getReviews();
+    ArrayList<Reviews> getReviews();
 
 }
