@@ -6,6 +6,7 @@ import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
+import com.eecs3311.view.layout.LandingFrame;
 
 public class App {
 
@@ -14,7 +15,7 @@ public class App {
     }
 
     public App() {
-
+        new LandingFrame();
         IBookModel bm = new BookModel();
         IBookPresenter bp = new BookPresenter();
         // p -> m
