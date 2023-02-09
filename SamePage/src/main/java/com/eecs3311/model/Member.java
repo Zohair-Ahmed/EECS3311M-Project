@@ -9,9 +9,9 @@ public class Member implements Users{
 
     // Constructor
     public Member() {
-        this.name = "";
-        this.email = "";
-        this.password = "";
+        this.name = "Team 1";
+        this.email = "temp@mail.ca";
+        this.password = "Test1234";
     }
 
     //default - User is a guest
@@ -47,7 +47,7 @@ public class Member implements Users{
     }
 
     public boolean validLogin() {
-        return email.equals("") && password.equals("");
+        return email.equals("temp@mail.ca") && password.equals("Test1234");
     }
 
 
