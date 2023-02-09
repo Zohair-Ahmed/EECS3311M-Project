@@ -15,8 +15,9 @@ public class LatestBookView extends JFrame implements IBookView {
         textField = new JTextArea();
         textField.setEditable(false);
         bookDatabase = new BookDatabase();
+        int size = bookDatabase.getLatestReleases().size();
         String bookResult = "Latest Releases:\nTitle                  Author          ISBN               Genre\n";
-        for (int i = 0; i < bookDatabase.getLatestReleases().size(); ++i)
+        for (int i = 0; i < size; i++)
             bookResult += bookDatabase.getLatestReleases().get(i).toString()+"\n\n\n";
         textField.setText(bookResult);
         JScrollPane scroll = new JScrollPane(textField);
@@ -24,7 +25,6 @@ public class LatestBookView extends JFrame implements IBookView {
         scroll.setBounds(20, 150, 455, 249);
         getContentPane().add(scroll);
         setLocationRelativeTo ( null );
-        //new changes
     }
 
     public static void main(String [] args){
