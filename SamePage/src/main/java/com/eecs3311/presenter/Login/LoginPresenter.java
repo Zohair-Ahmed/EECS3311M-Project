@@ -34,17 +34,17 @@ public class LoginPresenter {
                 memberModel.setEmail(email);
                 memberModel.setPassword(password);
 
-                if (memberModel.getEmail().isEmpty()) {
+                if (!(memberModel.getEmail().equals("temp@mail.ca"))) {
                     // user name error shown to view
                     status = "This email is not linked to a SamePage account";
                 }
         
-                if (memberModel.getPassword().isEmpty()) {
+                else if (!(memberModel.getPassword().equals("Test1234"))) {
                     // password error shown to view
                     status = "Incorrect password";
                 }
         
-                if (memberModel.validLogin()) {
+                else if (memberModel.validLogin()) {
                     // login success showed to view
                     status = "You are logged in to SamePage as " + memberModel.getName();
                 }
