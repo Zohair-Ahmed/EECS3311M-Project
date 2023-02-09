@@ -44,21 +44,13 @@ public class BookPresenter implements IBookPresenter {
 
     /**
      * Sends updated information about the model to the view
-     * 
+     *
      * @return - implement return type as needed
      */
     @Override
     public String getUpdatedViewFromModel() {
-        return getView().getPresenter().getModel().getTitle();
-        // would we print out these values or return them? Wouldn't they be returned so
-        // the View can read them?
-        // I mean its fine for now, but just wondering how would the view get these
-        // values for the future?
-
-        // To be honest, I think its fine for itr 1 - since we are hardcoding the values
-        // for itr 1 anyway, plus we don't have a view you can test on
-
-        // B/c it's presenter, we should return the values -- only have void right now,
-        // but will change to return
+        String output = this.bookModel.getTitle() +"   "+ this.bookModel.getAuthor() + "   "
+                +this.bookModel.getISBN()+ "   "+this.bookModel.getGenre();
+        return output;
     }
 }
