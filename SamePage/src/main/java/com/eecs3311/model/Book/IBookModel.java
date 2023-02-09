@@ -16,5 +16,5 @@ public interface IBookModel {
     void setPresenter(IBookPresenter bookPresenter);
     String getDescription();
     ArrayList<Reviews> getReviews();
-
+    String toString();
 }

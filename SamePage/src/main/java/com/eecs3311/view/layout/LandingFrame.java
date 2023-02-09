@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import com.eecs3311.view.Book.BookView;
+import com.eecs3311.view.Book.LatestBookView;
 import com.eecs3311.view.components.MenubarFrame;
 
 public class LandingFrame extends JFrame {
@@ -83,7 +83,8 @@ public class LandingFrame extends JFrame {
     mainPanel.add(formPanel, BorderLayout.NORTH);
     mainPanel.add(lbWelcome, BorderLayout.CENTER);
     mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
-    BookView bookView = new BookView();
+    LatestBookView bookView = new LatestBookView();
+    //getter
     setContentPane(bookView.getContentPane());
     add(mainPanel);
 

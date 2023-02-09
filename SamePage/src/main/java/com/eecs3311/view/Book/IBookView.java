@@ -2,8 +2,6 @@ package com.eecs3311.view.Book;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
 
-import java.util.ArrayList;
-
 public interface IBookView {
     IBookPresenter getPresenter();
 
@@ -14,5 +12,5 @@ public interface IBookView {
      *
      * @return
      */
-    ArrayList<String> getView();
+    String getView();
 }

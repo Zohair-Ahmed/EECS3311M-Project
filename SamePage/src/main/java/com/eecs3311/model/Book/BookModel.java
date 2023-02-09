@@ -84,4 +84,9 @@ public class BookModel implements IBookModel {
     public String getGenre(){
         return genre.toString();
     }
+    @Override
+    public String toString(){
+
+        return this.getTitle() +"   "+ this.getAuthor() + "   "+ this.getISBN()+ "   "+ this.getGenre();
+    }
 }

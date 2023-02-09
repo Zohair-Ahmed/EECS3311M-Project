@@ -3,12 +3,11 @@ package com.eecs3311.presenter.Book;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.view.Book.IBookView;
 
-import java.util.ArrayList;
 
 public interface IBookPresenter {
     IBookModel getModel();
 
-    void setModel();
+    void setModel(IBookModel bm);
 
     IBookView getView();
 
@@ -31,5 +30,5 @@ public interface IBookPresenter {
      *
      * @return any updated attribute(s)
      */
-    ArrayList<String> getUpdatedViewFromModel();
+    String getUpdatedViewFromModel();
 }
