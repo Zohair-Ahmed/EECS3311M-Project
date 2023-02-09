@@ -1,0 +1,133 @@
+Meeting Logs:
+/-----------------------------/
+SamePage Itr1 Meeting 1
+February 3rd, 2023 @ 11:00 am
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topic: Itr1 requirements analysis
+	•	Discover deliverable priorities
+	•	Understand who we need to reach out to as a team (Client team and developers)
+	•	Zohair has been in contact with the client team through email/whatsapp
+	•	Deliverable at the end of this iteration is a demo to the client which will be reviewed by February 16 during lab
+
+Initial Design Architecture Discussion:
+	•	Book class, will need to retrieve data from DB in future iterations
+	•	User Class, this is where we obtain the information if the view is for a user logged in or if their a guest
+	◦	i.e if user is logged in then they have different access such as adding book reviews and saving favourite books in future iterations
+	◦	We need to consider best practices to allow flexibility and ease of modifying changes as next iteration will require refactoring
+	•	Discuss how to interact with our interface:
+	    ◦	Landing Page Display
+	    ◦	Login/Register Display
+	    ◦	Latest Book Releases Display
+
+Tasks:
+	•	Nick & Zohair: Find out what to use for GUI and Database access (Due: Feb 5)
+	    ◦	Look into: JavaFX, JavaSpring, Hibernate, JavaAWT
+	    •	Nick focuses on frameworks (what’s best for UI, what’s best for databases, etc) (Due: Feb 5)
+        •	Zohair - communications, create dummy application (document as you go)
+	•	Ammad, Nargis, Kyle looks into design architecture (Due: Feb 5)
+	    ◦	Nargis focus on how they connect/interfaces
+	    ◦	Focus on finding a reasonable design and tradeoffs
+
+
+Summary of meeting:
+Understand the requirements and begin initial planning + research for design architecture.
+
+/------End of Meeting 1-------/
+
+Itr1 Meeting 2
+February 7th, 2023 @ 11:00 am
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topics:
+	•	Going through research notes - covered what MVC, MVP, and MVVM are, what are the pros, cons, differences (refer to itr1 Wiki for in depth research and justification)
+	•	Team decision on design patterns
+	◦	Decision made to use Model-View-Presenter - MVP since:
+	◦	MVP builds on MVC design pattern and can easily apply this pattern to the architecture in Lecture week 3-1 slide 26
+	◦	has a better separation of concerns
+	◦	Presenter is not as tightly coupled as Controller, but has more responsibilities such as updating model and updating view
+	◦	Presenter and Model follow Single Responsibility Principle better since Model is not in charge of updating Presenter
+	◦	it is easier to unit test b/c of low coupling
+
+	•	Team decision on what to use for interface, Java AWT vs. Java Swing vs. Java FX:
+	◦	Decision made on using Java Swing(refer to Wiki for in depth comparisons). Some reasons include:
+	◦	Swing has a wider library of UI components
+	◦	Swing is an extension of JavaAWT, hence all AWT features are in Swing, yet it is more lightweight and has an improved performance
+	◦	Swing easier to learn due to more resources available
+	◦	Used for rapid efficient development of an app with easier access to GUI elements and libraries
+
+	•	Class UML Design session -> using diagrams.net for initial UML class diagram to map out initial project components(refer to wiki or on github Itr1Documentation/ClassDiagrams.png for refined diagram)
+
+	•	Used https://excalidraw.com/ for design wireframes and what project flow should look like(refer to wiki or on github Itr1Documentation/DesignWireFrame.png)
+
+	•	Go over stories and prioritize developer tasks. Brief recap of stories:
+Big User Stories:
+	•	Landing Page - As a guest or member, I want to be able to open Same Page and view a number of books on the homepage.
+	•	Search for Book - As a guest or member, I want to be able to search for a specific book.
+	•	Register/Login - As a guest or member, I want to have the ability to register a new account with SamePage or login to an existing account.
+Itr1 Detailed User Stories:
+	•	Display Login/Register Buttons & Pop-ups - Display the login and register buttons and their corresponding pop-up input boxes on the landing page.
+	•	Display Latest Releases - Display the most recent book releases of any genre on the landing page. Question: What external source can provide this information?
+	•	Search Bar - Display a search bar where text can be entered or filters can be applied to search for a book.
+	•	Display Search Results - Display the results after searching for a book in the search bar.
+	•	Login Existing User - Add functionality to securely log into Same Page with an existing email and password.
+	•	Display Navbar - Create navbar component with login, register, clubs, and a profile icon.
+
+Development Tasks:
+Project Initialization/Setup:
+“Project Initialization on GitHub-MVP”-> assigned to Zohair.Cost = 1day Actual= 0days
+“Project Model class, attributes & methods”-> assigned to Nargis.Cost= 1 day Actual= 1day
+“Project MVP reconstruction”-> assigned to Ammad. Cost=1day Actual=1 day
+
+Landing Page - Big User Story:
+“Creating GUI with Java Swing-Landing Page”-> assigned to Nick.Cost=3 days Actual=2 days
+“Display Latest Releases - UI in LatestBookView”->assigned to Nargis. Cost=
+“Display Latest Releases -on landing page”->assigned to Ammad. Cost =
+“BookDatabase - Dummy data for presenter/view”->assigned to Nargis/Ammad
+“Search Bar - link search to landing page - UI”
+“Display Navbar”->assigned to Nick. Cost=1 day Actual
+
+Search for Book - Big User Story:
+“Search Bar - Component and functionality”->assigned to Zohair. Cost=
+“Display Search Results ”
+
+Register/Login - Big User Story:
+“DisplayLogin/Register Buttons”-> assigned to Kyle. Cost= 3days ActualTime=
+“Login Existing User - ”
+
+
+/------End of Meeting 2-------/
+
+Itr1 Meeting 3
+February 8th, 2023 @ 10:30 am
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topics:
+	•	Go over initial commits, and get updates from everyone on their development tasks
+	•	Inital landing page was merged and demoed for the whole team
+	•	Discussed ensuring to implement SOLID principles in our project -
+	•	Book data will be added on landing page for further development
+Tasks:
+	•	Everyone to continue working on their development tasks
+
+/------End of Meeting 3-------/
+
+Itr1 Meeting 4
+February 9th, 2023 @ 12:00 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topics:
+	•	Code reviews and go over latest changes (view how landing page has changed and where we are getting book data from in iteration1 for latest book releases)
+	•	PR reviews, merge changes
+	•	Discussed concerns how we will link each separate component for demo- the goal is to merge changes and discuss through a call+pair programming
+	•	Nick mentioned wanting to refine the GUI view with a window builder
+	•	Discussed concerns on ensuring we have all the documentation before submission
+Tasks:
+- Zohair continue working on search bar view
+- Kyle - work on refining login functionality and view
+- Nick - work on navbar and register functionality
+- Ammad - work on bug fixes and documentation
+- Nargis - work on documentation and update diagrams
+- Sync up call before submission
+
+/------End of Meeting 4-------/
