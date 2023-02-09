@@ -67,33 +67,37 @@ Big User Stories:
 	•	Register/Login - As a guest or member, I want to have the ability to register a new account with SamePage or login to an existing account.
 Itr1 Detailed User Stories:
 	•	Display Login/Register Buttons & Pop-ups - Display the login and register buttons and their corresponding pop-up input boxes on the landing page.
-	•	Display Latest Releases - Display the most recent book releases of any genre on the landing page. Question: What external source can provide this information?
-	•	Search Bar - Display a search bar where text can be entered or filters can be applied to search for a book.
-	•	Display Search Results - Display the results after searching for a book in the search bar.
-	•	Login Existing User - Add functionality to securely log into Same Page with an existing email and password.
-	•	Display Navbar - Create navbar component with login, register, clubs, and a profile icon.
+    •	Display Latest Releases - Display the most recent book releases of any genre on the landing page. Question: What external source can provide this information? 
+    •	Search Bar - Display a search bar where text can be entered or filters can be applied to search for a book.
+    •	Display Search Results - Display the results after searching for a book in the search bar.
+    •	Login Existing User - Add functionality to securely log into Same Page with an existing email and password.
+    •	Display Navbar - Create navbar component with login, register, clubs, and a profile icon.
+    •	Register New User - Add functionality to register an account with an email, username, and password.
+    •	Login Page - Create a separate login page with email and password input fields.
+    •	Register Page - Create a separate register page with name, email, password, and confirm password input fields.
 
 Development Tasks:
 Project Initialization/Setup:
-“Project Initialization on GitHub-MVP”-> assigned to Zohair.Cost = 1day Actual= 0days
+“Project Initialization on GitHub-MVP”-> assigned to Zohair.Cost = 1day Actual= 0.5day
 “Project Model class, attributes & methods”-> assigned to Nargis.Cost= 1 day Actual= 1day
 “Project MVP reconstruction”-> assigned to Ammad. Cost=1day Actual=1 day
 
 Landing Page - Big User Story:
-“Creating GUI with Java Swing-Landing Page”-> assigned to Nick.Cost=3 days Actual=2 days
-“Display Latest Releases - UI in LatestBookView”->assigned to Nargis. Cost=
-“Display Latest Releases -on landing page”->assigned to Ammad. Cost =
-“BookDatabase - Dummy data for presenter/view”->assigned to Nargis/Ammad
-“Search Bar - link search to landing page - UI”
-“Display Navbar”->assigned to Nick. Cost=1 day Actual
+“Creating GUI with Java Swing-Landing Page”-> assigned to Nick.Cost=2 days Actual=2 days
+“Display Latest Releases - UI in LatestBookView”->assigned to Nargis. Cost=2 days Actual= 1 day
+“Display Latest Releases -on landing page”->assigned to Ammad. Cost =1 day Actual= 1 day
+“BookDatabase - Dummy data for presenter/view”->assigned to Nargis/Ammad. Cost= 1 day Actual=1 day
+“Display Navbar”->assigned to Nick. Cost=1 day Actual=
 
 Search for Book - Big User Story:
-“Search Bar - Component and functionality”->assigned to Zohair. Cost=
-“Display Search Results ”
+“Search Bar - Component and functionality”->assigned to Zohair. Cost=4 days  Actual=
+“Display Search Results ”->assigned to Zohair. Cost=2 days  Actual=
 
 Register/Login - Big User Story:
-“DisplayLogin/Register Buttons”-> assigned to Kyle. Cost= 3days ActualTime=
-“Login Existing User - ”
+“DisplayLogin/Register Buttons”->assigned to Nick. Cost= 3days Actual=
+“Login Page”->assigned to Kyle. Cost= 1day Actual=
+“Login Existing User”->assigned to Kyle. Cost= 3days Actual=
+“Register Page UI”->assigned to Nick. Cost=1 day Actual=
 
 
 /------End of Meeting 2-------/
