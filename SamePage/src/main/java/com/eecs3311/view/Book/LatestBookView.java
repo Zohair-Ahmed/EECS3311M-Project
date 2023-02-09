@@ -27,6 +27,16 @@ public class LatestBookView extends JFrame implements IBookView {
         setLocationRelativeTo ( null );
     }
 
+    //Notes: Use in Landing Frame when refactoring
+    public JTextArea getLatest(){
+        int size = bookDatabase.getLatestReleases().size();
+        String bookResult = "Latest Releases:\nTitle                  Author          ISBN               Genre\n";
+        for (int i = 0; i < size; i++)
+            bookResult += bookDatabase.getLatestReleases().get(i).toString()+"\n\n\n";
+        textField.setText(bookResult);
+        return textField;
+    }
+
     public static void main(String [] args){
         new LatestBookView();
     }

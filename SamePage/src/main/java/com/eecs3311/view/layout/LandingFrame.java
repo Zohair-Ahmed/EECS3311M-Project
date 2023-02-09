@@ -87,6 +87,9 @@ public class LandingFrame extends JFrame {
     //getter
     setContentPane(bookView.getContentPane());
     add(mainPanel);
+    // Note: when we update the scroll
+    /*JScrollPane scroll = new JScrollPane(bookView.getLatest());
+    mainPanel.add(scroll);*/
 
 
     setTitle("Landing Page");
