@@ -1,5 +1,7 @@
 package com.eecs3311.view.Book;
 
+import javax.swing.JPanel;
+
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public interface IBookView {
@@ -12,5 +14,6 @@ public interface IBookView {
      *
      * @return
      */
-    String getView();
+    JPanel getView();
+
 }

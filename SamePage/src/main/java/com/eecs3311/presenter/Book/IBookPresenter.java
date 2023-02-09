@@ -3,7 +3,6 @@ package com.eecs3311.presenter.Book;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.view.Book.IBookView;
 
-
 public interface IBookPresenter {
     IBookModel getModel();
 
@@ -30,5 +29,5 @@ public interface IBookPresenter {
      *
      * @return any updated attribute(s)
      */
-    String getUpdatedViewFromModel();
+    IBookModel getUpdatedViewFromModel();
 }

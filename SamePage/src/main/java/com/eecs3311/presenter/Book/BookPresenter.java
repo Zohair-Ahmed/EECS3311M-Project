@@ -48,9 +48,7 @@ public class BookPresenter implements IBookPresenter {
      * @return - implement return type as needed
      */
     @Override
-    public String getUpdatedViewFromModel() {
-        String output = this.bookModel.getTitle() +"   "+ this.bookModel.getAuthor() + "   "
-                +this.bookModel.getISBN()+ "   "+this.bookModel.getGenre();
-        return output;
+    public IBookModel getUpdatedViewFromModel() {
+        return this.bookModel;
     }
 }
