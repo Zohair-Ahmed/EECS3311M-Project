@@ -24,6 +24,7 @@ public class LoginPresenter {
         this.loginView = loginView;
         this.memberModel = memberModel;
 
+        // On click of the "login" button from Login window the presenter will retrieve data from view and model to process login request
         loginView.setLoginPerformed(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
