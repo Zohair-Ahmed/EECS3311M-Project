@@ -1,9 +1,7 @@
 package com.eecs3311.view.Book;
 
+import javax.swing.*;
 import java.awt.*;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
 
