@@ -43,24 +43,25 @@ Meeting Topics:
 	•	Going through research notes - covered what MVC, MVP, and MVVM are, what are the pros, cons, differences (refer to itr1 Wiki for in depth research and justification)
 	•	Team decision on design patterns
 	◦	Decision made to use Model-View-Presenter - MVP since:
-	◦	MVP builds on MVC design pattern and can easily apply this pattern to the architecture in Lecture week 3-1 slide 26
-	◦	has a better separation of concerns
-	◦	Presenter is not as tightly coupled as Controller, but has more responsibilities such as updating model and updating view
-	◦	Presenter and Model follow Single Responsibility Principle better since Model is not in charge of updating Presenter
-	◦	it is easier to unit test b/c of low coupling
+	    ◦	MVP builds on MVC design pattern and can easily apply this pattern to the architecture in Lecture week 3-1 slide 26
+	    ◦	has a better separation of concerns
+	    ◦	Presenter is not as tightly coupled as Controller, but has more responsibilities such as updating model and updating view
+	    ◦	Presenter and Model follow Single Responsibility Principle better since Model is not in charge of updating Presenter
+	    ◦	it is easier to unit test b/c of low coupling
 
 	•	Team decision on what to use for interface, Java AWT vs. Java Swing vs. Java FX:
-	◦	Decision made on using Java Swing(refer to Wiki for in depth comparisons). Some reasons include:
-	◦	Swing has a wider library of UI components
-	◦	Swing is an extension of JavaAWT, hence all AWT features are in Swing, yet it is more lightweight and has an improved performance
-	◦	Swing easier to learn due to more resources available
-	◦	Used for rapid efficient development of an app with easier access to GUI elements and libraries
+	    ◦	Decision made on using Java Swing(refer to Wiki for in depth comparisons). Some reasons include:
+	    ◦	Swing has a wider library of UI components
+	    ◦	Swing is an extension of JavaAWT, hence all AWT features are in Swing, yet it is more lightweight and has an improved performance
+	    ◦	Swing easier to learn due to more resources available
+	    ◦	Used for rapid efficient development of an app with easier access to GUI elements and libraries
 
 	•	Class UML Design session -> using diagrams.net for initial UML class diagram to map out initial project components(refer to wiki or on github Itr1Documentation/ClassDiagrams.png for refined diagram)
 
 	•	Used https://excalidraw.com/ for design wireframes and what project flow should look like(refer to wiki or on github Itr1Documentation/DesignWireFrame.png)
 
-	•	Go over stories and prioritize developer tasks. Brief recap of stories:
+	•	Go over stories and prioritize developer tasks.
+	Brief recap of stories:
 Big User Stories:
 	•	Landing Page - As a guest or member, I want to be able to open Same Page and view a number of books on the homepage.
 	•	Search for Book - As a guest or member, I want to be able to search for a specific book.
