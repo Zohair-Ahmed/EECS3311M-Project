@@ -1,65 +1,52 @@
 package com.eecs3311.view.Book;
 
 import com.eecs3311.model.Book.BookDatabase;
-import com.eecs3311.presenter.Book.BookPresenter;
-import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.model.Book.IBookModel;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class LatestBookView extends JFrame implements IBookView {
-    private JTextArea textField;
-    private IBookPresenter bookPresenter = new BookPresenter();
+public class LatestBookView extends JFrame {
 
     private BookDatabase bookDatabase;
+    private JPanel latestBookViewPanel;
+    private JPanel parentPanel;
+
     public LatestBookView() {
-        textField = new JTextArea();
-        textField.setEditable(false);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         bookDatabase = new BookDatabase();
-        int size = bookDatabase.getLatestReleases().size();
-        String bookResult = "Latest Releases:\nTitle                  Author          ISBN               Genre\n";
-        for (int i = 0; i < size; i++)
-            bookResult += bookDatabase.getLatestReleases().get(i).toString()+"\n\n\n";
-        textField.setText(bookResult);
-        JScrollPane scroll = new JScrollPane(textField);
 
-        scroll.setBounds(20, 150, 455, 249);
-        getContentPane().add(scroll);
-        setLocationRelativeTo ( null );
-    }
+        parentPanel = new JPanel();
+        parentPanel.setLayout(new GridLayout(2, 1, 1, 1));
 
-    //Notes: Use in Landing Frame when refactoring
-    public JTextArea getLatest(){
-        int size = bookDatabase.getLatestReleases().size();
-        String bookResult = "Latest Releases:\nTitle                  Author          ISBN               Genre\n";
-        for (int i = 0; i < size; i++)
-            bookResult += bookDatabase.getLatestReleases().get(i).toString()+"\n\n\n";
-        textField.setText(bookResult);
-        return textField;
-    }
+        latestBookViewPanel = new JPanel();
+        latestBookViewPanel.setLayout(new GridLayout(1,
+                bookDatabase.getLatestReleases().size(), 1, 1));
 
-    public static void main(String [] args){
-        new LatestBookView();
-    }
+        for (IBookModel ibm : bookDatabase.getLatestReleases()) {
+            latestBookViewPanel.add(ibm.getPresenter().getView().getView());
+        }
 
-    @Override
-    public IBookPresenter getPresenter() {
-        return bookPresenter;
-    }
+        JLabel latestBookViewlbl = new JLabel("Latest Releases");
+        latestBookViewlbl.setHorizontalTextPosition(JLabel.LEFT);
+        latestBookViewlbl.setVerticalTextPosition(JLabel.BOTTOM);
 
-    @Override
-    public void setPresenter(IBookPresenter bp) {
-        this.bookPresenter = bp;
+        JScrollPane scroll = new JScrollPane(latestBookViewPanel);
+        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 700);
+        parentPanel.add(latestBookViewlbl);
+        parentPanel.add(scroll);
+
     }
 
     /**
-     * Returns a GUI component relating to the model
-     *
-     * @return
+     * Returns the parent component
+     * 
+     * @return JPanel component
      */
-    @Override
-    public String getView() {
+    public JPanel getView() {
         // Notes: Include updatedViewFromModel function to ensure the view is up-to-date
         // Notes: Change return type as needed
-        return bookPresenter.getUpdatedViewFromModel();
+        return this.parentPanel;
     }
 }

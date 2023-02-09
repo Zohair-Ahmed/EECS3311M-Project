@@ -20,7 +20,8 @@ public class BookModel implements IBookModel {
     // Each Model class needs ONE Presenter class Interface
     private IBookPresenter bookPresenter;
 
-    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, int ISBN, Genre genre){
+    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, int ISBN,
+            Genre genre) {
         this.title = title;
         this.author = author;
         this.description = description;
@@ -73,20 +74,26 @@ public class BookModel implements IBookModel {
         this.genre = genre;
     }
 
-    public int getISBN(){
+    public int getISBN() {
         return ISBN;
     }
 
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
-    public String getGenre(){
+    public String getGenre() {
         return genre.toString();
     }
-    @Override
-    public String toString(){
 
-        return this.getTitle() +"   "+ this.getAuthor() + "   "+ this.getISBN()+ "   "+ this.getGenre();
+    @Override
+    public String toString() {
+
+        return this.getTitle() + "   " + this.getAuthor() + "   " + this.getISBN() + "   " + this.getGenre();
+    }
+
+    @Override
+    public IBookPresenter getPresenter() {
+        return this.bookPresenter;
     }
 }
