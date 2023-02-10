@@ -1,14 +1,19 @@
 package com.eecs3311.view.Book;
 
+import javax.swing.JPanel;
+
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public interface IBookView {
-    public IBookPresenter getPresenter();
+    IBookPresenter getPresenter();
 
-    public void setPresenter(IBookPresenter bp);
+    void setPresenter(IBookPresenter bp);
 
     /**
      * Shows all the GUI code/components relating to the model
+     *
+     * @return
      */
-    public void getView();
+    JPanel getView();
+
 }
