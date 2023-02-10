@@ -10,9 +10,10 @@ public interface IBookView {
     void setPresenter(IBookPresenter bp);
 
     /**
-     * Shows all the GUI code/components relating to the model
-     *
-     * @return
+     * Returns a GUI component relating to the model. Include updatedViewFromModel
+     * function to ensure the view is up-to-date and change return type as needed
+     * 
+     * @return JPanel - Component that has views related to BookModel
      */
     JPanel getView();
 
