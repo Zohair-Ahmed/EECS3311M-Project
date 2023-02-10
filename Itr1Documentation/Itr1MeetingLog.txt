@@ -95,10 +95,10 @@ Search for Book - Big User Story:
 “Display Search Results ”->assigned to Zohair. Cost=2 days  Actual=
 
 Register/Login - Big User Story:
-“DisplayLogin/Register Buttons”->assigned to Nick. Cost= 3days Actual=
-“Login Page”->assigned to Kyle. Cost= 1day Actual=
-“Login Existing User”->assigned to Kyle. Cost= 3days Actual=
-“Register Page UI”->assigned to Nick. Cost=1 day Actual=
+“DisplayLogin/Register Buttons”->assigned to Nick. Cost= 3days Actual=2days
+“Login Page”->assigned to Kyle. Cost= 1day Actual=1day
+“Login Existing User”->assigned to Kyle. Cost= 3days Actual=1day
+“Register Page UI”->assigned to Nick. Cost=1 day Actual=2days
 
 
 /------End of Meeting 2-------/
