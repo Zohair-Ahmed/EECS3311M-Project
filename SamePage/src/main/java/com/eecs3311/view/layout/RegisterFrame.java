@@ -20,14 +20,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import javax.swing.JPasswordField;
 
 public class RegisterFrame extends JFrame {
 
 	private JPanel tfFirstName;
 	private JTextField tfUsername;
 	private JTextField tfEmail;
-	private JTextField tfPassword;
-	private JTextField tfConfirmPass;
+	private JPasswordField tfPassword;
+	private JPasswordField tfConfirmPass;
 	private JCheckBox cbTerms;
 	private JLabel lblConfirmation;
 
@@ -69,7 +70,7 @@ public class RegisterFrame extends JFrame {
 		JLabel lblRegisterHere = new JLabel("Register Here");
 		lblRegisterHere.setFont(new Font("Segoe print", Font.BOLD, 25));
 		lblRegisterHere.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblRegisterHere.setBounds(140, 36, 183, 26);
+		lblRegisterHere.setBounds(140, 6, 203, 56);
 		tfFirstName.add(lblRegisterHere);
 		
 		// Username label
@@ -124,7 +125,7 @@ public class RegisterFrame extends JFrame {
 		tfFirstName.add(lblPassCheck);
 		
 		// Password text field
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
 		tfPassword.setBounds(62, 242, 331, 26);
 		tfFirstName.add(tfPassword);
 		tfPassword.setColumns(10);
@@ -143,7 +144,7 @@ public class RegisterFrame extends JFrame {
 		tfFirstName.add(lblConfCheck);
 		
 		// Confirm password text field
-		tfConfirmPass = new JTextField();
+		tfConfirmPass = new JPasswordField();
 		tfConfirmPass.setBounds(62, 308, 331, 26);
 		tfFirstName.add(tfConfirmPass);
 		tfConfirmPass.setColumns(10);
