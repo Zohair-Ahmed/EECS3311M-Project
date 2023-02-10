@@ -36,9 +36,6 @@ public class BookPresenter implements IBookPresenter {
      */
     @Override
     public void updateModelFromView(String title) {
-        // There may be one method for every mutable attribute - TBD
-        // Default: getModel().<setAttribute(param)> -- depending on what's exactly
-        // being changed, it won't be enough
         getModel().setTitle(title);
     }
 

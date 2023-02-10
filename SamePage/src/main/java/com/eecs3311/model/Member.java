@@ -2,19 +2,18 @@ package com.eecs3311.model;
 
 import com.eecs3311.model.enums.State;
 
-public class Member implements Users{
+public class Member implements Users {
     private String name;
     private String email;
     private String password;
 
-    // Constructor
     public Member() {
         this.name = "Team 1";
         this.email = "temp@mail.ca";
         this.password = "Test1234";
     }
 
-    //default - User is a guest
+    // default - User is a guest
     private State state = State.GUEST;
 
     public String getState() {
@@ -49,6 +48,5 @@ public class Member implements Users{
     public boolean validLogin() {
         return email.equals("temp@mail.ca") && password.equals("Test1234");
     }
-
 
 }

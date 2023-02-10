@@ -20,10 +20,12 @@ public class BookDatabase {
                 return this.bookModels;
         }
 
+        /**
+         * Generate Dummy Data for Latest Book Releases
+         * 
+         * @return ArrayList<IBookModel> - books
+         */
         private ArrayList<IBookModel> generateLatestReleases() {
-                // dummy data for latest release on Landing Frame page
-                // title, author, isbn, genre
-                // array of strings
                 IBookModel info[] = { new BookModel("Harry Potter 1",
                                 "J.K Rowling",
                                 "The first novel in the Harry Potter series and Rowling's debut novel, " +
@@ -34,24 +36,25 @@ public class BookDatabase {
                                 new BookModel("The Busy Coder's Guide to Android Development",
                                                 "Mark L. Murphy",
                                                 "Java Programming & Application Development for Google/Open" +
-                                                        "Handset Alliance Mobile Phones & Internet Devices.",
+                                                                "Handset Alliance Mobile Phones & Internet Devices.",
                                                 null,
                                                 981678009,
                                                 Genre.CONTEMPORARY),
                                 new BookModel("Android Programming",
                                                 "Brian Hardy",
                                                 "Android Programming: The Big Nerd Ranch Guide: is an" +
-                                                        "introductory Android book for programmers with Java experience.",
+                                                                "introductory Android book for programmers with Java experience.",
                                                 null,
-                                        132869101,
+                                                132869101,
                                                 Genre.CONTEMPORARY),
                                 new BookModel("Android Forensics",
                                                 "Andrew Hoog",
                                                 "\"Android Forensics\" covers an open source mobile device" +
-                                                        "platform based on the Linux 2.6 kernel and managed by the Open" +
-                                                        "Handset Alliance.",
+                                                                "platform based on the Linux 2.6 kernel and managed by the Open"
+                                                                +
+                                                                "Handset Alliance.",
                                                 null,
-                                        1597496510,
+                                                1597496510,
                                                 Genre.CONTEMPORARY),
                                 new BookModel("Harry Potter 5",
                                                 "J.K Rowling",
@@ -126,16 +129,21 @@ public class BookDatabase {
                                                 1408855895,
                                                 Genre.FANTASY) };
 
+                addToList(info);
+
+                return bookModels;
+        }
+
+        private void addToList(IBookModel info[]) {
                 for (IBookModel ibm : info) {
+                        // Set Model <-> Presenter <-> View connection to model
                         IBookPresenter bp = new BookPresenter();
                         IBookView bv = new BookView();
                         bp.setModel(ibm);
                         ibm.setPresenter(bp);
                         bp.setView(bv);
                         bv.setPresenter(bp);
-                        bookModels.add(ibm);
+                        this.bookModels.add(ibm);
                 }
-
-                return bookModels;
         }
 }

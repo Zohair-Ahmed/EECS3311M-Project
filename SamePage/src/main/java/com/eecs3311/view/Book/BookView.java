@@ -10,7 +10,6 @@ public class BookView implements IBookView {
     private IBookPresenter bookPresenter;
 
     public BookView() {
-        // Initialize view logic here
     }
 
     @Override
@@ -24,18 +23,13 @@ public class BookView implements IBookView {
     }
 
     /**
-     * Returns a GUI component relating to the model
-     *
-     * @return
+     * Returns a GUI component relating to the model. Include updatedViewFromModel
+     * function to ensure the view is up-to-date and change return type as needed
+     * 
+     * @return JPanel - Component that has views related to BookModel
      */
     @Override
     public JPanel getView() {
-
-        // Notes: Include updatedViewFromModel function to ensure the view is up-to-date
-        // Notes: Change return type as needed
-        // Todo: getView() in BookView to return a JPanel - a better way of displaying
-        // instead of using toString()
-
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(4, 1, 1, 1));
         mainPanel.setBackground(new Color(179, 191, 184));

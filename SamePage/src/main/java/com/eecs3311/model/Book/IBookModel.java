@@ -5,7 +5,6 @@ import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
 
-// ! NOTE: Getters and Setters for the attributes - does not have to be implemented in the interface
 public interface IBookModel {
     String getTitle();
 
