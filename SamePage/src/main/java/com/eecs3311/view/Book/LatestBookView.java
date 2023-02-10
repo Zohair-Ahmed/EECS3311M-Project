@@ -18,7 +18,6 @@ public class LatestBookView extends JFrame {
         bookDatabase = new BookDatabase();
 
         parentPanel = new JPanel();
-        parentPanel.setLayout(new GridLayout(2, 1, 1, 1));
 
         latestBookViewPanel = new JPanel();
         latestBookViewPanel.setLayout(new GridLayout(1,
@@ -27,14 +26,10 @@ public class LatestBookView extends JFrame {
         for (IBookModel ibm : bookDatabase.getLatestReleases()) {
             latestBookViewPanel.add(ibm.getPresenter().getView().getView());
         }
-
-        JLabel latestBookViewlbl = new JLabel("Latest Releases");
-        latestBookViewlbl.setHorizontalTextPosition(JLabel.LEFT);
-        latestBookViewlbl.setVerticalTextPosition(JLabel.BOTTOM);
+        parentPanel.setLayout(null);
 
         JScrollPane scroll = new JScrollPane(latestBookViewPanel);
-        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 700);
-        parentPanel.add(latestBookViewlbl);
+        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 332);
         parentPanel.add(scroll);
 
     }
