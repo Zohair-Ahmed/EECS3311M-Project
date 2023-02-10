@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 public class LoginPresenter {
     
+    
     private LoginView loginView;
     private Member memberModel;
     private String status = "";
@@ -21,6 +22,8 @@ public class LoginPresenter {
     */
 
     public LoginPresenter(LoginView loginView, Member memberModel) {
+        
+        // Created connection between LoginPresenter with Member (Model) and LoginView (View)
         this.loginView = loginView;
         this.memberModel = memberModel;
 

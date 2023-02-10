@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 
 public class LoginView extends JFrame implements ILoginView {
 
-
+	  // Creating components that will be used for the Login page
 	  private JTextField emailField = new JTextField();
 	  private JPasswordField passwordField = new JPasswordField();
 	  private JLabel email = new JLabel("Email: ");
@@ -21,6 +21,7 @@ public class LoginView extends JFrame implements ILoginView {
 	  private JLabel lblHeader = new JLabel("Login to SamePage");
 	  private JLabel loginStatus = new JLabel("status pending");
 
+	// Constructor for an instance of the Login page
 	public LoginView() {
 
 		lblHeader.setHorizontalAlignment(JLabel.CENTER);
@@ -31,10 +32,13 @@ public class LoginView extends JFrame implements ILoginView {
 		emailField.setPreferredSize(new Dimension(150, emailField.getPreferredSize().height));
 		passwordField.setPreferredSize(new Dimension(150, passwordField.getPreferredSize().height));
 
+		// Creating a JPanel to use SprinLayout for organizing the component placement
 		JPanel panel = new JPanel();
 		SpringLayout layout = new SpringLayout();
 		panel.setLayout(layout);
 
+
+		// Adding components to the JPanel
 		panel.add(lblHeader);
 		panel.add(email);
 		panel.add(emailField);
@@ -43,6 +47,7 @@ public class LoginView extends JFrame implements ILoginView {
 		panel.add(loginSubmit);
 		panel.add(loginStatus);
 
+		// Used SpringLayout constraints to set location for components in the JPanel
 		layout.putConstraint(SpringLayout.NORTH, lblHeader, 10, SpringLayout.NORTH, panel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblHeader, 0, SpringLayout.HORIZONTAL_CENTER, panel);
 
@@ -65,7 +70,7 @@ public class LoginView extends JFrame implements ILoginView {
 		add(panel);
 
 
-
+		// Set default information for the Java Application Window to ensure intended size and functionality on close
 		setTitle("Login Page");
 		setSize(500, 400);
 		setMinimumSize(new Dimension(300, 400));
