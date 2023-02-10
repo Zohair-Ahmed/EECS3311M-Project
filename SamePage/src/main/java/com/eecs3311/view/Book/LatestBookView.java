@@ -58,7 +58,7 @@ import java.util.ArrayList;
 public class LatestBookView extends JFrame {
 
     private BookDatabase bookDatabase;
-    //private JPanel latestBookViewPanel;
+    private JPanel latestBookViewPanel;
     private JPanel parentPanel;
 
     DefaultListModel<JPanel> defaultListModel = new DefaultListModel<>();
@@ -72,22 +72,30 @@ public class LatestBookView extends JFrame {
         bookDatabase = new BookDatabase();
 
         parentPanel = new JPanel();
-//        parentPanel.setLayout(new GridLayout(2, 1, 1, 1));
         parentPanel.setLayout(new GridLayout(3,1, 2, 2));
 
         booksList.setLayout(new GridLayout(1, bookDatabase.getLatestReleases().size(), 1, 1));
 
-        this.bindData();
-        this.initSearchBar();
+        //this.bindData();
+        //this.initSearchBar();
 
         JLabel latestBookViewlbl = new JLabel("Latest Releases");
         latestBookViewlbl.setHorizontalTextPosition(JLabel.LEFT);
         latestBookViewlbl.setVerticalTextPosition(JLabel.BOTTOM);
 
-        JScrollPane scroll = new JScrollPane(booksList);
-        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 700);
+        latestBookViewPanel = new JPanel();
+        for (IBookModel ibm : bookDatabase.getLatestReleases()) {
+            latestBookViewPanel.add(ibm.getPresenter().getView().getView());
+        }
+
+        //JScrollPane scroll = new JScrollPane(booksList);
+        //scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 700);
         parentPanel.add(this.searchBar);
         parentPanel.add(latestBookViewlbl);
+        parentPanel.setLayout(null);
+
+        JScrollPane scroll = new JScrollPane(latestBookViewPanel);
+        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 332);
         parentPanel.add(scroll);
 
     }
