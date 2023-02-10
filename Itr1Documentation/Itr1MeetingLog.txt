@@ -88,17 +88,18 @@ Landing Page - Big User Story:
 “Display Latest Releases - UI in LatestBookView”->assigned to Nargis. Cost=2 days Actual= 1 day
 “Display Latest Releases -on landing page”->assigned to Ammad. Cost =1 day Actual= 1 day
 “BookDatabase - Dummy data for presenter/view”->assigned to Nargis/Ammad. Cost= 1 day Actual=1 day
-“Display Navbar”->assigned to Nick. Cost=1 day Actual=
+“Display Navbar”->assigned to Nick. Cost=1 day Actual=1 day
+“Connecting all components”->assigned to Ammad. Cost=1 day Actual=1 day
 
 Search for Book - Big User Story:
-“Search Bar - Component and functionality”->assigned to Zohair. Cost=4 days  Actual=
-“Display Search Results ”->assigned to Zohair. Cost=2 days  Actual=
+“Search Bar - Component and functionality”->assigned to Zohair. Cost=4 days  Actual= 2days
+“Display Search Results ”->assigned to Zohair. Cost=2 days  Actual= 2 days
 
 Register/Login - Big User Story:
-“DisplayLogin/Register Buttons”->assigned to Nick. Cost= 3days Actual=2days
-“Login Page”->assigned to Kyle. Cost= 1day Actual=1day
-“Login Existing User”->assigned to Kyle. Cost= 3days Actual=1day
-“Register Page UI”->assigned to Nick. Cost=1 day Actual=2days
+“DisplayLogin/Register Buttons”->assigned to Nick. Cost= 3days Actual= 2 days
+“Login Page”->assigned to Kyle. Cost= 1day Actual= 1 day
+“Login Existing User”->assigned to Kyle. Cost= 3days Actual= 2 days
+“Register Page UI”->assigned to Nick. Cost=1 day Actual= 1 day
 
 
 /------End of Meeting 2-------/
