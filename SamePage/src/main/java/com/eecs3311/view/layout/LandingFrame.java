@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import com.eecs3311.view.Book.LatestBookView;
 import com.eecs3311.view.components.MenubarFrame;
+import com.eecs3311.view.components.SearchBarFrame;
 
 public class LandingFrame extends JFrame {
 	private JTextField txtSearch;
