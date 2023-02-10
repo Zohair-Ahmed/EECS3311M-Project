@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import com.eecs3311.view.Book.LatestBookView;
 import com.eecs3311.view.components.MenubarFrame;
+import com.eecs3311.view.components.SearchBarFrame;
 
 public class LandingFrame extends JFrame {
 
@@ -21,7 +22,7 @@ public class LandingFrame extends JFrame {
     /*************** Landing Page Setup ******************/
 
     JPanel mainPanel = new JPanel();
-    mainPanel.setLayout(new BorderLayout());
+    mainPanel.setLayout(new SpringLayout());
     mainPanel.setBackground(new Color(128, 128, 255));
     LatestBookView bookView = new LatestBookView();
     mainPanel.add(bookView.getView());
