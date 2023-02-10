@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
 
-    // Attribute(s)
     private String title;
     private String description;
     private ArrayList<Reviews> reviews;
@@ -88,7 +87,6 @@ public class BookModel implements IBookModel {
 
     @Override
     public String toString() {
-
         return this.getTitle() + "   " + this.getAuthor() + "   " + this.getISBN() + "   " + this.getGenre();
     }
 

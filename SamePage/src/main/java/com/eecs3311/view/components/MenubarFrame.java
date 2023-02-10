@@ -8,6 +8,7 @@ import com.eecs3311.view.layout.LandingFrame;
 import com.eecs3311.view.layout.LoginView;
 import com.eecs3311.view.layout.RegisterFrame;
 
+// Create the GUI MenubarFrame
 public class MenubarFrame extends JFrame implements ActionListener {
 
   JMenuBar menubar;
@@ -56,6 +57,7 @@ public class MenubarFrame extends JFrame implements ActionListener {
 
   }
 
+  // Method for reading which button clicked and validating the previous state
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == home_menu_item && !state.equals("home")) {
@@ -73,7 +75,4 @@ public class MenubarFrame extends JFrame implements ActionListener {
     }
   }
 
-  public static void main(String[] args) {
-    new MenubarFrame();
-  }
 }
