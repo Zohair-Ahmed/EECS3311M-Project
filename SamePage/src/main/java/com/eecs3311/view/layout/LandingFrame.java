@@ -26,7 +26,7 @@ public class LandingFrame extends JFrame {
 
     JPanel mainPanel = new JPanel();
     mainPanel.setBackground(new Color(254, 255, 255));
-    LatestBookView bookView = new LatestBookView();
+    // LatestBookView bookView = new LatestBookView();
     mainPanel.setSize(500, 500);
     getContentPane().add(mainPanel);
     mainPanel.setLayout(null);
@@ -34,7 +34,7 @@ public class LandingFrame extends JFrame {
     JPanel releasePanel = new JPanel();
     releasePanel.setBounds(96, 257, 906, 331);
     releasePanel.setLayout(new BorderLayout());
-    releasePanel.add(bookView.getView());
+    // releasePanel.add(bookView.getView());
     mainPanel.add(releasePanel);
 
     JLabel lblLatestReleases = new JLabel("Latest Releases:");
