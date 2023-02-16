@@ -16,7 +16,7 @@ public class LatestBookView extends JFrame implements ActionListener, IView {
 
     private JPanel releaseContainer = new JPanel();
     private JLabel textJLabel = new JLabel("Latest Releases");
-
+    private String state = "releasePage";
     private BookDatabase bookDatabase = new BookDatabase();
 
     // Mediator:
@@ -31,11 +31,7 @@ public class LatestBookView extends JFrame implements ActionListener, IView {
     public void updateBookView(ArrayList<IBookModel> results) {
         this.releaseContainer.removeAll();
         this.container.removeAll();
-        this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
-        this.textJLabel.setToolTipText("w");
-        for (IBookModel ibm : results) {
-            System.out.println(ibm.getTitle());
-        }
+        state = "resultPage";
         initReleaseContainer(results);
         this.container.updateUI();
     }
@@ -44,9 +40,6 @@ public class LatestBookView extends JFrame implements ActionListener, IView {
 
         if (results == null)
             return;
-
-        releaseContainer.setLayout(new GridLayout(1,
-                results.size(), 1, 1));
 
         for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
@@ -63,16 +56,24 @@ public class LatestBookView extends JFrame implements ActionListener, IView {
         container.add(textJLabel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 1000;
+        c.ipadx = 1250;
         c.ipady = 300;
         c.weightx = 0.0;
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 1;
+
         JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        if (state.equals("resultPage")) {
+            this.textJLabel
+                    .setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+            scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            releaseContainer.setLayout(new GridLayout(results.size(), 1, 1, 1));
+        }
         container.add(scroll, c);
-        // container.setLayout(new GridLayout(2, 1, 1, 1));
     }
 
     @Override

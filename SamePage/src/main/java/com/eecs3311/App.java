@@ -10,8 +10,8 @@ public class App {
     }
 
     public App() {
-        // new LandingFrame();
-        new LandingTest();
+        new LandingFrame();
+        // new LandingTest();
     }
 
 }
