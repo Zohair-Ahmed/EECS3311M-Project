@@ -10,7 +10,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class LatestBookView extends JFrame implements ActionListener, IView {
+public class LatestBookView implements ActionListener, IView {
 
     private JPanel container = new JPanel();
 
