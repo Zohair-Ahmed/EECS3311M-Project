@@ -1,8 +1,10 @@
 package com.eecs3311.view.Book;
 
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.border.Border;
 
+import java.awt.*;
+import java.awt.BorderLayout;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {
@@ -31,18 +33,32 @@ public class BookView implements IBookView {
     @Override
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 1, 1, 1));
-        mainPanel.setBackground(new Color(179, 191, 184));
+        mainPanel.setLayout(new GridBagLayout());
+        // mainPanel.setLayout(new GridLayout(4, 1, 1, 1));
+        // mainPanel.setBackground(new Color(179, 191, 184));
 
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel genreLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getGenre());
 
-        mainPanel.setPreferredSize(new Dimension(300, 300));
+        Border blackline = BorderFactory.createLineBorder(Color.black);
+        mainPanel.setBorder(blackline);
+        // mainPanel.setPreferredSize(new Dimension(300, 300));
 
-        mainPanel.add(titleLbl);
-        mainPanel.add(genreLbl);
-        mainPanel.add(authorLbl);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 100;
+        c.ipady = 25;
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 0;
+        mainPanel.add(titleLbl, c);
+        c.gridy++;
+        mainPanel.add(genreLbl, c);
+        c.gridy++;
+
+        mainPanel.add(authorLbl, c);
 
         return mainPanel;
     }

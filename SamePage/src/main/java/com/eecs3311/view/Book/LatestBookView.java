@@ -2,108 +2,88 @@ package com.eecs3311.view.Book;
 
 import com.eecs3311.model.Book.BookDatabase;
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.view.IView;
+import com.eecs3311.view.components.SearchAndResults;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
 
-/**
- * LatestBookView to retireve data from IBookPresenter and IBookModel
- * for the latest available books following MVP patterns
- */
-public class LatestBookView extends JFrame {
+public class LatestBookView implements ActionListener, IView {
 
-    private BookDatabase bookDatabase;
-    private JPanel latestBookViewPanel;
-    private JPanel parentPanel;
+    private JPanel container = new JPanel();
 
-    DefaultListModel<JPanel> defaultListModel = new DefaultListModel<>();
-    JList<JPanel> booksList = new JList<>();
-    JTextField searchBar = new JTextField("Search");
+    private JPanel releaseContainer = new JPanel();
+    private JLabel textJLabel = new JLabel("Latest Releases");
+    private String state = "releasePage";
+    private BookDatabase bookDatabase = new BookDatabase();
 
-    public LatestBookView() {
+    // Mediator:
+    SearchAndResults mediator;
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public LatestBookView(SearchAndResults mediator) {
+        this.mediator = mediator;
+        container.setLayout(new GridBagLayout());
+        initReleaseContainer(this.bookDatabase.getLatestReleases());
+    }
 
-        bookDatabase = new BookDatabase();
+    public void updateBookView(ArrayList<IBookModel> results) {
+        this.releaseContainer.removeAll();
+        this.container.removeAll();
+        state = "resultPage";
+        initReleaseContainer(results);
+        this.container.updateUI();
+    }
 
-        parentPanel = new JPanel();
-        parentPanel.setLayout(new GridLayout(3, 1, 2, 2));
+    private void initReleaseContainer(ArrayList<IBookModel> results) {
 
-        booksList.setLayout(new GridLayout(1, bookDatabase.getLatestReleases().size(), 1, 1));
+        if (results == null)
+            return;
 
-        JLabel latestBookViewlbl = new JLabel("Latest Releases");
-        latestBookViewlbl.setHorizontalTextPosition(JLabel.LEFT);
-        latestBookViewlbl.setVerticalTextPosition(JLabel.BOTTOM);
-
-        // Add book models from database to panel
-        latestBookViewPanel = new JPanel();
-        for (IBookModel ibm : bookDatabase.getLatestReleases()) {
-            latestBookViewPanel.add(ibm.getPresenter().getView().getView());
+        for (IBookModel ibm : results) {
+            releaseContainer.add(ibm.getPresenter().getView().getView());
         }
 
-        parentPanel.add(this.searchBar);
-        parentPanel.add(latestBookViewlbl);
-        parentPanel.setLayout(null);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 1;
+        c.ipady = 1;
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 0;
+        container.add(textJLabel, c);
 
-        JScrollPane scroll = new JScrollPane(latestBookViewPanel);
-        scroll.setBounds(0, 0, (int) (screenSize.getWidth() * .75), 332);
-        parentPanel.add(scroll);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 1250;
+        c.ipady = 300;
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 1;
+
+        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        if (state.equals("resultPage")) {
+            this.textJLabel
+                    .setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+            scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            releaseContainer.setLayout(new GridLayout(results.size(), 1, 1, 1));
+        }
+        container.add(scroll, c);
     }
 
-    /**
-     * Initialize search bar component
-     */
-    private void initSearchBar() {
-        this.searchBar.add(new JLabel("Search..."));
-        this.searchBar.setColumns(30);
-        this.searchBar.setSize(30, 30);
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-        this.searchBar.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                searchTextKeyReleased();
-            }
-        });
     }
 
-    /**
-     * Fetches data from database using input from search bar component and displays
-     * onto page
-     */
-    private void searchFilter(String searchTerm) {
-        DefaultListModel<JPanel> filteredBooks = new DefaultListModel<>();
-        ArrayList<IBookModel> books = bookDatabase.getLatestReleases();
-
-        books.forEach((book) -> {
-            String bookName = book.getTitle().toLowerCase();
-            if (bookName.contains(searchTerm.toLowerCase())) {
-                filteredBooks.addElement(book.getPresenter().getView().getView());
-            }
-        });
-
-        defaultListModel = filteredBooks;
-        booksList.setModel(defaultListModel);
-    }
-
-    /**
-     * Dynamic search bar functionality
-     */
-    private void searchTextKeyReleased() {
-        searchFilter(this.searchBar.getText());
-    }
-
+    @Override
     public JPanel getView() {
-        return this.parentPanel;
+        return this.container;
     }
+
 }
