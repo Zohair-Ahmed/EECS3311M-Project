@@ -15,6 +15,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JPasswordField;
 
 public class RegisterPanel implements IPanelView {
