@@ -52,7 +52,7 @@ public class Main extends JFrame {
 
     // on the menubar
     JButton loginButton = new JButton("Login");
-    loginButton.setFont(UIManager.getFont("CheckBoxMe25Item.acceleratorFont"));
+    loginButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         loginButton.setForeground(new Color(0, 0, 0));
@@ -75,7 +75,7 @@ public class Main extends JFrame {
     });
 
     JButton registerButton = new JButton("Register");
-    registerButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    registerButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         registerButton.setForeground(new Color(0, 0, 0));
@@ -98,7 +98,7 @@ public class Main extends JFrame {
     });
 
     JButton homeButton = new JButton("Home");
-    homeButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    homeButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
         homeButton.setForeground(new Color(0, 0, 0));
