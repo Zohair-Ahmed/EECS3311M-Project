@@ -1,16 +1,15 @@
-package com.eecs3311.view.Book;
+package com.eecs3311.view.components;
 
 import com.eecs3311.model.Book.BookDatabase;
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.view.IView;
-import com.eecs3311.view.components.SearchAndResults;
+import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class LatestBookView implements ActionListener, IView {
+public class ResultsPanel implements ActionListener, IPanelView {
 
     private JPanel container = new JPanel();
 
@@ -20,12 +19,11 @@ public class LatestBookView implements ActionListener, IView {
     private BookDatabase bookDatabase = new BookDatabase();
 
     // Mediator:
-    SearchAndResults mediator;
+    ResultsMediator mediator;
 
-    public LatestBookView(SearchAndResults mediator) {
+    public ResultsPanel(ResultsMediator mediator) {
         this.mediator = mediator;
-        container.setLayout(new GridBagLayout());
-        initReleaseContainer(this.bookDatabase.getLatestReleases());
+        initComponents();
     }
 
     public void updateBookView(ArrayList<IBookModel> results) {
@@ -84,6 +82,22 @@ public class LatestBookView implements ActionListener, IView {
     @Override
     public JPanel getView() {
         return this.container;
+    }
+
+    @Override
+    public JPanel getParentContainer() {
+        return null;
+    }
+
+    @Override
+    public void setParentContainer(JPanel parent) {
+
+    }
+
+    @Override
+    public void initComponents() {
+        container.setLayout(new GridBagLayout());
+        initReleaseContainer(this.bookDatabase.getLatestReleases());
     }
 
 }

@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.eecs3311.view.IPanelView;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -15,9 +17,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 
-public class RegisterFrame extends JFrame {
+public class RegisterPanel implements IPanelView {
 
-	private JPanel containerPanel;
+	private JPanel containerPanel = new JPanel();
 
 	private JLabel lblUserCheck;
 	private JLabel lblEmailCheck;
@@ -35,16 +37,62 @@ public class RegisterFrame extends JFrame {
 	/**
 	 * Create the GUI frame. Plan to Refactor in Itr2
 	 */
-	public RegisterFrame() {
-		setResizable(false);
+	public RegisterPanel() {
+		initComponents();
+	}
 
-		setTitle("Register");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 486);
-		containerPanel = new JPanel();
-		containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+	// Reads individual fields and displays error icon if they don't have input
+	private void CheckFields(JTextField input, JLabel label) {
+		if (input.getText().equals("")) {
+			label.setText("*");
+		} else {
+			label.setText("");
+		}
+	}
 
-		setContentPane(containerPanel);
+	// Reads that all fields have some input and sends confirmation message,
+	// otherwise gives error
+	private void ValidateFields() {
+		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("")
+				&& !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("")
+				&& cbTerms.isSelected()) {
+			lblUserCheck.setText("");
+			lblEmailCheck.setText("");
+			lblPassCheck.setText("");
+			lblConfCheck.setText("");
+			lblConfirmation.setText("Confirmation Sent!");
+		} else {
+			lblConfirmation.setText("Please enter all valid credentials!");
+		}
+	}
+
+	@Override
+	public JPanel getView() {
+		return this.containerPanel;
+	}
+
+	// Implement for future release
+	@Override
+	public JPanel getParentContainer() {
+		return null;
+	}
+
+	// Implement for future release
+	@Override
+	public void setParentContainer(JPanel parent) {
+	}
+
+	@Override
+	public void initComponents() {
+		// setResizable(false);
+
+		// setTitle("Register");
+		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// setBounds(100, 100, 450, 486);
+		// containerPanel = new JPanel();
+		// containerPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		// setContentPane(containerPanel);
 		containerPanel.setLayout(null);
 
 		// Register label
@@ -170,30 +218,5 @@ public class RegisterFrame extends JFrame {
 		});
 		btnRegister.setBounds(166, 373, 117, 29);
 		containerPanel.add(btnRegister);
-	}
-
-	// Reads individual fields and displays error icon if they don't have input
-	private void CheckFields(JTextField input, JLabel label) {
-		if (input.getText().equals("")) {
-			label.setText("*");
-		} else {
-			label.setText("");
-		}
-	}
-
-	// Reads that all fields have some input and sends confirmation message,
-	// otherwise gives error
-	private void ValidateFields() {
-		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("")
-				&& !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("")
-				&& cbTerms.isSelected()) {
-			lblUserCheck.setText("");
-			lblEmailCheck.setText("");
-			lblPassCheck.setText("");
-			lblConfCheck.setText("");
-			lblConfirmation.setText("Confirmation Sent!");
-		} else {
-			lblConfirmation.setText("Please enter all valid credentials!");
-		}
 	}
 }

@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-import com.eecs3311.view.layout.LandingFrame;
-import com.eecs3311.view.layout.LoginView;
-import com.eecs3311.view.layout.RegisterFrame;
+import com.eecs3311.view.layout.Main;
+import com.eecs3311.view.layout.LoginPanel;
+import com.eecs3311.view.layout.RegisterPanel;
 
 // Create the GUI MenubarFrame
-public class MenubarFrame extends JFrame implements ActionListener {
+public class Menubar extends JFrame implements ActionListener {
 
   JMenuBar menubar;
   JMenu home_menu;
@@ -22,7 +22,7 @@ public class MenubarFrame extends JFrame implements ActionListener {
 
   private String state = "home";
 
-  public MenubarFrame() {
+  public Menubar() {
 
     menubar = new JMenuBar();
 
@@ -57,22 +57,29 @@ public class MenubarFrame extends JFrame implements ActionListener {
 
   }
 
-  // Method for reading which button clicked and validating the previous state
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getSource() == home_menu_item && !state.equals("home")) {
-      state = "home";
-      LandingFrame home = new LandingFrame();
-      home.setVisible(true);
-    } else if (e.getSource() == login_menu_item && !state.equals("login")) {
-      state = "login";
-      LoginView login = new LoginView();
-      login.setVisible(true);
-    } else if (e.getSource() == register_menu_item && !state.equals("register")) {
-      state = "register";
-      RegisterFrame frame = new RegisterFrame();
-      frame.setVisible(true);
-    }
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
   }
+
+  // Method for reading which button clicked and validating the previous state
+  // @Override
+  // public void actionPerformed(ActionEvent e) {
+  // if (e.getSource() == home_menu_item && !state.equals("home")) {
+  // state = "home";
+  // Main home = new Main();
+  // home.setVisible(true);
+  // } else if (e.getSource() == login_menu_item && !state.equals("login")) {
+  // state = "login";
+  // LoginPanel login = new LoginPanel();
+  // login.setVisible(true);
+  // } else if (e.getSource() == register_menu_item && !state.equals("register"))
+  // {
+  // state = "register";
+  // RegisterPanel frame = new RegisterPanel();
+  // frame.setVisible(true);
+  // }
+  // }
 
 }

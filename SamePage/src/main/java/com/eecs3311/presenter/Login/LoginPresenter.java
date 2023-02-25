@@ -3,14 +3,14 @@ package com.eecs3311.presenter.Login;
 import javax.swing.*;
 
 import com.eecs3311.model.Member;
-import com.eecs3311.view.layout.LoginView;
+import com.eecs3311.view.layout.LoginPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginPresenter {
 
-    private LoginView loginView;
+    private LoginPanel loginView;
     private Member memberModel;
     private String status = "";
 
@@ -24,7 +24,7 @@ public class LoginPresenter {
      * 
      */
 
-    public LoginPresenter(LoginView loginView, Member memberModel) {
+    public LoginPresenter(LoginPanel loginView, Member memberModel) {
 
         // Created connection between LoginPresenter with Member (Model) and LoginView
         // (View)

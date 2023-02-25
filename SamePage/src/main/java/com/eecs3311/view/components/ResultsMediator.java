@@ -3,30 +3,29 @@ package com.eecs3311.view.components;
 import java.util.*;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.view.Book.LatestBookView;
 
-public class SearchAndResults {
-    private LatestBookView lbv;
-    private SearchBarFrame sbf;
+public class ResultsMediator {
+    private ResultsPanel lbv;
+    private SearchBar sbf;
 
     public void updateBookView(ArrayList<IBookModel> results) {
         if (results != null)
             this.lbv.updateBookView(results);
     }
 
-    public LatestBookView getLbv() {
+    public ResultsPanel getLbv() {
         return lbv;
     }
 
-    public void setLbv(LatestBookView lbv) {
+    public void setLbv(ResultsPanel lbv) {
         this.lbv = lbv;
     }
 
-    public SearchBarFrame getSbf() {
+    public SearchBar getSbf() {
         return sbf;
     }
 
-    public void setSbf(SearchBarFrame sbf) {
+    public void setSbf(SearchBar sbf) {
         this.sbf = sbf;
     }
 

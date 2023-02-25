@@ -3,23 +3,23 @@ package com.eecs3311.view.layout;
 import javax.swing.*;
 import java.awt.*;
 
-import com.eecs3311.view.Book.LatestBookView;
-import com.eecs3311.view.components.MenubarFrame;
-import com.eecs3311.view.components.SearchAndResults;
-import com.eecs3311.view.components.SearchBarFrame;
+import com.eecs3311.view.components.ResultsPanel;
+import com.eecs3311.view.components.Menubar;
+import com.eecs3311.view.components.ResultsMediator;
+import com.eecs3311.view.components.SearchBar;
 
-public class LandingTest {
+public class LandingPanel {
 
-    SearchAndResults mediator = new SearchAndResults();
+    ResultsMediator mediator = new ResultsMediator();
     JPanel root = new JPanel();
 
-    public LandingTest() {
+    public LandingPanel() {
 
         root.setBackground(new Color(254, 255, 255));
         root.setLayout(new GridLayout(2, 1, 1, 1));
 
-        SearchBarFrame sbf = new SearchBarFrame(mediator);
-        LatestBookView lbv = new LatestBookView(mediator);
+        SearchBar sbf = new SearchBar(mediator);
+        ResultsPanel lbv = new ResultsPanel(mediator);
 
         mediator.setLbv(lbv);
         mediator.setSbf(sbf);
@@ -29,7 +29,7 @@ public class LandingTest {
     }
 
     public static void main(String[] args) {
-        new LandingTest();
+        new LandingPanel();
     }
 
     public JPanel getView() {

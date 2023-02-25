@@ -7,10 +7,10 @@ import javax.swing.*;
 
 import com.eecs3311.model.Book.BookDatabase;
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.view.IView;
+import com.eecs3311.view.IPanelView;
 
 // Create the GUI SearchBarFrame
-public class SearchBarFrame implements ActionListener, IView {
+public class SearchBar implements ActionListener, IPanelView {
 
     private JPanel container;
     private JTextField searchInputField;
@@ -18,9 +18,9 @@ public class SearchBarFrame implements ActionListener, IView {
     BookDatabase bookDatabase = new BookDatabase();
 
     // Mediator:
-    SearchAndResults mediator;
+    ResultsMediator mediator;
 
-    public SearchBarFrame(SearchAndResults mediator) {
+    public SearchBar(ResultsMediator mediator) {
         this.mediator = mediator;
 
         this.container = new JPanel();
@@ -30,7 +30,8 @@ public class SearchBarFrame implements ActionListener, IView {
         this.container.setSize(new Dimension(500, 500));
     }
 
-    private void initComponents() {
+    @Override
+    public void initComponents() {
         this.searchInputField = new JTextField("Search...");
         this.searchButton = new JButton("Enter");
 
@@ -99,4 +100,12 @@ public class SearchBarFrame implements ActionListener, IView {
 
     }
 
+    @Override
+    public JPanel getParentContainer() {
+        return null;
+    }
+
+    @Override
+    public void setParentContainer(JPanel parent) {
+    }
 }
