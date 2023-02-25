@@ -52,14 +52,15 @@ public class Main extends JFrame {
 
     // on the menubar
     JButton loginButton = new JButton("Login");
-    loginButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    loginButton.setFont(UIManager.getFont("CheckBoxMe25Item.acceleratorFont"));
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-        	loginButton.setForeground(new Color(0, 0, 0));
-        }
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-        	loginButton.setForeground(new Color(255, 255, 255));
-        }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        loginButton.setForeground(new Color(0, 0, 0));
+      }
+
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        loginButton.setForeground(new Color(255, 255, 255));
+      }
     });
     loginButton.setHorizontalAlignment(SwingConstants.LEFT);
     loginButton.setForeground(new Color(255, 255, 255));
@@ -76,12 +77,13 @@ public class Main extends JFrame {
     JButton registerButton = new JButton("Register");
     registerButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
     registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-        	registerButton.setForeground(new Color(0, 0, 0));
-        }
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-        	registerButton.setForeground(new Color(255, 255, 255));
-        }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        registerButton.setForeground(new Color(0, 0, 0));
+      }
+
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        registerButton.setForeground(new Color(255, 255, 255));
+      }
     });
     registerButton.setHorizontalAlignment(SwingConstants.LEFT);
     registerButton.setForeground(new Color(255, 255, 255));
@@ -98,12 +100,13 @@ public class Main extends JFrame {
     JButton homeButton = new JButton("Home");
     homeButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
     homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseEntered(java.awt.event.MouseEvent evt) {
-        	homeButton.setForeground(new Color(0, 0, 0));
-        }
-        public void mouseExited(java.awt.event.MouseEvent evt) {
-        	homeButton.setForeground(new Color(255, 255, 255));
-        }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        homeButton.setForeground(new Color(0, 0, 0));
+      }
+
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        homeButton.setForeground(new Color(255, 255, 255));
+      }
     });
     homeButton.setHorizontalAlignment(SwingConstants.LEFT);
     homeButton.setForeground(new Color(255, 255, 255));
@@ -121,7 +124,7 @@ public class Main extends JFrame {
     menuBar.add(loginButton);
     menuBar.add(registerButton);
     menuBar.add(homeButton);
-    
+
     contentPane.add(container);
 
     cards.show(container, "Landing");
