@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.*;
-import java.awt.BorderLayout;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {

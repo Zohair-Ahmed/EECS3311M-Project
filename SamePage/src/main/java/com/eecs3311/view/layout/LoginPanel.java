@@ -42,17 +42,17 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		loginStatus.setText(status);
 	}
 
-	public static void main(String[] args) {
+	// public static void main(String[] args) {
 
-		JFrame frame = new JFrame();
-		Member model = new Member();
-		LoginPanel view = new LoginPanel();
-		frame.add(view.getView());
-		LoginPresenter presenter = new LoginPresenter(view, model);
-		System.out.println("Login window opened");
-
-		frame.setVisible(true);
-	}
+	// JFrame frame = new JFrame();
+	// Member model = new Member();
+	// LoginPanel view = new LoginPanel();
+	// frame.add(view.getView());
+	// LoginPresenter presenter = new LoginPresenter(view, model);
+	// System.out.println("Login window opened");
+	//
+	// frame.setVisible(true);
+	// }
 
 	@Override
 	public JPanel getView() {
