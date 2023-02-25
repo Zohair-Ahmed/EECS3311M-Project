@@ -42,17 +42,17 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		loginStatus.setText(status);
 	}
 
-	// public static void main(String[] args) {
+//	public static void main(String[] args) {
 
-	// JFrame frame = new JFrame();
-	// Member model = new Member();
-	// LoginPanel view = new LoginPanel();
-	// frame.add(view.getView());
-	// LoginPresenter presenter = new LoginPresenter(view, model);
-	// System.out.println("Login window opened");
-	//
-	// frame.setVisible(true);
-	// }
+//		JFrame frame = new JFrame();
+//		Member model = new Member();
+//		LoginPanel view = new LoginPanel();
+//		frame.add(view.getView());
+//		LoginPresenter presenter = new LoginPresenter(view, model);
+//		System.out.println("Login window opened");
+//
+//		frame.setVisible(true);
+//	}
 
 	@Override
 	public JPanel getView() {
@@ -83,6 +83,8 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 
 		// Creating a JPanel to use SprinLayout for organizing the component placement
 		SpringLayout layout = new SpringLayout();
+		layout.putConstraint(SpringLayout.NORTH, lblHeader, 26, SpringLayout.NORTH, panel);
+		layout.putConstraint(SpringLayout.EAST, lblHeader, 0, SpringLayout.EAST, emailField);
 		panel.setLayout(layout);
 
 		// Adding components to the JPanel
@@ -93,9 +95,6 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		panel.add(passwordField);
 		panel.add(loginSubmit);
 		panel.add(loginStatus);
-
-		// Used SpringLayout constraints to set location for components in the JPanel
-		layout.putConstraint(SpringLayout.NORTH, lblHeader, 10, SpringLayout.NORTH, panel);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblHeader, 0, SpringLayout.HORIZONTAL_CENTER, panel);
 
 		layout.putConstraint(SpringLayout.NORTH, email, 100, SpringLayout.NORTH, panel);

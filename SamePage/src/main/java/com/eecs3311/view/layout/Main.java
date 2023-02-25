@@ -18,15 +18,10 @@ public class Main extends JFrame {
 
   public Main() {
     /*************** Menubar ******************/
-    // MenubarFrame menubar = new MenubarFrame();
-    // setJMenuBar(menubar.getJMenuBar());
 
-    JMenuBar menuBar = new JMenuBar();
-    // Create a JMenu object
-    JMenu menu = new JMenu("Login");
-
-    // Create a JMenuItem object
-    JMenuItem menuItem = new JMenuItem("Open");
+    Menubar menuBar = new Menubar();
+    menuBar.add(Box.createHorizontalGlue());
+    setJMenuBar(menuBar);
 
     // Make screen full-screen
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -57,6 +52,20 @@ public class Main extends JFrame {
 
     // on the menubar
     JButton loginButton = new JButton("Login");
+    loginButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        	loginButton.setForeground(new Color(0, 0, 0));
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        	loginButton.setForeground(new Color(255, 255, 255));
+        }
+    });
+    loginButton.setHorizontalAlignment(SwingConstants.LEFT);
+    loginButton.setForeground(new Color(255, 255, 255));
+    loginButton.setBackground(new Color(0, 128, 255));
+    loginButton.setOpaque(true);
+    loginButton.setBorderPainted(false);
     loginButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -65,6 +74,20 @@ public class Main extends JFrame {
     });
 
     JButton registerButton = new JButton("Register");
+    registerButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        	registerButton.setForeground(new Color(0, 0, 0));
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        	registerButton.setForeground(new Color(255, 255, 255));
+        }
+    });
+    registerButton.setHorizontalAlignment(SwingConstants.LEFT);
+    registerButton.setForeground(new Color(255, 255, 255));
+    registerButton.setBackground(new Color(0, 128, 255));
+    registerButton.setOpaque(true);
+    registerButton.setBorderPainted(false);
     registerButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -73,6 +96,20 @@ public class Main extends JFrame {
     });
 
     JButton homeButton = new JButton("Home");
+    homeButton.setFont(UIManager.getFont("CheckBoxMenuItem.acceleratorFont"));
+    homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+        	homeButton.setForeground(new Color(0, 0, 0));
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+        	homeButton.setForeground(new Color(255, 255, 255));
+        }
+    });
+    homeButton.setHorizontalAlignment(SwingConstants.LEFT);
+    homeButton.setForeground(new Color(255, 255, 255));
+    homeButton.setBackground(new Color(0, 128, 255));
+    homeButton.setOpaque(true);
+    homeButton.setBorderPainted(false);
     homeButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -81,20 +118,11 @@ public class Main extends JFrame {
     });
 
     // Add the button to the menu bar
-    menuBar.add(homeButton);
     menuBar.add(loginButton);
     menuBar.add(registerButton);
-
-    // Set the menu bar as the menu bar of the JFrame
-    setJMenuBar(menuBar);
-
-    // JPanel controlPanel = new JPanel();
-    // controlPanel.setBackground(Color.LIGHT_GRAY);
-    // controlPanel.add(loginButton);
-    // controlPanel.add(registerButton);
-
+    menuBar.add(homeButton);
+    
     contentPane.add(container);
-    // contentPane.add(controlPanel);
 
     cards.show(container, "Landing");
 
