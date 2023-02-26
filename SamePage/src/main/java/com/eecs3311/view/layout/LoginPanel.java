@@ -48,9 +48,10 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		initSpringLayout();
 	}
 
+	// Resizing and setting the design of the components within the panel
 	private void setSizeOfComponents() {
 		lblHeader.setHorizontalAlignment(JLabel.CENTER);
-		lblHeader.setFont(new Font("Segoe print", Font.BOLD, 25));
+		lblHeader.setFont(new Font("Futura", Font.BOLD, 23));
 
 		password.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
 
@@ -58,6 +59,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		passwordField.setPreferredSize(new Dimension(150, passwordField.getPreferredSize().height));
 	}
 
+	// Setting the sizing and format of the panel
 	private void initSpringLayout() {
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblHeader, 0, SpringLayout.HORIZONTAL_CENTER, panel);
 		layout.putConstraint(SpringLayout.NORTH, email, 100, SpringLayout.NORTH, panel);
