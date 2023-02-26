@@ -2,6 +2,7 @@ package com.eecs3311.model;
 
 import com.eecs3311.model.enums.State;
 
+// Class for member objects - if a user is registered with SamePage
 public class Member implements Users {
     private String name;
     private String email;

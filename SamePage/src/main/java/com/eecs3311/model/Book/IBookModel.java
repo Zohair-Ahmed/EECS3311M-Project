@@ -5,6 +5,7 @@ import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
 
+// Interface for accessing data of a book object
 public interface IBookModel {
     String getTitle();
 

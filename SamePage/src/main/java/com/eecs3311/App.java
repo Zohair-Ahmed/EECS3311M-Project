@@ -1,8 +1,8 @@
 package com.eecs3311;
 
-import com.eecs3311.view.layout.LandingFrame;
-import com.eecs3311.view.layout.LandingTest;
+import com.eecs3311.view.layout.Main;
 
+// App class which runs the application
 public class App {
 
     public static void main(String[] args) {
@@ -10,8 +10,7 @@ public class App {
     }
 
     public App() {
-        new LandingFrame();
-        // new LandingTest();
+        new Main();
     }
 
 }
