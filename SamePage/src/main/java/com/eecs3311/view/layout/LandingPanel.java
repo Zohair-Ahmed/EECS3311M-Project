@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.eecs3311.view.components.ResultsPanel;
-import com.eecs3311.view.components.Menubar;
 import com.eecs3311.view.components.ResultsMediator;
 import com.eecs3311.view.components.SearchBar;
 
@@ -26,10 +25,6 @@ public class LandingPanel {
 
         root.add(sbf.getView());
         root.add(lbv.getView());
-    }
-
-    public static void main(String[] args) {
-        new LandingPanel();
     }
 
     public JPanel getView() {

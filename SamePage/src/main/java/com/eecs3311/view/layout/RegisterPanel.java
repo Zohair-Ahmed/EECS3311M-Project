@@ -1,26 +1,10 @@
 package com.eecs3311.view.layout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import com.eecs3311.view.IPanelView;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JPasswordField;
-import javax.swing.SpringLayout;
+import java.awt.event.*;
 
 public class RegisterPanel implements IPanelView {
 
@@ -119,10 +103,12 @@ public class RegisterPanel implements IPanelView {
 		// * username label
 		lblUserCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblUserCheck, 115, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.WEST, lblUserCheck, (int)(screenSize.width / 2.04), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.WEST, lblUserCheck, (int) (screenSize.width / 2.04),
+				SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblUserCheck, 131, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.EAST, lblUserCheck, (int)(screenSize.width / 1.9), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.EAST, lblUserCheck, (int) (screenSize.width / 1.9),
+				SpringLayout.WEST,
 				containerPanel);
 		lblUserCheck.setForeground(new Color(255, 26, 10));
 		lblUserCheck.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,10 +137,12 @@ public class RegisterPanel implements IPanelView {
 		// * email label
 		lblEmailCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblEmailCheck, 181, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.WEST, lblEmailCheck, (int)(screenSize.width / 2.04), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.WEST, lblEmailCheck, (int) (screenSize.width / 2.04),
+				SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblEmailCheck, 197, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.EAST, lblEmailCheck, (int)(screenSize.width / 1.9), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.EAST, lblEmailCheck, (int) (screenSize.width / 1.9),
+				SpringLayout.WEST,
 				containerPanel);
 		lblEmailCheck.setForeground(new Color(255, 26, 10));
 		lblEmailCheck.setHorizontalAlignment(SwingConstants.CENTER);
@@ -183,10 +171,12 @@ public class RegisterPanel implements IPanelView {
 		// * password label
 		lblPassCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblPassCheck, 247, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.WEST, lblPassCheck, (int)(screenSize.width / 2.04), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.WEST, lblPassCheck, (int) (screenSize.width / 2.04),
+				SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblPassCheck, 263, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.EAST, lblPassCheck, (int)(screenSize.width / 1.9), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.EAST, lblPassCheck, (int) (screenSize.width / 1.9),
+				SpringLayout.WEST,
 				containerPanel);
 		lblPassCheck.setForeground(new Color(255, 25, 9));
 		lblPassCheck.setHorizontalAlignment(SwingConstants.CENTER);
@@ -215,10 +205,12 @@ public class RegisterPanel implements IPanelView {
 		// * confirm password label
 		lblConfCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblConfCheck, 313, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.WEST, lblConfCheck, (int)(screenSize.width / 2.04), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.WEST, lblConfCheck, (int) (screenSize.width / 2.04),
+				SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblConfCheck, 329, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfCheck, (int)(screenSize.width / 1.9), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfCheck, (int) (screenSize.width / 1.9),
+				SpringLayout.WEST,
 				containerPanel);
 		lblConfCheck.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfCheck.setForeground(new Color(255, 25, 9));
@@ -247,10 +239,12 @@ public class RegisterPanel implements IPanelView {
 		// * t&c label
 		lblTermsCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblTermsCheck, 350, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.WEST, lblTermsCheck, (int)(screenSize.width / 2.7), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.WEST, lblTermsCheck, (int) (screenSize.width / 2.7),
+				SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblTermsCheck, 366, SpringLayout.NORTH, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.EAST, lblTermsCheck, (int)(screenSize.width / 2), SpringLayout.WEST,
+		sl_containerPanel.putConstraint(SpringLayout.EAST, lblTermsCheck, (int) (screenSize.width / 2),
+				SpringLayout.WEST,
 				containerPanel);
 		lblTermsCheck.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTermsCheck.setForeground(new Color(255, 25, 9));
