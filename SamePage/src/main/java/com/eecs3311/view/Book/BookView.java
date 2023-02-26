@@ -33,17 +33,11 @@ public class BookView implements IBookView {
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
-        // mainPanel.setLayout(new GridLayout(4, 1, 1, 1));
-        // mainPanel.setBackground(new Color(179, 191, 184));
-
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel genreLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getGenre());
-
         Border blackline = BorderFactory.createLineBorder(Color.black);
         mainPanel.setBorder(blackline);
-        // mainPanel.setPreferredSize(new Dimension(300, 300));
-
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 100;
@@ -56,9 +50,7 @@ public class BookView implements IBookView {
         c.gridy++;
         mainPanel.add(genreLbl, c);
         c.gridy++;
-
         mainPanel.add(authorLbl, c);
-
         return mainPanel;
     }
 }

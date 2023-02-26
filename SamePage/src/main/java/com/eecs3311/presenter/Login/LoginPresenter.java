@@ -24,47 +24,28 @@ public class LoginPresenter {
      * 
      */
 
+    // ToDo: Fix logic to make it so logic is not in presenter - should be in model
     public LoginPresenter(LoginPanel loginView, Member memberModel) {
-
-        // Created connection between LoginPresenter with Member (Model) and LoginView
-        // (View)
-        this.loginView = loginView;
+        this.loginView = loginView; // Created connection between LoginPresenter with Member (Model) and LoginView
         this.memberModel = memberModel;
-
-        // On click of the "login" button from Login window the presenter will retrieve
-        // data from view and model to process login request
         loginView.setLoginPerformed(new ActionListener() {
-
+            // On click of the "login" button from Login window the presenter will retrieve
+            // data from view and model to process login request
             public void actionPerformed(ActionEvent e) {
                 String email = loginView.getEmail();
                 String password = loginView.getPassword();
-
                 memberModel.setEmail(email);
                 memberModel.setPassword(password);
-
                 if (!(memberModel.getEmail().equals("temp@mail.ca"))) {
-                    // user name error shown to view
                     status = "This email is not linked to a SamePage account";
-                }
-
-                else if (!(memberModel.getPassword().equals("Test1234"))) {
-                    // password error shown to view
+                } else if (!(memberModel.getPassword().equals("Test1234"))) {
                     status = "Incorrect password";
-                }
-
-                else if (memberModel.validLogin()) {
-                    // login success showed to view
+                } else if (memberModel.validLogin()) {
                     status = "You are logged in to SamePage as " + memberModel.getName();
-                }
-
-                else {
-                    // login error showed to view
+                } else // login error showed to view
                     status = "Failed to login to SamePage";
-                }
-
                 loginView.loginStatus(status);
             }
-
         });
     }
 }
