@@ -33,9 +33,8 @@ public class RegisterPanel implements IPanelView {
 	 * Create the GUI frame. Plan to Refactor in Itr2
 	 */
 	public RegisterPanel() {
-		containerPanel.setSize(500, 500);
-		containerPanel.setLayout(sl_containerPanel);
 		initComponents();
+		containerPanel.setLayout(sl_containerPanel);
 	}
 
 	@Override
@@ -62,6 +61,7 @@ public class RegisterPanel implements IPanelView {
 		initRegisterButton();
 	}
 
+	// Initializing register button
 	private void initRegisterButton() {
 		JButton btnRegister = new JButton("Register");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, btnRegister, 373, SpringLayout.NORTH, containerPanel);
@@ -69,6 +69,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, btnRegister, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnRegister, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		// Logic for checking all required fields have valid input upon clicking
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -95,13 +96,14 @@ public class RegisterPanel implements IPanelView {
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblRegisterHere, 62, SpringLayout.NORTH, containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblRegisterHere, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		lblRegisterHere.setFont(new Font("Segoe print", Font.BOLD, 25));
 		lblRegisterHere.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblRegisterHere.setHorizontalAlignment(SwingConstants.CENTER);
 		containerPanel.add(lblRegisterHere);
 	}
 
-	// Username label
+	// Initializing username label
 	private void initUsernameLabel() {
 		JLabel lblUsername = new JLabel("Username:");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblUsername, 89, SpringLayout.NORTH, containerPanel);
@@ -109,6 +111,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblUsername, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblUsername, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		containerPanel.add(lblUsername);
 	}
 
@@ -137,6 +140,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblEmail, (screenSize.width / 2),
 				SpringLayout.WEST, containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblEmail, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		containerPanel.add(lblEmail);
 	}
 
@@ -165,6 +169,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblPassword, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblPassword, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		containerPanel.add(lblPassword);
 	}
 
@@ -194,6 +199,7 @@ public class RegisterPanel implements IPanelView {
 		containerPanel.add(lblConfirmation);
 	}
 
+	// initializing t&c's label
 	private void initTermsAndConditionsLabel() {
 		lblTermsCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblTermsCheck, 350, SpringLayout.NORTH, containerPanel);
@@ -204,6 +210,7 @@ public class RegisterPanel implements IPanelView {
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblTermsCheck, (int) (screenSize.width / 2),
 				SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblTermsCheck, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		lblTermsCheck.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTermsCheck.setForeground(new Color(255, 25, 9));
 		lblTermsCheck.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -217,6 +224,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, cbTerms, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, cbTerms, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		containerPanel.add(cbTerms);
 	}
 
@@ -247,6 +255,7 @@ public class RegisterPanel implements IPanelView {
 		containerPanel.add(lblConfCheck);
 	}
 
+	// Initializing confirm password label
 	private void initConfirmPasswordLabel() {
 		JLabel lblConfirmPass = new JLabel("Confirm Password:");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblConfirmPass, 290, SpringLayout.NORTH, containerPanel);
@@ -254,6 +263,7 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfirmPass, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0, SpringLayout.HORIZONTAL_CENTER, containerPanel);
 		containerPanel.add(lblConfirmPass);
 	}
 

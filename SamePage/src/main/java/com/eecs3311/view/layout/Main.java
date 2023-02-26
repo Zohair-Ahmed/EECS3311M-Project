@@ -29,7 +29,7 @@ public class Main extends JFrame implements ActionListener {
     homeButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
-        homeButton.setForeground(new Color(0, 0, 0));
+        homeButton.setForeground(new Color(0, 66, 131));
       }
 
       public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -49,7 +49,7 @@ public class Main extends JFrame implements ActionListener {
     registerButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
-        registerButton.setForeground(new Color(0, 0, 0));
+        registerButton.setForeground(new Color(0, 66, 131));
       }
 
       public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -70,7 +70,7 @@ public class Main extends JFrame implements ActionListener {
     loginButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
-        loginButton.setForeground(new Color(0, 0, 0));
+        loginButton.setForeground(new Color(0, 66, 131));
       }
 
       public void mouseExited(java.awt.event.MouseEvent evt) {
