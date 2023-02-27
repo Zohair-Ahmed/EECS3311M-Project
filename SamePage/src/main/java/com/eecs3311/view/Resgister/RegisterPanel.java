@@ -1,4 +1,4 @@
-package com.eecs3311.view.layout;
+package com.eecs3311.view.Resgister;
 
 import com.eecs3311.view.IPanelView;
 import java.awt.*;
@@ -97,7 +97,8 @@ public class RegisterPanel implements IPanelView {
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblRegisterHere, 62, SpringLayout.NORTH, containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblRegisterHere, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0, SpringLayout.HORIZONTAL_CENTER,
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0,
+				SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		lblRegisterHere.setFont(new Font("Futura", Font.BOLD, 25));
 		lblRegisterHere.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -272,7 +273,8 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfirmPass, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0, SpringLayout.HORIZONTAL_CENTER,
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0,
+				SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		containerPanel.add(lblConfirmPass);
 	}

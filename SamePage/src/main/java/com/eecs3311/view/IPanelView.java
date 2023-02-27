@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 
 public interface IPanelView {
     /**
+     * Returns the view of the component
+     * 
      * @return JPanel - returns current view
      */
     JPanel getView();

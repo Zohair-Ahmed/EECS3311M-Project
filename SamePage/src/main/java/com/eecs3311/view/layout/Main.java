@@ -6,6 +6,13 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
+import com.eecs3311.model.Login.ILoginModel;
+import com.eecs3311.model.Login.LoginModel;
+import com.eecs3311.presenter.Login.ILoginPresenter;
+import com.eecs3311.presenter.Login.LoginPresenter;
+import com.eecs3311.view.Login.ILoginPanelView;
+import com.eecs3311.view.Login.LoginPanel;
+import com.eecs3311.view.Resgister.RegisterPanel;
 import com.eecs3311.view.components.Menubar;
 
 public class Main extends JFrame implements ActionListener {
@@ -21,7 +28,11 @@ public class Main extends JFrame implements ActionListener {
 
   private CardLayout cards = new CardLayout();
   private JPanel container = new JPanel(cards);
-  private LoginPanel login = new LoginPanel();
+
+  private ILoginPanelView ilv = new LoginPanel();
+  private ILoginPresenter ilp = new LoginPresenter();
+  private ILoginModel ilm = new LoginModel();
+
   private RegisterPanel register = new RegisterPanel();
 
   private void initHomeButtonUI() {
@@ -98,9 +109,17 @@ public class Main extends JFrame implements ActionListener {
     mainPanel.add(landingPanel.getView());
     mainPanel.setSize(500, 500);
 
+    configureLoginMVP();
     container.add(mainPanel, "Landing");
-    container.add(login.getView(), "Login");
+    container.add(ilv.getView(), "Login");
     container.add(register.getView(), "Register");
+  }
+
+  private void configureLoginMVP() {
+    ilp.setModel(ilm);
+    ilm.setPresenter(ilp);
+    ilp.setView(ilv);
+    ilv.setPresenter(ilp);
   }
 
   public Main() {

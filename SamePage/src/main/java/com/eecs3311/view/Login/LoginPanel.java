@@ -1,15 +1,16 @@
-package com.eecs3311.view.layout;
+package com.eecs3311.view.Login;
 
 import javax.swing.*;
 
 import com.eecs3311.model.Member;
-import com.eecs3311.presenter.Login.LoginPresenter;
+import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginPanel implements ILoginPanelView, IPanelView {
+public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 
 	// Creating components that will be used for the Login page
 	private JPanel panel = new JPanel();
@@ -22,6 +23,8 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 	private JLabel loginStatus = new JLabel("status pending");
 	private SpringLayout layout = new SpringLayout();
 
+	private ILoginPresenter loginPresenter;
+
 	// Constructor for an instance of the Login page
 	public LoginPanel() {
 		initComponents();
@@ -29,10 +32,9 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 
 	@Override
 	public void initComponents() {
-		Member model = new Member();
-		LoginPresenter presenter = new LoginPresenter(this, model);
 		setSizeOfComponents();
 
+		loginSubmit.addActionListener(this);
 		layout.putConstraint(SpringLayout.NORTH, lblHeader, 26, SpringLayout.NORTH, panel);
 		layout.putConstraint(SpringLayout.EAST, lblHeader, 0, SpringLayout.EAST, emailField);
 		panel.setLayout(layout);
@@ -77,6 +79,13 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		layout.putConstraint(SpringLayout.SOUTH, loginStatus, -100, SpringLayout.SOUTH, panel);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == loginSubmit) {
+			this.loginPresenter.updateModelFromView(getEmail(), getPassword());
+		}
+	}
+
 	public String getEmail() {
 		return emailField.getText();
 	}
@@ -85,11 +94,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 		return new String(passwordField.getPassword());
 	}
 
-	public void setLoginPerformed(ActionListener listener) {
-		loginSubmit.addActionListener(listener);
-	}
-
-	public void loginStatus(String status) {
+	public void updateLoginStatus(String status) {
 		loginStatus.setText(status);
 	}
 
@@ -105,6 +110,16 @@ public class LoginPanel implements ILoginPanelView, IPanelView {
 
 	@Override
 	public void setParentContainer(JPanel parent) {
+	}
+
+	@Override
+	public ILoginPresenter getPresenter() {
+		return this.loginPresenter;
+	}
+
+	@Override
+	public void setPresenter(ILoginPresenter ilp) {
+		this.loginPresenter = ilp;
 	}
 
 }
