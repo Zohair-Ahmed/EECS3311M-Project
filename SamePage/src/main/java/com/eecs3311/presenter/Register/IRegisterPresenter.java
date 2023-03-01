@@ -1,16 +1,36 @@
 package com.eecs3311.presenter.Register;
 
 import com.eecs3311.model.Register.IRegisterModel;
-import com.eecs3311.view.Resgister.IRegisterView;
+import com.eecs3311.view.Register.IRegisterPanelView;
 
 public interface IRegisterPresenter {
+    /**
+     * Returns the model
+     * 
+     * @return IRegisterModel
+     */
     IRegisterModel getModel();
 
+    /**
+     * Sets the model
+     * 
+     * @param irm
+     */
     void setModel(IRegisterModel irm);
 
-    IRegisterView getIRegisterView();
+    /**
+     * Returns the RegisterPanelView
+     * 
+     * @return IRegisterPanelView
+     */
+    IRegisterPanelView getRegisterPanelView();
 
-    void setView(IRegisterView irv);
+    /**
+     * Sets the view
+     * 
+     * @param irv
+     */
+    void setView(IRegisterPanelView irv);
 
     /**
      * Updates the model from view interactions. To be used when a UI component is
@@ -18,12 +38,22 @@ public interface IRegisterPresenter {
      * Ex: Loading new page, submitting a form, etc. Params would be made according
      * to what is expected to be changed through an action
      */
-    void updateModelFromView(String title);
+    void updateModelFromView(String username, String email, String password);
 
     /**
      * Updates the view based on the current valid changes made to the model
+     * 
+     * @param RegisterMessage - Displays a message based on Register credentials
      */
-    void updateViewFromModel();
+    void updateViewFromModel(String RegisterMessage);
 
+    /**
+     * Used when fetching updated Model data. getModel()
+     * can be used but this class is more of a customizable class
+     * based on the object. May need to implement separate methods
+     * for each attribute - TBD
+     *
+     * @return any updated attribute(s)
+     */
     IRegisterModel getUpdatedViewFromModel();
 }
