@@ -12,7 +12,13 @@ import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
 import com.eecs3311.view.Login.ILoginPanelView;
 import com.eecs3311.view.Login.LoginPanel;
-import com.eecs3311.view.Resgister.RegisterPanel;
+import com.eecs3311.model.Register.IRegisterModel;
+import com.eecs3311.model.Register.RegisterModel;
+import com.eecs3311.persistence.Register.RegisterDB;
+import com.eecs3311.presenter.Register.IRegisterPresenter;
+import com.eecs3311.presenter.Register.RegisterPresenter;
+import com.eecs3311.view.Register.IRegisterPanelView;
+import com.eecs3311.view.Register.RegisterPanel;
 import com.eecs3311.view.components.Menubar;
 
 public class Main extends JFrame implements ActionListener {
@@ -33,7 +39,10 @@ public class Main extends JFrame implements ActionListener {
   private ILoginPresenter ilp = new LoginPresenter();
   private ILoginModel ilm = new LoginModel();
 
-  private RegisterPanel register = new RegisterPanel();
+  private IRegisterPanelView irv = new RegisterPanel();
+  private IRegisterPresenter irp = new RegisterPresenter();
+  private IRegisterModel irm = new RegisterModel();
+  private RegisterDB registerDB = new RegisterDB();
 
   private void initHomeButtonUI() {
     homeButton = new JButton("Home");
@@ -110,9 +119,10 @@ public class Main extends JFrame implements ActionListener {
     mainPanel.setSize(500, 500);
 
     configureLoginMVP();
+    configureRegisterMVP();
     container.add(mainPanel, "Landing");
     container.add(ilv.getView(), "Login");
-    container.add(register.getView(), "Register");
+    container.add(irv.getView(), "Register");
   }
 
   private void configureLoginMVP() {
@@ -120,6 +130,14 @@ public class Main extends JFrame implements ActionListener {
     ilm.setPresenter(ilp);
     ilp.setView(ilv);
     ilv.setPresenter(ilp);
+  }
+
+  private void configureRegisterMVP() {
+    irp.setModel(irm);
+    irm.setPresenter(irp);
+    irp.setView(irv);
+    irv.setPresenter(irp);
+    irm.setRegisterDB(registerDB);
   }
 
   public Main() {
