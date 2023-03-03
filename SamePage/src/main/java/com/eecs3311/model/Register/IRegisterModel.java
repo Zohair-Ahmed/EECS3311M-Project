@@ -27,19 +27,5 @@ public interface IRegisterModel {
      * @param password
      */
     void updateModelFromView(String username, String email, String password);
-    
-    /**
-     * Return the Register persistence class (connection to same page user database)
-     * @return
-     */
-    RegisterDB getRegisterDB();
-
-    /**
-     * Sets the Register persistence class (connection to same page user database)
-     * @param rdb
-     */
-    void setRegisterDB(RegisterDB rdb);
-
-
 }
 

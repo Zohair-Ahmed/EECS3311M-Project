@@ -6,31 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterDB {
+public class RegisterDB implements IRegister {
 
     private Connection conn;
 
     public RegisterDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "root1234");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "Ammadq87");
             // System.out.println("connection successful via ip address");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Performs a retrieval query first in order to check credentials for possible matches in the database,
-     * otherwise it will perform an insert update to add a new SamePage user to the database with the provided
-     * username, email and password from the client input
-     * 
-     * Returns a string to model with status update of the register attempt that will be passed to the view (GUI)
-     * 
-     * @param username
-     * @param email
-     * @param password
-     * @return
-     */ 
     public String registerUser(String username, String email, String password) {
         boolean matchingCredentials = false;
         String result = "";

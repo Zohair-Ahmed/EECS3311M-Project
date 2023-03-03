@@ -1,6 +1,8 @@
 package com.eecs3311.model.Login;
 
 import com.eecs3311.model.User;
+import com.eecs3311.persistence.Database;
+import com.eecs3311.persistence.Login.ILogin;
 import com.eecs3311.persistence.Login.LoginDB;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 
@@ -29,8 +31,7 @@ public class LoginModel implements ILoginModel {
 
     private void validateLogin() {
         String loginMessage = "Invalid Login Credentials";
-        LoginDB loginDB = new LoginDB();
-        if (loginDB.isLoginValid(getEmail(), getPassword()))
+        if (Database.getLoginInstance().isLoginValid(getEmail(), getPassword()))
             loginMessage = "Successfully Logged in as " + User.getInstance().getUsername();
 
         this.getPresenter().updateViewFromModel(loginMessage);

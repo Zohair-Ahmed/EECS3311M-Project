@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
 import com.eecs3311.view.Login.ILoginPanelView;
@@ -42,7 +43,6 @@ public class Main extends JFrame implements ActionListener {
   private IRegisterPanelView irv = new RegisterPanel();
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
-  private RegisterDB registerDB = new RegisterDB();
 
   private void initHomeButtonUI() {
     homeButton = new JButton("Home");
@@ -137,7 +137,6 @@ public class Main extends JFrame implements ActionListener {
     irm.setPresenter(irp);
     irp.setView(irv);
     irv.setPresenter(irp);
-    irm.setRegisterDB(registerDB);
   }
 
   public Main() {
@@ -150,6 +149,9 @@ public class Main extends JFrame implements ActionListener {
     initLoginButtonUI();
     initRegisterButtonUI();
     initHomeButtonUI();
+
+    // DP for database implementation
+    Database database = Database.getInstance(true);
 
     // Add the button to the menu bar
     menuBar.add(loginButton);

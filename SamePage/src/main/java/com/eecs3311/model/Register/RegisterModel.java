@@ -1,12 +1,13 @@
 package com.eecs3311.model.Register;
 
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Register.IRegisterPresenter;
 import com.eecs3311.persistence.Register.RegisterDB;
 
 
 public class RegisterModel implements IRegisterModel {
     private IRegisterPresenter RegisterPresenter;
-    private RegisterDB registerDB;
+//    private RegisterDB registerDB;
     private String username;
     private String email;
     private String password;
@@ -31,14 +32,7 @@ public class RegisterModel implements IRegisterModel {
     }
 
     private void validateRegister() {
-        // Write Query
-        // Send query to db
-        // Get results from db
-        // Compare results
-        // Based on results, update view
-
-        String queryResult = registerDB.registerUser(this.username, this.email, this.password);
-
+        String queryResult = Database.getRegisterInstance().registerUser(this.username, this.email, this.password);
         this.getPresenter().updateViewFromModel(queryResult);
     }
 
@@ -57,15 +51,5 @@ public class RegisterModel implements IRegisterModel {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @Override
-	public RegisterDB getRegisterDB() {
-		return this.registerDB;
-	}
-
-	@Override
-	public void setRegisterDB(RegisterDB rdb) {
-		this.registerDB = rdb;
-	}
 
 }

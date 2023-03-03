@@ -1,10 +1,10 @@
-package com.eecs3311.persistence.Login;
+package com.eecs3311.persistence.Register;
 
 import com.eecs3311.model.User;
 
 import java.sql.*;
 
-public class LoginDB implements ILogin{
+public class LoginDB {
 
     private Connection conn;
 
@@ -19,15 +19,19 @@ public class LoginDB implements ILogin{
         }
     }
 
-
-    @Override
+    /**
+     * Runs a query to validate the Login based on email and password
+     * @param email user email
+     * @param password user password
+     * @return True - valid login
+     */
     public boolean isLoginValid(String email, String password) {
         try {
-            String query = "select * from Users where Email = '" + email + "' and UserPassword = '" + password + "';";
+            String query = "select * from Users where Email = '"+email+"' and UserPassword = '"+password+"';";
             Statement temp = conn.createStatement();
             ResultSet rs = temp.executeQuery(query);
             while (rs.next()) {
-                if (rs.getString("Email").equals(email) && rs.getString("UserPassword").equals(password)) {
+                if (rs.getString("Email").equals(email) && rs.getString("UserPassword").equals(password)){
                     User.getInstance().setEmail(rs.getString("Email"));
                     User.getInstance().setUsername(rs.getString("Username"));
                     User.getInstance().setPassword(rs.getString("UserPassword"));
