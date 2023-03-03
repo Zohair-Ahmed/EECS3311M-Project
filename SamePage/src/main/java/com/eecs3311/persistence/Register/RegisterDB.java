@@ -39,20 +39,20 @@ public class RegisterDB {
             Statement temp = conn.createStatement();
             ResultSet rs = temp.executeQuery("select * from Users");
 
-            // while (rs.next() && !matchingCredentials) {
-            //     String dbUsername = rs.getString("Username");
-            //     String dbEmail = rs.getString("Email");
+            while (rs.next() && !matchingCredentials) {
+                String dbUsername = rs.getString("Username");
+                String dbEmail = rs.getString("Email");
 
-            //     if (dbUsername.equals(username)) {
-            //         result = "A SamePage account with this username already exists";
-            //         matchingCredentials = true;
-            //     }
+                if (dbUsername.equals(username)) {
+                    result = "A SamePage account with this username already exists";
+                    matchingCredentials = true;
+                }
 
-            //     else if (dbEmail.equals(email)) {
-            //         result = "A SamePage account with this email already exists";
-            //         matchingCredentials = true;
-            //     }
-            // }
+                else if (dbEmail.equals(email)) {
+                    result = "A SamePage account with this email already exists";
+                    matchingCredentials = true;
+                }
+            }
             
             if (matchingCredentials == false) {
             	temp.executeUpdate("insert into Users (Username, Email, UserPassword) values ('" + username + "', '" + email + "', '" + password + "')");

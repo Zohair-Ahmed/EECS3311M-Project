@@ -325,9 +325,9 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 			else
 				lblTermsCheck.setText("");
 			
-			ValidateFields();
+			boolean fieldCheck = ValidateFields();
 			
-			if (lblConfirmation.getText().equals(""))
+			if (fieldCheck == true)
 			this.registerPresenter.updateModelFromView(tfUsername.getText(), tfEmail.getText(), new String(tfPassword.getPassword()));
 		}
 	}
@@ -343,7 +343,7 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Reads that all fields have some input and sends confirmation message,
 	// otherwise gives error
-	private void ValidateFields() {
+	private boolean ValidateFields() {
 		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("")
 				&& !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("")
 				&& cbTerms.isSelected()) {
@@ -351,8 +351,11 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 			lblEmailCheck.setText("");
 			lblPassCheck.setText("");
 			lblConfCheck.setText("");
+
+			return true;
 		} else {
 			lblConfirmation.setText("Please enter all valid credentials!");
+			return false;
 		}
 	}
 
