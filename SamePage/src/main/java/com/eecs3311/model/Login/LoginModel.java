@@ -1,11 +1,13 @@
 package com.eecs3311.model.Login;
 
+import com.eecs3311.model.User;
+import com.eecs3311.persistence.Login.LoginDB;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 
 public class LoginModel implements ILoginModel {
 
     private ILoginPresenter loginPresenter;
-    private String username;
+    private String email;
     private String password;
 
     @Override
@@ -19,32 +21,27 @@ public class LoginModel implements ILoginModel {
     }
 
     @Override
-    public void updateModelFromView(String username, String password) {
-        this.username = username;
+    public void updateModelFromView(String email, String password) {
+        this.email = email;
         this.password = password;
         validateLogin();
     }
 
     private void validateLogin() {
-        // Write Query
-        // Send query to db
-        // Get results from db
-        // Compare results
-        // Based on results, update view
+        String loginMessage = "Invalid Login Credentials";
+        LoginDB loginDB = new LoginDB();
+        if (loginDB.isLoginValid(getEmail(), getPassword()))
+            loginMessage = "Successfully Logged in as " + User.getInstance().getUsername();
 
-        if (this.username.equals("temp@mail.ca") && this.password.equals("Test1234")) {
-            this.getPresenter().updateViewFromModel("Successfully Logged In");
-        } else {
-            this.getPresenter().updateViewFromModel("Incorrect Details Entered");
-        }
+        this.getPresenter().updateViewFromModel(loginMessage);
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
