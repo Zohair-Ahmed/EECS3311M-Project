@@ -17,8 +17,8 @@ public class RegisterModel implements IRegisterModel {
     }
 
     @Override
-    public void setPresenter(IRegisterPresenter ilp) {
-        this.RegisterPresenter = ilp;
+    public void setPresenter(IRegisterPresenter irp) {
+        this.RegisterPresenter = irp;
     }
 
     @Override
