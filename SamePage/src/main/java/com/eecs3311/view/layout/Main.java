@@ -179,7 +179,7 @@ public class Main extends JFrame implements ActionListener {
     initHomeButtonUI();
 
     // DP for database implementation
-    Database database = Database.getInstance(false);
+    Database.getInstance(false);
 
     // Add the button to the menu bar
     menuBar.add(loginButton);
@@ -204,7 +204,7 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Profile");
   }
 
-  
+
   public JPanel getContainer() {
     return this.container;
   }
@@ -212,7 +212,6 @@ public class Main extends JFrame implements ActionListener {
   public CardLayout getCard() {
     return this.cards;
   }
-
   public void addProfilePanel() {
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());

@@ -2,25 +2,23 @@ package com.eecs3311.model.Book;
 
 import com.eecs3311.model.Reviews;
 import com.eecs3311.presenter.Book.IBookPresenter;
-import com.eecs3311.model.enums.Genre;
 
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
-
     private String title;
     private String description;
     private ArrayList<Reviews> reviews;
-    private int ISBN;
+    private String ISBN;
     private String author;
 
-    private Genre genre;
+    private String genre;
 
     // Each Model class needs ONE Presenter class Interface
     private IBookPresenter bookPresenter;
 
-    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, int ISBN,
-            Genre genre) {
+    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, String ISBN,
+                     String genre) {
         this.title = title;
         this.author = author;
         this.description = description;
@@ -61,7 +59,7 @@ public class BookModel implements IBookModel {
         this.reviews = reviews;
     }
 
-    public void setISBN(int ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 
@@ -69,11 +67,11 @@ public class BookModel implements IBookModel {
         this.author = author;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -82,7 +80,7 @@ public class BookModel implements IBookModel {
     }
 
     public String getGenre() {
-        return genre.toString();
+        return genre;
     }
 
     @Override
