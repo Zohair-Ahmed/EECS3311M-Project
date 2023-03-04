@@ -3,6 +3,7 @@ package com.eecs3311.view.Login;
 import javax.swing.JPanel;
 
 import com.eecs3311.presenter.Login.ILoginPresenter;
+import com.eecs3311.view.layout.Main;
 
 public interface ILoginPanelView {
 
@@ -34,4 +35,10 @@ public interface ILoginPanelView {
      * @return JPanel
      */
     JPanel getView();
+
+    
+    /*
+     * Sets the Main for the Login View, used for when a successful login is made and login page should be disabled
+     */
+    void setMain(Main main);
 }

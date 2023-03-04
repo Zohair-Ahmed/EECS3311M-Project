@@ -5,10 +5,12 @@ import javax.swing.*;
 import com.eecs3311.model.Member;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.layout.Main;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 
@@ -22,12 +24,25 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	private JLabel lblHeader = new JLabel("Login to SamePage");
 	private JLabel loginStatus = new JLabel("status pending");
 	private SpringLayout layout = new SpringLayout();
+	private Main main;
+	private Timer timer;
+
 
 	private ILoginPresenter loginPresenter;
 
 	// Constructor for an instance of the Login page
 	public LoginPanel() {
 		initComponents();
+
+		timer = new Timer(3000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Switch to the landing frame panel
+				main.getCard().show(main.getContainer(), "Landing");
+			}
+		});
+		timer.setRepeats(false); // Only perform the action once
+		timer.stop(); // Stop the timer initially
 	}
 
 	@Override
@@ -96,6 +111,11 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 
 	public void updateLoginStatus(String status) {
 		loginStatus.setText(status);
+
+		if (checkLogin() == true) {
+			// Start the timer if the login is successful
+			timer.start();
+		}
 	}
 
 	@Override
@@ -121,5 +141,25 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	public void setPresenter(ILoginPresenter ilp) {
 		this.loginPresenter = ilp;
 	}
+
+	public Main getMainInit() {
+		return this.main;
+	}
+
+	public void setMain(Main main) {
+		this.main = main;
+	}
+
+	public boolean checkLogin() {
+		if (loginStatus.getText().contains("Successfully Logged in")) {
+			return true;
+		}
+
+		else {
+			return false;
+		}
+	}
+
+
 
 }
