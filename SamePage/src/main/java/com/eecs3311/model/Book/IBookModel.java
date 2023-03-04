@@ -11,7 +11,7 @@ public interface IBookModel {
 
     String getAuthor();
 
-    int getISBN();
+    String getISBN();
 
     String getGenre();
 

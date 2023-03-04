@@ -1,14 +1,20 @@
-package com.eecs3311.view.layout;
+package com.eecs3311.view.Register;
 
+import com.eecs3311.presenter.Register.IRegisterPresenter;
 import com.eecs3311.view.IPanelView;
 import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.*;
 
-public class RegisterPanel implements IPanelView {
+public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionListener {
 
 	private JPanel containerPanel = new JPanel();
+
+	private IRegisterPresenter registerPresenter;
+
+	// Register button
+	private JButton btnRegister;
 
 	// Text labels
 	private JLabel lblUserCheck;
@@ -63,7 +69,7 @@ public class RegisterPanel implements IPanelView {
 
 	// Initializing register button to give feedback on click
 	private void initRegisterButton() {
-		JButton btnRegister = new JButton("Register");
+		btnRegister = new JButton("Register");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, btnRegister, 373, SpringLayout.NORTH, containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.WEST, btnRegister, (screenSize.width / 4), SpringLayout.WEST,
 				containerPanel);
@@ -72,19 +78,7 @@ public class RegisterPanel implements IPanelView {
 		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnRegister, 0, SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		// Logic for checking all required fields have valid input upon clicking
-		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				CheckFields(tfUsername, lblUserCheck);
-				CheckFields(tfEmail, lblEmailCheck);
-				CheckFields(tfPassword, lblPassCheck);
-				CheckFields(tfConfirmPass, lblConfCheck);
-				if (!cbTerms.isSelected())
-					lblTermsCheck.setText("*");
-				else
-					lblTermsCheck.setText("");
-				ValidateFields();
-			}
-		});
+		btnRegister.addActionListener(this);
 		containerPanel.add(btnRegister);
 	}
 
@@ -97,7 +91,8 @@ public class RegisterPanel implements IPanelView {
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblRegisterHere, 62, SpringLayout.NORTH, containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblRegisterHere, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0, SpringLayout.HORIZONTAL_CENTER,
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0,
+				SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		lblRegisterHere.setFont(new Font("Futura", Font.BOLD, 25));
 		lblRegisterHere.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -135,7 +130,7 @@ public class RegisterPanel implements IPanelView {
 		containerPanel.add(lblUserCheck);
 	}
 
-	// Initializing email label
+	// Initializing Email label
 	private void initEmailLabel() {
 		JLabel lblEmail = new JLabel("Email:");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblEmail, 159, SpringLayout.NORTH, containerPanel);
@@ -148,7 +143,7 @@ public class RegisterPanel implements IPanelView {
 		containerPanel.add(lblEmail);
 	}
 
-	// Initializing email check label (* icon)
+	// Initializing Email check label (* icon)
 	private void initEmailCheck() {
 		lblEmailCheck = new JLabel("");
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, lblEmailCheck, 181, SpringLayout.NORTH, containerPanel);
@@ -272,7 +267,8 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfirmPass, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0, SpringLayout.HORIZONTAL_CENTER,
+		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0,
+				SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		containerPanel.add(lblConfirmPass);
 	}
@@ -306,7 +302,7 @@ public class RegisterPanel implements IPanelView {
 		containerPanel.add(lblPassCheck);
 	}
 
-	// Initializing the email text field for input
+	// Initializing the Email text field for input
 	private void initEmailTextField() {
 		tfEmail = new JTextField();
 		sl_containerPanel.putConstraint(SpringLayout.NORTH, tfEmail, 176, SpringLayout.NORTH, containerPanel);
@@ -316,6 +312,24 @@ public class RegisterPanel implements IPanelView {
 				containerPanel);
 		containerPanel.add(tfEmail);
 		tfEmail.setColumns(10);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnRegister) {
+			CheckFields(tfUsername, lblUserCheck);
+			CheckFields(tfEmail, lblEmailCheck);
+			CheckFields(tfPassword, lblPassCheck);
+			CheckFields(tfConfirmPass, lblConfCheck);
+			if (!cbTerms.isSelected())
+				lblTermsCheck.setText("*");
+			else
+				lblTermsCheck.setText("");
+			
+			boolean fieldCheck = ValidateFields();
+			
+			if (fieldCheck == true)
+			this.registerPresenter.updateModelFromView(tfUsername.getText(), tfEmail.getText(), new String(tfPassword.getPassword()));
+		}
 	}
 
 	// Reads individual fields and displays error icon if they don't have input
@@ -329,7 +343,7 @@ public class RegisterPanel implements IPanelView {
 
 	// Reads that all fields have some input and sends confirmation message,
 	// otherwise gives error
-	private void ValidateFields() {
+	private boolean ValidateFields() {
 		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("")
 				&& !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("")
 				&& cbTerms.isSelected()) {
@@ -337,10 +351,16 @@ public class RegisterPanel implements IPanelView {
 			lblEmailCheck.setText("");
 			lblPassCheck.setText("");
 			lblConfCheck.setText("");
-			lblConfirmation.setText("Confirmation Sent!");
+
+			return true;
 		} else {
 			lblConfirmation.setText("Please enter all valid credentials!");
+			return false;
 		}
+	}
+
+	public void updateRegisterStatus(String status) {
+		lblConfirmation.setText(status);
 	}
 
 	@Override
@@ -357,5 +377,16 @@ public class RegisterPanel implements IPanelView {
 	// Implement for future release
 	@Override
 	public void setParentContainer(JPanel parent) {
+	}
+
+	// Methods used to create connection between Presenter and View 
+	@Override
+	public IRegisterPresenter getPresenter() {
+		return this.registerPresenter;
+	}
+
+	@Override
+	public void setPresenter(IRegisterPresenter irp) {
+		this.registerPresenter = irp;
 	}
 }

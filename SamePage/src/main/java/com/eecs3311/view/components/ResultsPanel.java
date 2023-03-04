@@ -1,7 +1,7 @@
 package com.eecs3311.view.components;
 
-import com.eecs3311.model.Book.BookDatabase;
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
@@ -16,7 +16,6 @@ public class ResultsPanel implements ActionListener, IPanelView {
     private JPanel releaseContainer = new JPanel();
     private JLabel textJLabel = new JLabel("Latest Releases");
     private String state = "releasePage";
-    private BookDatabase bookDatabase = new BookDatabase();
 
     // Mediator:
     ResultsMediator mediator;
@@ -29,7 +28,8 @@ public class ResultsPanel implements ActionListener, IPanelView {
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());
-        initReleaseContainer(this.bookDatabase.getLatestReleases());
+
+        initReleaseContainer(Database.getBookInstance().getLatestReleases());
     }
 
     // Update book view from search input from search bar

@@ -2,14 +2,17 @@ package com.eecs3311.view.Book;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {
 
     private IBookPresenter bookPresenter;
-
+    private JFrame bookFrame;
+    private DisplayBookInformation book;
     public BookView() {
     }
 
@@ -26,7 +29,7 @@ public class BookView implements IBookView {
     /**
      * Returns a GUI component relating to the model. Include updatedViewFromModel
      * function to ensure the view is up-to-date and change return type as needed
-     * 
+     *
      * @return JPanel - Component that has views related to BookModel
      */
     @Override
@@ -51,6 +54,52 @@ public class BookView implements IBookView {
         mainPanel.add(genreLbl, c);
         c.gridy++;
         mainPanel.add(authorLbl, c);
+        mainPanel.addMouseListener(onBookClicked());
+        mainPanel.revalidate();
         return mainPanel;
+    }
+
+    private MouseListener onBookClicked() {
+        return new MouseAdapter()
+        {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                System.out.printf("Clicked %s\n",getPresenter().getUpdatedViewFromModel().getTitle());
+                if (bookFrame == null) {
+                    // If not, create a new frame and show it
+                    displaySelectedBook();
+                } else if(book!=null && !book.getTitleB().equals(getPresenter().getUpdatedViewFromModel().getTitle())){
+                    bookFrame = null;
+                    displaySelectedBook();
+                }
+                else{
+                    bookFrame.setVisible(true);
+                    bookFrame.toFront();
+                }
+            }
+        };
+    }
+    private void displaySelectedBook(){
+        try {
+            book = DisplayBookInformation.getInstance(getPresenter());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        bookFrame = new JFrame("Book Reviews");
+        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        bookFrame.add(book.getView());
+        bookFrame.setSize(1000, 400);
+        bookFrame.setVisible(true);
+        addWindowListener();
+    }
+    private void addWindowListener() {
+        WindowListener wl = new WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e){
+                bookFrame.setVisible(false);
+            }
+        };
+        bookFrame.addWindowListener(wl);
     }
 }

@@ -5,8 +5,8 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-import com.eecs3311.model.Book.BookDatabase;
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
 // Create the GUI SearchBarFrame
@@ -15,7 +15,6 @@ public class SearchBar implements ActionListener, IPanelView {
     private JPanel container;
     private JTextField searchInputField;
     private JButton searchButton;
-    private BookDatabase bookDatabase = new BookDatabase();
 
     // Mediator:
     private ResultsMediator mediator;
@@ -86,7 +85,7 @@ public class SearchBar implements ActionListener, IPanelView {
     private void getSearchResults(String search) {
         if (!(search == null || search.length() == 0)) {
             ArrayList<IBookModel> results = new ArrayList<>();
-            bookDatabase.getLatestReleases().forEach((book) -> {
+            Database.getBookInstance().getLatestReleases().forEach((book) -> {
                 if (book.getTitle().toLowerCase().contains(search.toLowerCase()))
                     results.add(book);
             });

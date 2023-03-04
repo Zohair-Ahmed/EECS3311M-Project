@@ -6,6 +6,19 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
+import com.eecs3311.model.Login.ILoginModel;
+import com.eecs3311.model.Login.LoginModel;
+import com.eecs3311.persistence.Database;
+import com.eecs3311.presenter.Login.ILoginPresenter;
+import com.eecs3311.presenter.Login.LoginPresenter;
+import com.eecs3311.view.Login.ILoginPanelView;
+import com.eecs3311.view.Login.LoginPanel;
+import com.eecs3311.model.Register.IRegisterModel;
+import com.eecs3311.model.Register.RegisterModel;
+import com.eecs3311.presenter.Register.IRegisterPresenter;
+import com.eecs3311.presenter.Register.RegisterPresenter;
+import com.eecs3311.view.Register.IRegisterPanelView;
+import com.eecs3311.view.Register.RegisterPanel;
 import com.eecs3311.view.components.Menubar;
 
 public class Main extends JFrame implements ActionListener {
@@ -21,8 +34,14 @@ public class Main extends JFrame implements ActionListener {
 
   private CardLayout cards = new CardLayout();
   private JPanel container = new JPanel(cards);
-  private LoginPanel login = new LoginPanel();
-  private RegisterPanel register = new RegisterPanel();
+
+  private ILoginPanelView ilv = new LoginPanel();
+  private ILoginPresenter ilp = new LoginPresenter();
+  private ILoginModel ilm = new LoginModel();
+
+  private IRegisterPanelView irv = new RegisterPanel();
+  private IRegisterPresenter irp = new RegisterPresenter();
+  private IRegisterModel irm = new RegisterModel();
 
   private void initHomeButtonUI() {
     homeButton = new JButton("Home");
@@ -98,9 +117,26 @@ public class Main extends JFrame implements ActionListener {
     mainPanel.add(landingPanel.getView());
     mainPanel.setSize(500, 500);
 
+    configureLoginMVP();
+    configureRegisterMVP();
     container.add(mainPanel, "Landing");
-    container.add(login.getView(), "Login");
-    container.add(register.getView(), "Register");
+    container.add(ilv.getView(), "Login");
+    container.add(irv.getView(), "Register");
+  }
+
+  private void configureLoginMVP() {
+    ilp.setModel(ilm);
+    ilm.setPresenter(ilp);
+    ilp.setView(ilv);
+    ilv.setPresenter(ilp);
+    ilv.setMain(this);
+  }
+
+  private void configureRegisterMVP() {
+    irp.setModel(irm);
+    irm.setPresenter(irp);
+    irp.setView(irv);
+    irv.setPresenter(irp);
   }
 
   public Main() {
@@ -113,6 +149,9 @@ public class Main extends JFrame implements ActionListener {
     initLoginButtonUI();
     initRegisterButtonUI();
     initHomeButtonUI();
+
+    // DP for database implementation
+    Database.getInstance(false);
 
     // Add the button to the menu bar
     menuBar.add(loginButton);
@@ -135,4 +174,11 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Landing");
   }
 
+  public JPanel getContainer() {
+    return this.container;
+  }
+
+  public CardLayout getCard() {
+    return this.cards;
+  }
 }

@@ -3,6 +3,7 @@ package com.eecs3311.view.layout;
 import javax.swing.*;
 import java.awt.*;
 
+import com.eecs3311.model.User;
 import com.eecs3311.view.components.ResultsPanel;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ResultsMediator;
@@ -23,7 +24,7 @@ public class LandingPanel implements IPanelView {
         herobanner = new JPanel(); // Initial panel containing title
         sbf = new SearchBar(mediator); // Search bar frame
         lbv = new ResultsPanel(mediator); // Latest book view (results panel)
-
+        System.out.println(User.getInstance().toString());
         root.setLayout(new GridBagLayout());
 
         herobanner.setLayout(new GridBagLayout());
