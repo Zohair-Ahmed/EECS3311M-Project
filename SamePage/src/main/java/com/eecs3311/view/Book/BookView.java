@@ -70,7 +70,7 @@ public class BookView implements IBookView {
                     // If not, create a new frame and show it
                     displaySelectedBook();
                 } else if(book!=null && !book.getTitleB().equals(getPresenter().getUpdatedViewFromModel().getTitle())){
-                    bookFrame = null;
+                    bookFrame.dispose();
                     displaySelectedBook();
                 }
                 else{
