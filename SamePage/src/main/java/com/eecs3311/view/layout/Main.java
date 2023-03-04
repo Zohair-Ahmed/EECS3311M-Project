@@ -30,6 +30,8 @@ public class Main extends JFrame implements ActionListener {
   private JButton loginButton;
   private JButton registerButton;
   private JButton homeButton;
+
+  private JButton profileButton;
   private JPanel contentPane;
 
   private CardLayout cards = new CardLayout();
@@ -43,6 +45,9 @@ public class Main extends JFrame implements ActionListener {
   private IRegisterPanelView irv = new RegisterPanel();
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
+
+  private ProfilePanel profile = new ProfilePanel();
+  private Menubar menuBar;
 
   private void initHomeButtonUI() {
     homeButton = new JButton("Home");
@@ -105,6 +110,26 @@ public class Main extends JFrame implements ActionListener {
     loginButton.addActionListener(this);
   }
 
+  private void initProfileButtonUI() {
+    profileButton = new JButton("Profile");
+    profileButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
+    profileButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        profileButton.setForeground(new Color(0, 66, 131));
+      }
+
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        profileButton.setForeground(new Color(255, 255, 255));
+      }
+    });
+    profileButton.setHorizontalAlignment(SwingConstants.LEFT);
+    profileButton.setForeground(new Color(255, 255, 255));
+    profileButton.setBackground(new Color(0, 128, 255));
+    profileButton.setOpaque(true);
+    profileButton.setBorderPainted(false);
+    profileButton.addActionListener(this);
+  }
+
   private void initPageSetup() {
     contentPane = new JPanel();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
@@ -123,6 +148,8 @@ public class Main extends JFrame implements ActionListener {
     container.add(mainPanel, "Landing");
     container.add(ilv.getView(), "Login");
     container.add(irv.getView(), "Register");
+    container.add(profile.getView(), "Profile");
+
   }
 
   private void configureLoginMVP() {
@@ -141,7 +168,7 @@ public class Main extends JFrame implements ActionListener {
   }
 
   public Main() {
-    Menubar menuBar = new Menubar();
+    menuBar = new Menubar();
     menuBar.add(Box.createHorizontalGlue());
     setJMenuBar(menuBar);
     setSize(WIDTH, HEIGHT);
@@ -173,14 +200,27 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Register");
     if (e.getSource() == homeButton)
       cards.show(container, "Landing");
+    if (e.getSource() == profileButton)
+      cards.show(container, "Profile");
   }
 
+  
   public JPanel getContainer() {
     return this.container;
   }
 
   public CardLayout getCard() {
     return this.cards;
+  }
+
+  public void addProfilePanel() {
+    JMenuBar tempBar = new Menubar();
+    tempBar.add(Box.createHorizontalGlue());
+    setJMenuBar(tempBar);
+    initProfileButtonUI();
+
+    tempBar.add(homeButton);
+    tempBar.add(profileButton);
   }
 
 }
