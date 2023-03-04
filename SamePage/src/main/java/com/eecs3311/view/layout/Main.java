@@ -39,7 +39,6 @@ public class Main extends JFrame implements ActionListener {
   private ILoginPresenter ilp = new LoginPresenter();
   private ILoginModel ilm = new LoginModel();
 
-  
   private IRegisterPanelView irv = new RegisterPanel();
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
@@ -130,7 +129,6 @@ public class Main extends JFrame implements ActionListener {
     ilm.setPresenter(ilp);
     ilp.setView(ilv);
     ilv.setPresenter(ilp);
-    ilv.setMain(this);
   }
 
   private void configureRegisterMVP() {
@@ -152,7 +150,7 @@ public class Main extends JFrame implements ActionListener {
     initHomeButtonUI();
 
     // DP for database implementation
-    Database database = Database.getInstance(false);
+    Database.getInstance(false);
 
     // Add the button to the menu bar
     menuBar.add(loginButton);
@@ -173,14 +171,6 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Register");
     if (e.getSource() == homeButton)
       cards.show(container, "Landing");
-  }
-
-  public JPanel getContainer() {
-    return this.container;
-  }
-
-  public CardLayout getCard() {
-    return this.cards;
   }
 
 }
