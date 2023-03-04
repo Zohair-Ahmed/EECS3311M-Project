@@ -129,6 +129,7 @@ public class Main extends JFrame implements ActionListener {
     ilm.setPresenter(ilp);
     ilp.setView(ilv);
     ilv.setPresenter(ilp);
+    ilv.setMain(this);
   }
 
   private void configureRegisterMVP() {
@@ -173,4 +174,11 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Landing");
   }
 
+  public JPanel getContainer() {
+    return this.container;
+  }
+
+  public CardLayout getCard() {
+    return this.cards;
+  }
 }

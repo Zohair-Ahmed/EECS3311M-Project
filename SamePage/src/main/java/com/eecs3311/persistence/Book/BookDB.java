@@ -7,8 +7,8 @@ import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.sql.*;
@@ -30,7 +30,7 @@ public class BookDB implements IBook {
     private String password = "Ammadq87";
     private Date publicationDate;
     private Connection conn;
-    private ObjectMapper objectMapper = new ObjectMapper();
+//    private ObjectMapper objectMapper = new ObjectMapper();
     private File file = new File("C:\\Users\\ammad\\Desktop\\YorkU\\Year 3\\W23\\EECS 3311\\IntelliJ\\SamePage\\src\\main\\java\\com\\eecs3311\\persistence\\Book\\bookMocks.json");
     //this path was unique to mine^
     private ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -42,7 +42,7 @@ public class BookDB implements IBook {
             if (conn != null) {
                 System.out.println("Connection is successful");
                 if (!dataExists()){
-                    prepopulateData();
+                    //prepopulateData();
                 }
                 getDBdata();
             }
@@ -77,7 +77,9 @@ public class BookDB implements IBook {
             publicationDate = new Date(calendar1.getTime().getTime());
         }
         // make sure entry is not null
+        /*
         try {
+
             JsonNode jsonNode = objectMapper.readTree(file);
             if (conn != null) {
                 System.out.println("Connection is successful");
@@ -108,6 +110,8 @@ public class BookDB implements IBook {
         catch(Exception e){
             e.printStackTrace();
         }
+                        */
+
     }
 
     public ArrayList<IBookModel> getLatestReleases(){
