@@ -39,6 +39,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				// Switch to the landing frame panel
 				main.getCard().show(main.getContainer(), "Landing");
+				main.addProfilePanel();
 			}
 		});
 		timer.setRepeats(false); // Only perform the action once
