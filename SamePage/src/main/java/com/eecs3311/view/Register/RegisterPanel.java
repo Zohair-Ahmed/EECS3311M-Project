@@ -75,8 +75,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, btnRegister, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnRegister, 0, SpringLayout.HORIZONTAL_CENTER,
-				containerPanel);
 		// Logic for checking all required fields have valid input upon clicking
 		btnRegister.addActionListener(this);
 		containerPanel.add(btnRegister);
@@ -91,9 +89,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblRegisterHere, 62, SpringLayout.NORTH, containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblRegisterHere, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRegisterHere, 0,
-				SpringLayout.HORIZONTAL_CENTER,
-				containerPanel);
 		lblRegisterHere.setFont(new Font("Futura", Font.BOLD, 25));
 		lblRegisterHere.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblRegisterHere.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,8 +102,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		sl_containerPanel.putConstraint(SpringLayout.WEST, lblUsername, (screenSize.width / 4), SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblUsername, (screenSize.width / 2), SpringLayout.WEST,
-				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblUsername, 0, SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		containerPanel.add(lblUsername);
 	}
@@ -138,8 +131,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblEmail, (screenSize.width / 2),
 				SpringLayout.WEST, containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblEmail, 0, SpringLayout.HORIZONTAL_CENTER,
-				containerPanel);
 		containerPanel.add(lblEmail);
 	}
 
@@ -167,8 +158,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		sl_containerPanel.putConstraint(SpringLayout.WEST, lblPassword, (screenSize.width / 4), SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblPassword, (screenSize.width / 2), SpringLayout.WEST,
-				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblPassword, 0, SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		containerPanel.add(lblPassword);
 	}
@@ -225,8 +214,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, cbTerms, (screenSize.width / 2), SpringLayout.WEST,
 				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, cbTerms, 0, SpringLayout.HORIZONTAL_CENTER,
-				containerPanel);
 		containerPanel.add(cbTerms);
 	}
 
@@ -266,9 +253,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		sl_containerPanel.putConstraint(SpringLayout.WEST, lblConfirmPass, (screenSize.width / 4), SpringLayout.WEST,
 				containerPanel);
 		sl_containerPanel.putConstraint(SpringLayout.EAST, lblConfirmPass, (screenSize.width / 2), SpringLayout.WEST,
-				containerPanel);
-		sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmPass, 0,
-				SpringLayout.HORIZONTAL_CENTER,
 				containerPanel);
 		containerPanel.add(lblConfirmPass);
 	}
