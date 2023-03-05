@@ -328,14 +328,18 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	// Reads that all fields have some input and sends confirmation message,
 	// otherwise gives error
 	private boolean ValidateFields() {
-		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("")
-				&& !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("")
-				&& cbTerms.isSelected()) {
+		if (!tfUsername.getText().equals("") && !tfEmail.getText().equals("") && !tfPassword.getText().equals("") && !tfConfirmPass.getText().equals("") && cbTerms.isSelected()) {
 			lblUserCheck.setText("");
 			lblEmailCheck.setText("");
 			lblPassCheck.setText("");
 			lblConfCheck.setText("");
 
+			if (!tfPassword.getText().equals(tfConfirmPass.getText())) {
+				lblConfirmation.setText("Passwords don't match!");
+				lblPassCheck.setText("*");
+				lblConfCheck.setText("*");
+				return false;
+			}
 			return true;
 		} else {
 			lblConfirmation.setText("Please enter all valid credentials!");
