@@ -2,7 +2,9 @@ package com.eecs3311.persistence.Login;
 
 import com.eecs3311.model.User;
 
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 public class LoginDB implements ILogin{
 
@@ -13,7 +15,16 @@ public class LoginDB implements ILogin{
      */
     public LoginDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "Ammadq87");
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            conn = DriverManager.getConnection(
+                    prop.getProperty("db.url"),
+                    prop.getProperty("db.username"),
+                    prop.getProperty("db.password")
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }

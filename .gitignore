@@ -1,3 +1,9 @@
+# .idea directory
+.idea
+
+# credentials
+*.properties
+
 # Compiled class file
 *.class
 

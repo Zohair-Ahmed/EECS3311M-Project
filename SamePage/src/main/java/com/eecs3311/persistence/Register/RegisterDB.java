@@ -1,10 +1,12 @@
 package com.eecs3311.persistence.Register;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class RegisterDB implements IRegister {
 
@@ -12,8 +14,16 @@ public class RegisterDB implements IRegister {
 
     public RegisterDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "Ammadq87");
-            // System.out.println("connection successful via ip address");
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            conn = DriverManager.getConnection(
+                    prop.getProperty("db.url"),
+                    prop.getProperty("db.username"),
+                    prop.getProperty("db.password")
+            );
         } catch (Exception e) {
             e.printStackTrace();
         }

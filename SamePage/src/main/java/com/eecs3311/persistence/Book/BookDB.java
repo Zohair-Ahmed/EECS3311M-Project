@@ -9,10 +9,11 @@ import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 /**
  * BookDB - Book Database class to get all the available latest book releases
@@ -27,12 +28,9 @@ public class BookDB implements IBook {
     private String author;
     private String genre;
     private String img;
-    private String url = "jdbc:mysql://127.0.0.1:3306/samepageuserschema";
-    private String user = "root";
-    private String password = "Ammadq87";
     private Connection conn;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private File file = new File("C:\\Users\\ammad\\Desktop\\YorkU\\Year 3\\W23\\EECS 3311\\IntelliJ\\SamePage\\src\\main\\java\\com\\eecs3311\\persistence\\Book\\bookMocks.json");
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private ArrayList<IBookModel> bookList = new ArrayList<>();
 
     /**
@@ -41,8 +39,18 @@ public class BookDB implements IBook {
      */
     public BookDB() {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
+            InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            Class.forName(prop.getProperty("db.driver"));
+            conn = DriverManager.getConnection(
+                    prop.getProperty("db.url"),
+                    prop.getProperty("db.username"),
+                    prop.getProperty("db.password")
+            );
+
             if (conn != null) {
                 System.out.println("Connection is successful");
                 // If the database is empty, call prepopulateData
@@ -82,7 +90,7 @@ public class BookDB implements IBook {
     public void prepopulateData(){
         // make sure entry is not null
         try {
-            JsonNode jsonNode = objectMapper.readTree(file);
+            JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (conn != null) {
                 System.out.println("Connection is successful");
                 String query = " insert into book (Title, Author, Description, ISBN13, Img, Genre)"
@@ -119,7 +127,7 @@ public class BookDB implements IBook {
     public ArrayList<IBookModel> getLatestReleases(){
         return bookList;
     }
-
+    
     /**
      * Get the existing book data from database and pass it to Book Model
      */
