@@ -59,6 +59,9 @@ public class BookView implements IBookView {
         return mainPanel;
     }
 
+    /**
+     * MouseListener for which book the user has selected.
+     */
     private MouseListener onBookClicked() {
         return new MouseAdapter()
         {
@@ -70,10 +73,13 @@ public class BookView implements IBookView {
                     // If not, create a new frame and show it
                     displaySelectedBook();
                 } else if(book!=null && !book.getTitleB().equals(getPresenter().getUpdatedViewFromModel().getTitle())){
-                    bookFrame = null;
+                    //so book frame is already there, now check if the user is clicking a new book result
+                    // then dispose the popup and open a new display book view
+                    bookFrame.dispose();
                     displaySelectedBook();
                 }
                 else{
+                    // user has clicked the same book popup and thus bring the open book frame to the front
                     bookFrame.setVisible(true);
                     bookFrame.toFront();
                 }
