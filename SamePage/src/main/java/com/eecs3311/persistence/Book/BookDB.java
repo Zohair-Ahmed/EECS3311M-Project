@@ -9,7 +9,6 @@ import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -127,7 +126,7 @@ public class BookDB implements IBook {
     public ArrayList<IBookModel> getLatestReleases(){
         return bookList;
     }
-    
+
     /**
      * Get the existing book data from database and pass it to Book Model
      */
