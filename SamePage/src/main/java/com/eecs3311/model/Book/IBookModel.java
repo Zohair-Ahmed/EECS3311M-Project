@@ -28,4 +28,6 @@ public interface IBookModel {
     ArrayList<Reviews> getReviews();
 
     String toString();
+
+    String getImg();
 }

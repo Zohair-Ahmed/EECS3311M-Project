@@ -1,12 +1,19 @@
 package com.eecs3311.view.Book;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.IPanelView;
 
+/**
+ * DisplayBookInformation Singleton - Book View Frame class to get the specific book's details
+ * such as title, cover page, author, summary, ISBN etc.
+ */
 public class DisplayBookInformation implements IPanelView {
     private final JPanel root;
     private String titleB = "";
@@ -14,17 +21,23 @@ public class DisplayBookInformation implements IPanelView {
     private String summary = "";
     private String isbn = "";
     private String genre = "";
+    private String imgUrl = "";
     private final Color color = new Color(238, 238, 238);
-
     private static DisplayBookInformation instance = null;
+
+    /**
+     * private Constructor to manage one instance of the book details popup
+     */
     private DisplayBookInformation(IBookPresenter bookPresenter) {
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
+        //Set the book values the user clicked
         setClicked(bookPresenter.getUpdatedViewFromModel().getTitle(),
                 bookPresenter.getUpdatedViewFromModel().getAuthor(),
                 bookPresenter.getUpdatedViewFromModel().getDescription(),
                 bookPresenter.getUpdatedViewFromModel().getISBN(),
-                bookPresenter.getUpdatedViewFromModel().getGenre());
+                bookPresenter.getUpdatedViewFromModel().getGenre(),
+                bookPresenter.getUpdatedViewFromModel().getImg());
         JLabel title = new JLabel(titleB); // Title text and UI configurations
         title.setForeground(new Color(12, 51, 127));
         title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -33,6 +46,12 @@ public class DisplayBookInformation implements IPanelView {
         initComponents();
     }
 
+    /**
+     * getInstance method, if null call the constructor
+     * if the book clicked from the user is different from their current popup view,
+     * call the constructor
+     * Else return the instance.
+     */
     public static DisplayBookInformation getInstance(IBookPresenter bookPresenter) throws IOException {
         if(instance == null){
             instance = new DisplayBookInformation(bookPresenter);
@@ -50,6 +69,7 @@ public class DisplayBookInformation implements IPanelView {
     public void initComponents() {
         // Initialize panels for the gridbaglayout
         initGenre();
+        initImage();
         initAuthor();
         initISBN();
         initSummary();
@@ -57,6 +77,23 @@ public class DisplayBookInformation implements IPanelView {
         initUserReview();
         initSubmitButton();
         //display list of reviews from other users
+    }
+
+    private void initImage() {
+        try{
+            URL url = new URL(imgUrl);
+            BufferedImage img = ImageIO.read(url);
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(170, 210, Image.SCALE_SMOOTH));
+            JLabel picLabel = new JLabel(imageIcon);
+            GridBagConstraints c = new GridBagConstraints();
+            c.gridx = 3;
+            c.gridy = 1;
+            c.gridheight = 0;
+            c.gridwidth = 0;
+            root.add(picLabel,c);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void initGenre() {
@@ -173,11 +210,12 @@ public class DisplayBookInformation implements IPanelView {
     public void setParentContainer(JPanel parent) {
     }
 
-    public void setClicked(String title, String author, String description, String isbn, String genre) {
+    public void setClicked(String title, String author, String description, String isbn, String genre, String imgUrl) {
         this.titleB = title;
         this.author = author;
         this.summary = description;
         this.isbn = isbn;
         this.genre = genre;
+        this.imgUrl = imgUrl;
     }
 }

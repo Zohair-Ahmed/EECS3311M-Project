@@ -7,16 +7,18 @@ import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
-//import com.fasterxml.jackson.databind.JsonNode;
-//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
+/**
+ * BookDB - Book Database class to get all the available latest book releases
+ * for users in the SamePage app.
+ * Makes sql connection and uses samepageschema to store/retrieve book data.
+ */
 public class BookDB implements IBook {
     private String title;
     private String description;
@@ -24,25 +26,28 @@ public class BookDB implements IBook {
     private String ISBN;
     private String author;
     private String genre;
-    private String pubDate;
+    private String img;
     private String url = "jdbc:mysql://127.0.0.1:3306/samepageuserschema";
     private String user = "root";
     private String password = "Ammadq87";
-    private Date publicationDate;
     private Connection conn;
-//    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private File file = new File("C:\\Users\\ammad\\Desktop\\YorkU\\Year 3\\W23\\EECS 3311\\IntelliJ\\SamePage\\src\\main\\java\\com\\eecs3311\\persistence\\Book\\bookMocks.json");
-    //this path was unique to mine^
     private ArrayList<IBookModel> bookList = new ArrayList<>();
 
+    /**
+     * BookDB constructor, makes initial connection to database
+     * with JDBC driver and database URL.
+     */
     public BookDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, user, password);
             if (conn != null) {
                 System.out.println("Connection is successful");
+                // If the database is empty, call prepopulateData
                 if (!dataExists()){
-                    //prepopulateData();
+                    prepopulateData();
                 }
                 getDBdata();
             }
@@ -51,11 +56,16 @@ public class BookDB implements IBook {
         }
     }
 
+    /**
+     * Checks if book data has already been pre-populated and exists in database
+     */
     @Override
     public boolean dataExists() throws SQLException {
-        String sql = "SELECT * FROM Book WHERE ISBN13 = ?";
+        // select from book where the ISBN matches the first entry
+        String sql = "SELECT * FROM Book WHERE ISBN13 = 9789000307975";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, "9789000307975"); // replace 1 with the ID of the data you want to check for
+        // if the first entry ISBN exists, prepopulateData has already
+        // been called and data exists. Else return false.
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
             System.out.println("Data exists in table.");
@@ -66,25 +76,16 @@ public class BookDB implements IBook {
         }
     }
 
+    /**
+     * Parse JSON to prepopulate data in book database.
+     */
     public void prepopulateData(){
-        Calendar calendar1 = Calendar.getInstance();
-        try {
-            DateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-            java.util.Date date = format.parse(pubDate);
-            publicationDate = new Date(date.getTime());
-        }
-        catch(Exception e) {
-            publicationDate = new Date(calendar1.getTime().getTime());
-        }
         // make sure entry is not null
-        /*
         try {
-
             JsonNode jsonNode = objectMapper.readTree(file);
             if (conn != null) {
                 System.out.println("Connection is successful");
-                // regardless of event type, the event table must be filled first as its the parent of these 3 event types
-                String query = " insert into book (Title, Author, Description, ISBN13, PublicationDate, Genre)"
+                String query = " insert into book (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 for (JsonNode node : jsonNode) {
@@ -93,15 +94,15 @@ public class BookDB implements IBook {
                     author = node.get("author").asText();
                     description = node.get("summary").asText();
                     genre = node.get("genre").asText();
+                    img = node.get("image").asText();
                     preparedStmt.setString(1, title);
                     preparedStmt.setString(2, author);
                     preparedStmt.setString(3, description);
                     preparedStmt.setString(4, ISBN);
-                    preparedStmt.setString(5, publicationDate.toString());
+                    preparedStmt.setString(5, img);
                     preparedStmt.setString(6, genre);
                     preparedStmt.executeUpdate();
                 }
-                //conn.close();
             }
             else {
                 System.out.println("Failed to connect");
@@ -110,13 +111,18 @@ public class BookDB implements IBook {
         catch(Exception e){
             e.printStackTrace();
         }
-                        */
-
     }
 
+    /**
+     * Returns the bookList with all latest books in DB
+     */
     public ArrayList<IBookModel> getLatestReleases(){
         return bookList;
     }
+
+    /**
+     * Get the existing book data from database and pass it to Book Model
+     */
     public void getDBdata() {
         try {
             if (conn != null) {
@@ -132,9 +138,9 @@ public class BookDB implements IBook {
                     author = rs.getString("Author");
                     description = rs.getString("Description");
                     ISBN = rs.getString("ISBN13");
-                    //Date publicationDate = rs.getDate("PubDate");
                     genre = rs.getString("Genre");
-                    info.add(new BookModel(title, author, description, null, ISBN, genre));
+                    img = rs.getString("Img");
+                    info.add(new BookModel(title, author, description, null, ISBN, genre, img));
                 }
                 addToList(info);
                 conn.close();

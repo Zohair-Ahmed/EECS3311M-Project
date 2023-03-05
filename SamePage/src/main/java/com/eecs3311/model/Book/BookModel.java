@@ -11,20 +11,21 @@ public class BookModel implements IBookModel {
     private ArrayList<Reviews> reviews;
     private String ISBN;
     private String author;
-
+    private String img;
     private String genre;
 
     // Each Model class needs ONE Presenter class Interface
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, String ISBN,
-                     String genre) {
+                     String genre, String img) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.reviews = reviews;
         this.ISBN = ISBN;
         this.genre = genre;
+        this.img = img;
     }
 
     @Override
@@ -86,6 +87,10 @@ public class BookModel implements IBookModel {
     @Override
     public String toString() {
         return this.getTitle() + "   " + this.getAuthor() + "   " + this.getISBN() + "   " + this.getGenre();
+    }
+
+    public String getImg() {
+        return img;
     }
 
     @Override
