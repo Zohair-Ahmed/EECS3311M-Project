@@ -3,6 +3,7 @@ package com.eecs3311.persistence.Book;
 import com.eecs3311.model.Book.BookModel;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.Reviews;
+import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.Book.BookView;
@@ -12,14 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  * BookDB - Book Database class to get all the available latest book releases
  * for users in the SamePage app.
  * Makes sql connection and uses samepageschema to store/retrieve book data.
  */
-public class BookDB implements IBook {
+public class BookDB extends AbstractDatabase implements IBook {
     private String title;
     private String description;
     private ArrayList<Reviews> reviews;
@@ -27,7 +27,7 @@ public class BookDB implements IBook {
     private String author;
     private String genre;
     private String img;
-    private Connection conn;
+    //private Connection conn;
     private ObjectMapper objectMapper = new ObjectMapper();
     private InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -37,27 +37,12 @@ public class BookDB implements IBook {
      * with JDBC driver and database URL.
      */
     public BookDB() {
+        super();
         try {
-            InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties");
-
-            Properties prop = new Properties();
-            prop.load(input);
-
-            Class.forName(prop.getProperty("db.driver"));
-            conn = DriverManager.getConnection(
-                    prop.getProperty("db.url"),
-                    prop.getProperty("db.username"),
-                    prop.getProperty("db.password")
-            );
-
-            if (conn != null) {
-                System.out.println("Connection is successful");
-                // If the database is empty, call prepopulateData
-                if (!dataExists()){
-                    prepopulateData();
-                }
-                getDBdata();
+            if (!dataExists()) {
+                prepopulateData();
             }
+            getDBdata();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +55,8 @@ public class BookDB implements IBook {
     public boolean dataExists() throws SQLException {
         // select from book where the ISBN matches the first entry
         String sql = "SELECT * FROM Book WHERE ISBN13 = 9789000307975";
-        PreparedStatement stmt = conn.prepareStatement(sql);
+        PreparedStatement stmt = getConnection().prepareStatement(sql);
+
         // if the first entry ISBN exists, prepopulateData has already
         // been called and data exists. Else return false.
         ResultSet rs = stmt.executeQuery();
@@ -90,11 +76,11 @@ public class BookDB implements IBook {
         // make sure entry is not null
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
-            if (conn != null) {
+            if (getConnection() != null) {
                 System.out.println("Connection is successful");
                 String query = " insert into book (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                PreparedStatement preparedStmt = getConnection().prepareStatement(query);
                 for (JsonNode node : jsonNode) {
                     ISBN = node.get("ISBN").asText();
                     title = node.get("title").asText();
@@ -132,11 +118,11 @@ public class BookDB implements IBook {
      */
     public void getDBdata() {
         try {
-            if (conn != null) {
+            if (getConnection() != null) {
                 ArrayList<IBookModel> info = new ArrayList<>();
                 System.out.println("Connection is successful");
                 String query = "SELECT * FROM book";
-                Statement st = conn.createStatement();
+                Statement st = getConnection().createStatement();
                 // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
                 // iterate through the java resultset
@@ -150,7 +136,7 @@ public class BookDB implements IBook {
                     info.add(new BookModel(title, author, description, null, ISBN, genre, img));
                 }
                 addToList(info);
-                conn.close();
+                getConnection().close();
             } else {
                 System.out.println("Failed to connect");
             }
