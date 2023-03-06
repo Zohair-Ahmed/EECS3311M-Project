@@ -40,8 +40,7 @@ public class ReviewPresenter implements IReviewPresenter{
     @Override
     public void updateViewFromModel(String message) {
         try {
-            System.out.println(message);
-            DisplayBookInformation.getInstance(null).getReviewText();
+            DisplayBookInformation.getInstance(null).setErrorMessage(message);
         } catch (IOException e) {
 
         } catch (NullPointerException e) {
