@@ -12,7 +12,7 @@ public class RegisterDB implements IRegister {
 
     public RegisterDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "Ammadq87");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageschema", "root", "1234");
             // System.out.println("connection successful via ip address");
         } catch (Exception e) {
             e.printStackTrace();

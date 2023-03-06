@@ -2,7 +2,7 @@ package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.BookModel;
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Reviews;
+import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.Book.BookView;
@@ -22,17 +22,17 @@ import java.util.ArrayList;
 public class BookDB implements IBook {
     private String title;
     private String description;
-    private ArrayList<Reviews> reviews;
+    private ArrayList<ReviewModel> reviews;
     private String ISBN;
     private String author;
     private String genre;
     private String img;
-    private String url = "jdbc:mysql://127.0.0.1:3306/samepageuserschema";
+    private String url = "jdbc:mysql://127.0.0.1:3306/samepageschema";
     private String user = "root";
-    private String password = "Ammadq87";
+    private String password = "1234";
     private Connection conn;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private File file = new File("C:\\Users\\ammad\\Desktop\\YorkU\\Year 3\\W23\\EECS 3311\\IntelliJ\\SamePage\\src\\main\\java\\com\\eecs3311\\persistence\\Book\\bookMocks.json");
+    private File file = new File("/Users/nick/Desktop/EECS3311-Workspace/EECS3311M-Project/SamePage/src/main/java/com/eecs3311/persistence/Book/bookMocks.json");
     private ArrayList<IBookModel> bookList = new ArrayList<>();
 
     /**

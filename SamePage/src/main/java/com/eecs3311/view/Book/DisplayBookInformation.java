@@ -7,14 +7,21 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
+import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.presenter.Review.IReviewPresenter;
+import com.eecs3311.presenter.Review.ReviewPresenter;
+import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.Review.IReviewPanelView;
+import com.eecs3311.view.Review.ReviewPanelView;
 
 /**
  * DisplayBookInformation Singleton - Book View Frame class to get the specific book's details
  * such as title, cover page, author, summary, ISBN etc.
  */
-public class DisplayBookInformation implements IPanelView {
+
+public class DisplayBookInformation implements ActionListener, IPanelView {
     private final JPanel root;
     private String titleB = "";
     private String author = "";
@@ -23,12 +30,28 @@ public class DisplayBookInformation implements IPanelView {
     private String genre = "";
     private String imgUrl = "";
     private final Color color = new Color(238, 238, 238);
+
+    private JButton submitButton = new JButton("Submit");
+    private JSlider ratingSlider = new JSlider(1, 5, 3);
+    private JTextArea reviewArea = new JTextArea(5, 20);
     private static DisplayBookInformation instance = null;
+
+    private static IReviewPresenter reviewPresenter = new ReviewPresenter();
+    private static IReviewModel reviewModel = new ReviewModel();
+    private static IReviewPanelView reviewView = new ReviewPanelView();
 
     /**
      * private Constructor to manage one instance of the book details popup
      */
     private DisplayBookInformation(IBookPresenter bookPresenter) {
+        // M <-> P
+        reviewModel.setPresenter(reviewPresenter);
+        reviewPresenter.setModel(reviewModel);
+
+        // P <-> V
+//        reviewPresenter.setView(reviewView);
+//        reviewView.setPresenter(reviewPresenter);
+
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         //Set the book values the user clicked
@@ -161,7 +184,6 @@ public class DisplayBookInformation implements IPanelView {
     private void initUserRating() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel ratingLabel = new JLabel("Rating:");
-        JSlider ratingSlider = new JSlider(1, 5, 3);
         ratingSlider.setMajorTickSpacing(1);
         ratingSlider.setPaintTicks(true);
         ratingSlider.setSnapToTicks(true);
@@ -176,7 +198,6 @@ public class DisplayBookInformation implements IPanelView {
     private void initUserReview() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel reviewLabel = new JLabel("Review:");
-        JTextArea reviewArea = new JTextArea(5, 20);
         JScrollPane scrollPane = new JScrollPane(reviewArea);
         c.gridx = 0;
         c.gridy = 4;
@@ -189,11 +210,26 @@ public class DisplayBookInformation implements IPanelView {
 
     private void initSubmitButton(){
         GridBagConstraints c = new GridBagConstraints();
-        JButton submitButton = new JButton("Submit");
         c.gridx = 1;
         c.gridy = 7;
         c.gridheight = 1;
+        submitButton.addActionListener(this);
         root.add(submitButton, c);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton) {
+            // get review info then submit review info to db to be added
+            this.reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+        }
+    }
+
+    public String getReviewText() {
+        return reviewArea.getText();
+    }
+
+    public String getRating() {
+        return ""+ratingSlider.getValue();
     }
 
     @Override

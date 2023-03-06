@@ -13,7 +13,7 @@ public class LoginDB implements ILogin{
      */
     public LoginDB() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageuserschema", "root", "Ammadq87");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageschema", "root", "1234");
         } catch (Exception e) {
             e.printStackTrace();
         }
