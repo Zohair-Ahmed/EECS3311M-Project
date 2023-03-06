@@ -29,6 +29,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private String isbn = "";
     private String genre = "";
     private String imgUrl = "";
+    private JLabel errMsg;
     private final Color color = new Color(238, 238, 238);
 
     private JButton submitButton = new JButton("Submit");
