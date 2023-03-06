@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.presenter.Book.IBookPresenter;
@@ -17,6 +18,7 @@ import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.Review.IReviewPanelView;
 import com.eecs3311.view.Review.ReviewPanelView;
+import com.eecs3311.view.components.ReviewsPanel;
 
 /**
  * DisplayBookInformation Singleton - Book View Frame class to get the specific book's details
@@ -42,6 +44,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private static IReviewPresenter reviewPresenter = new ReviewPresenter();
     private static IReviewModel reviewModel = new ReviewModel();
     private static IReviewPanelView reviewView = new ReviewPanelView();
+    private ReviewsPanel reviews = new ReviewsPanel("");
 
     /**
      * private Constructor to manage one instance of the book details popup
@@ -102,6 +105,8 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         initUserRating();
         initUserReview();
         initSubmitButton();
+        initErrorMessage();
+        initAllReviews();
         //display list of reviews from other users
     }
 
@@ -220,6 +225,14 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(submitButton, c);
     }
 
+    private void initErrorMessage(){
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 8;
+        c.gridheight = 1;
+        root.add(errMsg, c);
+    }
+
     public void setErrorMessage(String errorMessage) {
         errMsg.setText(errorMessage);
     }
@@ -237,6 +250,11 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     public String getRating() {
         return ""+ratingSlider.getValue();
+    }
+
+    public void initAllReviews() {
+        reviews = new ReviewsPanel(isbn);
+        root.add(reviews.getView());
     }
 
     @Override

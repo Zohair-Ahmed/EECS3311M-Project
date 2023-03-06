@@ -17,7 +17,6 @@ public class Database {
     private static IReview review;
 
     private static Database database;
-
     private static boolean isUsingStubDB;
 
     private Database(boolean isUsingStub){

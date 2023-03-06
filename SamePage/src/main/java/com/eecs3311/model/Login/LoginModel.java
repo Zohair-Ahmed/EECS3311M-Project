@@ -5,6 +5,7 @@ import com.eecs3311.persistence.Database;
 import com.eecs3311.persistence.Login.ILogin;
 import com.eecs3311.persistence.Login.LoginDB;
 import com.eecs3311.presenter.Login.ILoginPresenter;
+import com.eecs3311.view.Book.DisplayBookInformation;
 
 public class LoginModel implements ILoginModel {
 
@@ -31,8 +32,10 @@ public class LoginModel implements ILoginModel {
 
     private void validateLogin() {
         String loginMessage = "Invalid Login Credentials";
-        if (Database.getLoginInstance().isLoginValid(getEmail(), getPassword()))
+        if (Database.getLoginInstance().isLoginValid(getEmail(), getPassword())) {
             loginMessage = "Successfully Logged in as " + User.getInstance().getUsername();
+            DisplayBookInformation.setErrorMessage("");
+        }
 
         this.getPresenter().updateViewFromModel(loginMessage);
     }

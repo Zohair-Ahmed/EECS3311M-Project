@@ -13,6 +13,22 @@ import java.util.Date;
  * Obtains Reviews for each Book.
  */
 public class ReviewModel implements IReviewModel{
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getRating() {
+        return rating;
+    }
+
+    @Override
+    public String getReview() {
+        return review;
+    }
+
+    private String username;
     private String review;
     private String rating;
     private String isbn;
