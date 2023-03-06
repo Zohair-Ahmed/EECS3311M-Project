@@ -12,9 +12,7 @@ public class Database {
     private static ILogin login;
     private static IRegister register;
     private static IBook book;
-
     private static Database database;
-
     private static boolean isUsingStubDB;
 
     private Database(boolean isUsingStub){
