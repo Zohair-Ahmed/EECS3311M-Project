@@ -23,7 +23,7 @@ public interface IReviewPresenter {
      *
      * @return ILoginPanelView
      */
-    IReviewPanelView getLoginPanelView();
+    IReviewPanelView getReviewPanelView();
 
     /**
      * Sets the view
@@ -48,5 +48,5 @@ public interface IReviewPresenter {
      *
      * @return any updated attribute(s)
      */
-    void updateViewFromModel(String message);
+    void updateViewFromModel();
 }

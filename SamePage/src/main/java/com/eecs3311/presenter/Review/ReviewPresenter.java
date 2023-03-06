@@ -11,6 +11,7 @@ import java.io.IOException;
 public class ReviewPresenter implements IReviewPresenter{
 
     private IReviewModel reviewModel;
+    private IReviewPanelView reviewPanelView;
 
     @Override
     public IReviewModel getModel() {
@@ -23,13 +24,12 @@ public class ReviewPresenter implements IReviewPresenter{
     }
 
     @Override
-    public IReviewPanelView getLoginPanelView() {
-        return null;
-    }
+    public IReviewPanelView getReviewPanelView() {return this.reviewPanelView;}
+
 
     @Override
     public void setView(IReviewPanelView irv) {
-
+        this.reviewPanelView = irv;
     }
 
     @Override
@@ -38,15 +38,7 @@ public class ReviewPresenter implements IReviewPresenter{
     }
 
     @Override
-    public void updateViewFromModel(String message) {
-        try {
-            DisplayBookInformation.getInstance(null).setErrorMessage(message);
-        } catch (IOException e) {
-
-        } catch (NullPointerException e) {
-
-        }
-
+    public void updateViewFromModel() {
     }
 
 }

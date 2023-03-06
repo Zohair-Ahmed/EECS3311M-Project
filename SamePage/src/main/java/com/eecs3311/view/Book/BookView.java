@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.io.IOException;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.view.components.ReviewsPanel;
 
 public class BookView implements IBookView {
 

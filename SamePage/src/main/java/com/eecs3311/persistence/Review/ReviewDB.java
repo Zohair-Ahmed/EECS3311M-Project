@@ -81,11 +81,6 @@ public class ReviewDB extends AbstractDatabase implements IReview{
 
     private Connection conn;
     public ReviewDB() {
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/samepageschema", "root", "1234");
-            // System.out.println("connection successful via ip address");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       super();
     }
 }

@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import com.eecs3311.model.Review.IReviewModel;
+import com.eecs3311.model.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.presenter.Review.IReviewPresenter;
 import com.eecs3311.presenter.Review.ReviewPresenter;
@@ -33,7 +35,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private String isbn = "";
     private String genre = "";
     private String imgUrl = "";
-    private JLabel errMsg;
+    private static JLabel errMsg = new JLabel("");
     private final Color color = new Color(238, 238, 238);
 
     private JButton submitButton = new JButton("Submit");
@@ -42,7 +44,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private static DisplayBookInformation instance = null;
 
     private static IReviewPresenter reviewPresenter = new ReviewPresenter();
-    private static IReviewModel reviewModel = new ReviewModel();
+    private static IReviewModel reviewModel = new ReviewModel("", "", "", "", "");
     private static IReviewPanelView reviewView = new ReviewPanelView();
     private ReviewsPanel reviews = new ReviewsPanel("");
 
@@ -50,13 +52,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
      * private Constructor to manage one instance of the book details popup
      */
     private DisplayBookInformation(IBookPresenter bookPresenter) {
-        // M <-> P
+        // M <-> P for uploading review
         reviewModel.setPresenter(reviewPresenter);
         reviewPresenter.setModel(reviewModel);
-
-        // P <-> V
-//        reviewPresenter.setView(reviewView);
-//        reviewView.setPresenter(reviewPresenter);
 
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
@@ -72,6 +70,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(new Font("Futura", Font.BOLD, 15));
         root.add(title);
+        errMsg.setText("");
         initComponents();
     }
 
@@ -233,14 +232,16 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(errMsg, c);
     }
 
-    public void setErrorMessage(String errorMessage) {
+    public static void setErrorMessage(String errorMessage) {
         errMsg.setText(errorMessage);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            // get review info then submit review info to db to be added
-            this.reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+            if (User.getInstance().getLoginState().equals(State.MEMBER))
+                this.reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+            else
+                errMsg.setText("Please login to leave a review!");
         }
     }
 

@@ -25,4 +25,11 @@ public interface IReviewModel {
      * @param isbn
      */
     void updateModelFromView(String review, String rating, String isbn);
+
+    public String getUsername();
+
+    public String getRating();
+
+    public String getReview();
+
 }

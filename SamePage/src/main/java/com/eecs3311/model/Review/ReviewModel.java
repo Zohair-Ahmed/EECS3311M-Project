@@ -32,11 +32,16 @@ public class ReviewModel implements IReviewModel{
     private String review;
     private String rating;
     private String isbn;
+    private String date;
     private IReviewPresenter reviewPresenter;
     private int reviewLikes;
     private int reviewDislikes;
-    public ReviewModel(){
-
+    public ReviewModel(String username, String reviewBody, String date, String rating, String BookID){
+        this.username = username;
+        this.review = reviewBody;
+        this.date = date;
+        this.rating = rating;
+        this.isbn = BookID;
     }
 
     @Override
@@ -59,9 +64,7 @@ public class ReviewModel implements IReviewModel{
     }
 
     public void createReview(String review, String rating, String isbn) {
-        if (User.getInstance().getLoginState().equals(State.GUEST)) {
-            getPresenter().updateViewFromModel("Must Login to Leave a Review");
-        } else{
+        if (User.getInstance().getLoginState().equals(State.MEMBER)) {
             Database.getReviewInstance().submitReview(review, rating, isbn);
         }
     }
