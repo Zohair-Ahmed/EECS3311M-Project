@@ -19,6 +19,7 @@ public class ReviewModel implements IReviewModel{
     private IReviewPresenter reviewPresenter;
     private int reviewLikes;
     private int reviewDislikes;
+    public ReviewModel(){
 
     }
 

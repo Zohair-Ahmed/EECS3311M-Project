@@ -57,4 +57,9 @@ public class User {
         return "Current User = " + getEmail() + " - " + getPassword();
     }
 
+    public State getLoginState() {
+        return loginState;
+    }
+
+
 }

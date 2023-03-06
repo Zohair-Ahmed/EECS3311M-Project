@@ -3,6 +3,8 @@ package com.eecs3311.view.Book;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -216,6 +218,10 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         c.gridheight = 1;
         submitButton.addActionListener(this);
         root.add(submitButton, c);
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        errMsg.setText(errorMessage);
     }
 
     public void actionPerformed(ActionEvent e) {
