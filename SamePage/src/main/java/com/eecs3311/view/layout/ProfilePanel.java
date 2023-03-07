@@ -1,5 +1,8 @@
 package com.eecs3311.view.layout;
 
+import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.model.User;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
 import com.eecs3311.view.components.ResultsMediator;
@@ -7,18 +10,21 @@ import com.eecs3311.view.components.ResultsPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ProfilePanel implements IPanelView {
 
     private JPanel root;
+
+    private ArrayList<IBookModel> favBooks;
     private ResultsMediator mediator;
     private ResultsPanel lbv;
 
     public ProfilePanel() {
+        Database.getFavBooksInstance().getDBdata();
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
-        mediator = new ResultsMediator(); // Used for connecting search bar and results panel
-        lbv = new ResultsPanel(mediator); // Latest book view (results panel)
+        lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
         initComponents();
     }
     @Override
@@ -38,11 +44,11 @@ public class ProfilePanel implements IPanelView {
 
     @Override
     public void initComponents() {
-        initProfileLayout();
+        initBooksLayout();
         initUserPanel();
     }
 
-    private void initProfileLayout() {
+    private void initBooksLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 0;

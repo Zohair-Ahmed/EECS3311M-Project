@@ -25,6 +25,11 @@ public class ResultsPanel implements ActionListener, IPanelView {
         initComponents();
     }
 
+    public ResultsPanel(ArrayList<IBookModel> books) {
+        container.setLayout(new GridBagLayout());
+        initReleaseContainer(books);
+    }
+
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());

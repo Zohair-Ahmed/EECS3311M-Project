@@ -46,7 +46,7 @@ public class Main extends JFrame implements ActionListener {
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
 
-  private ProfilePanel profile = new ProfilePanel();
+  private ProfilePanel profile;
   private Menubar menuBar;
 
   private void initHomeButtonUI() {
@@ -148,8 +148,6 @@ public class Main extends JFrame implements ActionListener {
     container.add(mainPanel, "Landing");
     container.add(ilv.getView(), "Login");
     container.add(irv.getView(), "Register");
-    container.add(profile.getView(), "Profile");
-
   }
 
   private void configureLoginMVP() {
@@ -213,6 +211,8 @@ public class Main extends JFrame implements ActionListener {
     return this.cards;
   }
   public void addProfilePanel() {
+    profile= new ProfilePanel();
+    container.add(profile.getView(), "Profile");
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);
