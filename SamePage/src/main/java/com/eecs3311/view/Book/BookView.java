@@ -50,7 +50,7 @@ public class BookView implements IBookView {
         GridBagConstraints c = new GridBagConstraints();
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
-        JLabel avgReviews = new JLabel(getPresenter().getUpdatedViewFromModel().getAverageReview()+" ☆");
+        JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
         JButton favouriteBtn = new JButton("Favourite");
         try {
             URL url = new URL(bookPresenter.getUpdatedViewFromModel().getImg());

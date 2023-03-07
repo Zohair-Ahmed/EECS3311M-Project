@@ -37,6 +37,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private String genre = "";
     private String imgUrl = "";
     private static JLabel errMsg = new JLabel("");
+    private JLabel reviewLabel = new JLabel();
 //    private final Color color = new Color(238, 238, 238);
 
     private JButton submitButton = new JButton("Submit");
@@ -228,9 +229,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     public void initAllReviews() {
         reviews = new ReviewsPanel(isbn);
-        JLabel reviewLabel = new JLabel("Reviews:     Total Reviews: "+
+        reviewLabel = new JLabel("Reviews:     Total Reviews: "+
                 Database.getReviewInstance().getTotalRatings()+
-                "     "+Database.getReviewInstance().getAverageRating(isbn)+" ☆");
+                "     "+String.format("%.1f",Database.getReviewInstance().getAverageRating(isbn))+" ☆");
         reviewLabel.setFont(new Font("Futura", Font.BOLD, 12));
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 2;
