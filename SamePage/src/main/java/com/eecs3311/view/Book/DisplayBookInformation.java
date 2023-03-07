@@ -251,6 +251,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         if (e.getSource() == submitButton) {
             if (User.getInstance().getLoginState().equals(State.MEMBER)) {
                 reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+                root.remove(reviewLabel);
                 root.remove(reviews.getView());
                 initAllReviews();
                 root.updateUI();
