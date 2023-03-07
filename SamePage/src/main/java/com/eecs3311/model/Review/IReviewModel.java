@@ -32,4 +32,5 @@ public interface IReviewModel {
 
     public String getReview();
 
+    public String getDate();
 }

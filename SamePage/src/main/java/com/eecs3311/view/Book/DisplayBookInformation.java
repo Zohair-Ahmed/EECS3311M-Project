@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.User;
 import com.eecs3311.model.enums.State;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.presenter.Review.IReviewPresenter;
 import com.eecs3311.presenter.Review.ReviewPresenter;
@@ -226,7 +227,10 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     }
 
     public void initAllReviews() {
-        JLabel reviewLabel = new JLabel("Reviews: ");
+        reviews = new ReviewsPanel(isbn);
+        JLabel reviewLabel = new JLabel("Reviews:     Total Reviews: "+
+                Database.getReviewInstance().getTotalRatings()+
+                "     "+Database.getReviewInstance().getAverageRating(isbn)+" ☆");
         reviewLabel.setFont(new Font("Futura", Font.BOLD, 12));
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 2;
@@ -236,7 +240,6 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         c.gridy = 1;
         c.anchor = GridBagConstraints.NORTH;
         c.insets = new Insets(0, 20, 0, 0);
-        reviews = new ReviewsPanel(isbn);
         root.add(reviews.getView(), c);
     }
 
@@ -246,8 +249,12 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            if (User.getInstance().getLoginState().equals(State.MEMBER))
-                this.reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+            if (User.getInstance().getLoginState().equals(State.MEMBER)) {
+                reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+                root.remove(reviews.getView());
+                initAllReviews();
+                root.updateUI();
+            }
             else
                 errMsg.setText("Please login to leave a review!");
         }

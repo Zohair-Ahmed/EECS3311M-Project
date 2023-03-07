@@ -37,24 +37,41 @@ public class BookView implements IBookView {
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
-        JLabel genreLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getGenre());
-        Border blackline = BorderFactory.createLineBorder(Color.black);
-        mainPanel.setBorder(blackline);
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipadx = 100;
-        c.ipady = 25;
-        c.weightx = 0.0;
-        c.gridwidth = 1;
+        JLabel avgReviews = new JLabel(getPresenter().getUpdatedViewFromModel().getAverageReview()+" ☆");
+        JButton favouriteBtn = new JButton("Favourite");
+        try {
+            URL url = new URL(bookPresenter.getUpdatedViewFromModel().getImg());
+            BufferedImage img = ImageIO.read(url);
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(120, 180, Image.SCALE_SMOOTH));
+            JLabel picLabel = new JLabel(imageIcon);
+            mainPanel.add(picLabel, c);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        titleLbl.setFont(new Font("Futura", Font.BOLD, 12));
+        authorLbl.setFont(new Font("Futura", Font.BOLD | Font.ITALIC, 10));
+        avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
+        avgReviews.setForeground(new Color(255, 191, 0));
+        favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
+        favouriteBtn.setBackground(new Color(29, 152, 252));
+        favouriteBtn.setForeground(new Color(255, 255, 255));
+        favouriteBtn.setOpaque(true);
+        favouriteBtn.setBorderPainted(false);
         c.gridx = 0;
-        c.gridy = 0;
+        c.gridy = 1;
         mainPanel.add(titleLbl, c);
-        c.gridy++;
-        mainPanel.add(genreLbl, c);
-        c.gridy++;
+        c.gridy = 2;
         mainPanel.add(authorLbl, c);
+        c.gridy = 3;
+        mainPanel.add(avgReviews, c);
+        c.gridy = 4;
+        c.insets = new Insets(5, 0, 50, 15);
+        mainPanel.add(favouriteBtn, c);
         mainPanel.addMouseListener(onBookClicked());
         mainPanel.revalidate();
         return mainPanel;
@@ -96,7 +113,7 @@ public class BookView implements IBookView {
         bookFrame = new JFrame("Book Reviews");
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bookFrame.add(book.getView());
-        bookFrame.setSize(1250, 550);
+        bookFrame.setSize(1050, 535);
         bookFrame.setVisible(true);
         addWindowListener();
     }

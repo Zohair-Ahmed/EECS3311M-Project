@@ -48,7 +48,9 @@ public class ReviewsPanel implements ActionListener, IPanelView {
     private void initScrollPaneView(ArrayList<IReviewModel> reviews) {
         GridBagConstraints c = new GridBagConstraints();
         reviewsContainer.setLayout(new GridLayout(reviews.size(), 1, 1, 1));
-        JScrollPane scroll = new JScrollPane(reviewsContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(reviewsContainer,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(315, 235));
         container.add(scroll, c);
     }

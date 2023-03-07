@@ -25,7 +25,7 @@ public class ReviewPanelView implements IReviewPanelView{
         root = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JTextArea userRating = new JTextArea();
-        userRating.setText("User: "+getPresenter().getModel().getUsername()+" - "+getPresenter().getModel().getRating()+"/5");
+        userRating.setText(getPresenter().getModel().getDate()+ "\n\nBy: "+getPresenter().getModel().getUsername()+ "\nRating: "+getPresenter().getModel().getRating()+"/5");
         userRating.setEditable(false);
         userRating.setLineWrap(true);
         userRating.setBackground(new Color(238, 238, 238));
