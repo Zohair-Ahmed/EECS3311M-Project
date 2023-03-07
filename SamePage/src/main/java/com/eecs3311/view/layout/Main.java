@@ -8,6 +8,8 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
+import com.eecs3311.model.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
@@ -130,16 +132,18 @@ public class Main extends JFrame implements ActionListener {
     profileButton.addActionListener(this);
   }
 
+  JPanel mainPanel;
+  LandingPanel landingPanel;
   private void initPageSetup() {
     contentPane = new JPanel();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     setContentPane(contentPane);
 
-    JPanel mainPanel = new JPanel();
+    mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
     mainPanel.setBackground(new Color(128, 128, 255));
 
-    LandingPanel landingPanel = new LandingPanel();
+    landingPanel = new LandingPanel();
     mainPanel.add(landingPanel.getView());
     mainPanel.setSize(500, 500);
 
@@ -148,6 +152,12 @@ public class Main extends JFrame implements ActionListener {
     container.add(mainPanel, "Landing");
     container.add(ilv.getView(), "Login");
     container.add(irv.getView(), "Register");
+  }
+
+  public void setLandingPanel(LandingPanel lp) {
+    mainPanel.remove(this.landingPanel.getView());
+    this.landingPanel = lp;
+    mainPanel.add(this.landingPanel.getView());
   }
 
   private void configureLoginMVP() {
@@ -198,8 +208,11 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Register");
     if (e.getSource() == homeButton)
       cards.show(container, "Landing");
-    if (e.getSource() == profileButton)
+    if (e.getSource() == profileButton) {
+      container.remove(profile.getView());
+      addProfilePanel();
       cards.show(container, "Profile");
+    }
   }
 
 

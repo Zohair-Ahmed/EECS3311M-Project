@@ -5,6 +5,7 @@ import javax.swing.*;
 import com.eecs3311.model.Member;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.layout.LandingPanel;
 import com.eecs3311.view.layout.Main;
 
 import java.awt.*;
@@ -38,6 +39,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Switch to the landing frame panel
+				main.setLandingPanel(new LandingPanel());
 				main.getCard().show(main.getContainer(), "Landing");
 				main.addProfilePanel();
 			}
