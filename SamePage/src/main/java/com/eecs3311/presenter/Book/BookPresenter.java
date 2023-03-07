@@ -48,4 +48,17 @@ public class BookPresenter implements IBookPresenter {
     public IBookModel getUpdatedViewFromModel() {
         return this.bookModel;
     }
+
+    public void updateModelFavBooks() {
+        getModel().addFavoriteBook();
+    }
+
+    public void removeFavBook() {
+        getModel().removeFavoriteBook();
+    }
+
+    public boolean checkModelFavBooks() {
+        boolean check = getModel().checkFavoriteBook();
+        return check;
+    }
 }

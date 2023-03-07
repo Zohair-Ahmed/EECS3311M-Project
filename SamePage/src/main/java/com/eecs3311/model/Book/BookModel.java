@@ -1,8 +1,14 @@
 package com.eecs3311.model.Book;
 
 import com.eecs3311.model.Reviews;
+import com.eecs3311.model.User;
+import com.eecs3311.persistence.Database;
+import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.view.Book.BookView;
+import com.eecs3311.view.Book.IBookView;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
@@ -97,4 +103,30 @@ public class BookModel implements IBookModel {
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
     }
+
+    public void addFavoriteBook() {
+        Database.getFavBooksInstance().addBook(this);
+//        User.getInstance().addFavBook(this);
+    }
+
+    @Override
+    public void removeFavoriteBook() {
+        Database.getFavBooksInstance().removeFromFavorites(this);
+    }
+
+    public boolean checkFavoriteBook() {
+        boolean checkBook = false;
+        ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
+
+        if (userBooks != null) {
+            for (IBookModel ibm : userBooks) {
+                if (this.getISBN().equals(ibm.getISBN())) {
+                    checkBook = true;
+                }
+            }
+        }
+
+        return checkBook;
+    }
+
 }

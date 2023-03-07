@@ -30,4 +30,13 @@ public interface IBookModel {
     String toString();
 
     String getImg();
+
+    /*
+    Add this book model to the list of favourite books for the user currently logged in
+     */
+    void addFavoriteBook();
+
+    void removeFavoriteBook();
+
+    boolean checkFavoriteBook();
 }

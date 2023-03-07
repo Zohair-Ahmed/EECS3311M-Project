@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
+import com.eecs3311.model.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {
@@ -39,6 +41,27 @@ public class BookView implements IBookView {
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel genreLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getGenre());
+
+        JButton favoriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove from Favorites" : "Add to Favorites");
+
+        // add the action listener to the favorite button
+        favoriteBtn.addActionListener(e -> {
+            if (User.getInstance().getLoginState() == State.GUEST) {
+                // Show a prompt JFrame using JOptionPane
+                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favorites");
+            } else {
+                if (getPresenter().checkModelFavBooks()) {
+                    // remove the book from the user's favorites
+                    getPresenter().removeFavBook();
+                    favoriteBtn.setText("Add to Favorites");
+                } else {
+                    // add the book to the user's favorites
+                    getPresenter().updateModelFavBooks();
+                    favoriteBtn.setText("Remove from Favorites");
+                }
+            }
+        });
+
         Border blackline = BorderFactory.createLineBorder(Color.black);
         mainPanel.setBorder(blackline);
         GridBagConstraints c = new GridBagConstraints();
@@ -54,6 +77,14 @@ public class BookView implements IBookView {
         mainPanel.add(genreLbl, c);
         c.gridy++;
         mainPanel.add(authorLbl, c);
+
+        // create a new panel for the favorite button
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(favoriteBtn, BorderLayout.EAST);
+        c.gridx++;
+        c.weightx = 1.0; // make the button panel take up remaining horizontal space
+        mainPanel.add(buttonPanel, c);
+
         mainPanel.addMouseListener(onBookClicked());
         mainPanel.revalidate();
         return mainPanel;

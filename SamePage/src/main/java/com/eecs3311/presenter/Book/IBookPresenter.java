@@ -30,4 +30,10 @@ public interface IBookPresenter {
      * @return any updated attribute(s)
      */
     IBookModel getUpdatedViewFromModel();
+
+    void updateModelFavBooks();
+
+    boolean checkModelFavBooks();
+
+    void removeFavBook();
 }
