@@ -28,7 +28,7 @@ public class ReviewDB extends AbstractDatabase implements IReview{
         String query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ User.getInstance().getUsername()+"\", CURDATE());";
 
         try {
-            Statement temp = conn.createStatement();
+            Statement temp = getConnection().createStatement();
             temp.executeUpdate(query);
         }
 
@@ -45,10 +45,8 @@ public class ReviewDB extends AbstractDatabase implements IReview{
                 ArrayList<IReviewModel> revs = new ArrayList<>();
                 String query = "SELECT * FROM Reviews WHERE BookID = \""+ISBN+"\";";
                 Statement st = getConnection().createStatement();
-                // execute the query, and get a java resultset
-                ResultSet rs = st.executeQuery(query);
-                // iterate through the java resultset
-                while (rs.next()) {
+                ResultSet rs = st.executeQuery(query); // execute the query, and get a java resultset
+                while (rs.next()) { // iterate through the java resultset
                     username = rs.getString("Username");
                     reviewBody = rs.getString("ReviewDesc");
                     date = rs.getString("DatePosted");

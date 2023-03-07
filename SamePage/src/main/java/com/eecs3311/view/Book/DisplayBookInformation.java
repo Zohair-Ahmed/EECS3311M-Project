@@ -36,7 +36,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private String genre = "";
     private String imgUrl = "";
     private static JLabel errMsg = new JLabel("");
-    private final Color color = new Color(238, 238, 238);
+//    private final Color color = new Color(238, 238, 238);
 
     private JButton submitButton = new JButton("Submit");
     private JSlider ratingSlider = new JSlider(1, 5, 3);
@@ -52,10 +52,8 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
      * private Constructor to manage one instance of the book details popup
      */
     private DisplayBookInformation(IBookPresenter bookPresenter) {
-        // M <-> P for uploading review
-        reviewModel.setPresenter(reviewPresenter);
+        reviewModel.setPresenter(reviewPresenter); // M <-> P for uploading review
         reviewPresenter.setModel(reviewModel);
-
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         //Set the book values the user clicked
@@ -67,9 +65,11 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
                 bookPresenter.getUpdatedViewFromModel().getImg());
         JLabel title = new JLabel(titleB); // Title text and UI configurations
         title.setForeground(new Color(12, 51, 127));
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("Futura", Font.BOLD, 15));
-        root.add(title);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        title.setFont(new Font("Futura", Font.BOLD, 30));
+        root.add(title, c);
         errMsg.setText("");
         initComponents();
     }
@@ -116,10 +116,8 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
             ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(170, 210, Image.SCALE_SMOOTH));
             JLabel picLabel = new JLabel(imageIcon);
             GridBagConstraints c = new GridBagConstraints();
-            c.gridx = 3;
+            c.gridx = 0;
             c.gridy = 1;
-            c.gridheight = 0;
-            c.gridwidth = 0;
             root.add(picLabel,c);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -128,62 +126,51 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     private void initGenre() {
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 2;
-        JLabel GenreLabel = new JLabel("Genre: ");
-        JTextField GenreField = new JTextField();
-        GenreField.setText(genre);
-        GenreField.setEditable(false);
-        GenreField.setBackground(color);
+        c.gridx = 0;
+        c.gridy = 3;
+        JLabel GenreLabel = new JLabel("Genre:  "+genre);
+        GenreLabel.setFont(new Font("Futura", Font.BOLD, 13));
         root.add(GenreLabel, c);
-        c.gridx = 3;
-        root.add(GenreField, c);
     }
 
     private void initAuthor() {
         GridBagConstraints c = new GridBagConstraints();
-        JLabel authorLabel = new JLabel("Author: ");
-        JTextField authorField = new JTextField(20);
-        authorField.setEditable(false);
-        authorField.setBackground(color);
-        authorField.setText(author);
+        JLabel authorLabel = new JLabel("Author:  "+author);
+        authorLabel.setFont(new Font("Futura", Font.BOLD, 13));
         c.gridx = 0;
-        c.gridy = 1;
+        c.gridy = 2;
         root.add(authorLabel,c);
-        c.gridx = 1;
-        c.gridy = 1;
-        root.add(authorField,c);
+
     }
 
     private void initISBN() {
         GridBagConstraints c = new GridBagConstraints();
-        JLabel ISBNLabel = new JLabel("ISBN: ");
-        JTextField ISBNField = new JTextField();
-        ISBNField.setEditable(false);
-        ISBNField.setBackground(new Color(238, 238, 238));
-        ISBNField.setText(isbn);
-        c.gridx = 2;
-        c.gridy = 1;
+        JLabel ISBNLabel = new JLabel("ISBN:  "+isbn);
+        ISBNLabel.setFont(new Font("Futura", Font.BOLD, 13));
+        c.gridx = 0;
+        c.gridy = 4;
         root.add(ISBNLabel, c);
-        c.gridx =3;
-        root.add(ISBNField, c);
     }
 
     private void initSummary() {
         GridBagConstraints c = new GridBagConstraints();
-        JLabel summaryLabel = new JLabel("Summary:");
-        JTextArea summaryArea = new JTextArea(5, 20);
+        JLabel summaryLabel = new JLabel("About the novel:");
+        summaryLabel.setFont(new Font("Futura", Font.BOLD, 12));
+        JTextArea summaryArea = new JTextArea(5, 30);
         summaryArea.setEditable(false);
         summaryArea.setText(summary);
         summaryArea.setLineWrap(true);
         JScrollPane scrollPane = new JScrollPane(summaryArea,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(320, 110));
-        c.gridx = 0;
-        c.gridy = 2;
+        scrollPane.setPreferredSize(new Dimension(400, 110));
+        summaryArea.setBackground(new Color(238, 238, 238));
+        c.insets = new Insets(0, 30, 0, 0);
+        c.gridx = 1;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.WEST;
         root.add(summaryLabel, c);
         c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
-        c.gridy = 2;
+        c.gridy = 1;
         root.add(scrollPane, c);
         SwingUtilities.invokeLater(() -> scrollPane.getViewport().setViewPosition( new Point(0, 0) ));
     }
@@ -191,11 +178,13 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private void initUserRating() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel ratingLabel = new JLabel("Rating:");
+        ratingLabel.setFont(new Font("Futura", Font.BOLD, 12));
         ratingSlider.setMajorTickSpacing(1);
+        ratingSlider.setPaintLabels(true);
         ratingSlider.setPaintTicks(true);
         ratingSlider.setSnapToTicks(true);
-        c.gridx = 0;
-        c.gridy = 3;
+        c.gridx = 1;
+        c.gridy = 2;
         root.add(ratingLabel, c);
         c.gridx = 1;
         c.gridy = 3;
@@ -204,13 +193,16 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     private void initUserReview() {
         GridBagConstraints c = new GridBagConstraints();
-        JLabel reviewLabel = new JLabel("Review:");
-        JScrollPane scrollPane = new JScrollPane(reviewArea);
-        c.gridx = 0;
-        c.gridy = 4;
+        JLabel reviewLabel = new JLabel("Leave a review:");
+        reviewLabel.setFont(new Font("Futura", Font.BOLD, 12));
+        reviewArea.setLineWrap(true);
+        JScrollPane scrollPane = new JScrollPane(reviewArea,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        c.gridx = 1;
+        c.gridy = 5;
         root.add(reviewLabel, c);
         c.gridx = 1;
-        c.gridy = 4;
+        c.gridy = 6;
         c.gridheight = 2;
         root.add(scrollPane, c);
     }
@@ -218,18 +210,34 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private void initSubmitButton(){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 1;
-        c.gridy = 7;
-        c.gridheight = 1;
+        c.gridy = 8;
         submitButton.addActionListener(this);
         root.add(submitButton, c);
     }
 
     private void initErrorMessage(){
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 1;
-        c.gridy = 8;
+        c.gridx = 2;
+        c.gridy = 7;
         c.gridheight = 1;
+        errMsg.setFont(new Font("Futura", Font.ITALIC, 13));
+        errMsg.setForeground(new Color(255, 0, 20));
         root.add(errMsg, c);
+    }
+
+    public void initAllReviews() {
+        JLabel reviewLabel = new JLabel("Reviews: ");
+        reviewLabel.setFont(new Font("Futura", Font.BOLD, 12));
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 2;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.WEST;
+        root.add(reviewLabel, c);
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.NORTH;
+        c.insets = new Insets(0, 20, 0, 0);
+        reviews = new ReviewsPanel(isbn);
+        root.add(reviews.getView(), c);
     }
 
     public static void setErrorMessage(String errorMessage) {
@@ -251,11 +259,6 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     public String getRating() {
         return ""+ratingSlider.getValue();
-    }
-
-    public void initAllReviews() {
-        reviews = new ReviewsPanel(isbn);
-        root.add(reviews.getView());
     }
 
     @Override

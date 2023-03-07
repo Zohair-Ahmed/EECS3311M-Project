@@ -96,7 +96,7 @@ public class BookView implements IBookView {
         bookFrame = new JFrame("Book Reviews");
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bookFrame.add(book.getView());
-        bookFrame.setSize(1000, 400);
+        bookFrame.setSize(1250, 550);
         bookFrame.setVisible(true);
         addWindowListener();
     }
