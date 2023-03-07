@@ -63,14 +63,12 @@ public class ResultsPanel implements ActionListener, IPanelView {
         c.gridx = 0;
         c.gridy = 1;
 
-        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         if (state.equals("resultPage")) {
-            this.textJLabel
-                    .setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+            this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
             scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            releaseContainer.setLayout(new GridLayout(results.size(), 1, 1, 1));
+            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/7)+1, 7));
         }
         container.add(scroll, c);
     }
@@ -79,7 +77,8 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
         if (results == null)
             return;
-
+        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
+        releaseContainer.setLayout(gridLayout);
         for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
         }

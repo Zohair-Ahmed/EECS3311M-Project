@@ -64,6 +64,24 @@ public class ReviewDB extends AbstractDatabase implements IReview{
         return reviews;
     }
 
+    @Override
+    public double getAverageRating(String ISBN) {
+        reviews = getReviewData(ISBN);
+        if (reviews == null || reviews.size() == 0)
+            return 0;
+        double sum = 0;
+        double total = this.reviews.size();
+        for (IReviewModel irm : this.reviews) {
+            sum += Double.parseDouble(irm.getRating());
+        }
+        return sum/total;
+    }
+
+    @Override
+    public int getTotalRatings() {
+        return this.reviews == null ? 0 : this.reviews.size();
+    }
+
     private void addToList(ArrayList<IReviewModel> revs) {
         for (IReviewModel irm : revs) {
             IReviewPresenter irp = new ReviewPresenter();

@@ -8,4 +8,6 @@ public interface IReview {
 
     void submitReview(String review, String rating, String isbn);
     ArrayList<IReviewModel> getReviewData(String ISBN);
+    double getAverageRating(String ISBN);
+    int getTotalRatings();
 }

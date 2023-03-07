@@ -31,10 +31,14 @@ public class ReviewsPanel implements ActionListener, IPanelView {
     private JPanel reviewsContainer = new JPanel();
     private String ISBN;
 
+    private ArrayList<IReviewModel> reviews = new ArrayList<>();
+
     public ReviewsPanel(String ISBN) {
         this.ISBN = ISBN;
         initComponents();
     }
+
+
 
     private void initReviewsContainer(ArrayList<IReviewModel> reviews) {
         if (reviews == null || reviews.size() == 0)
@@ -58,7 +62,8 @@ public class ReviewsPanel implements ActionListener, IPanelView {
 
     @Override
     public void initComponents(){
-        initReviewsContainer(Database.getReviewInstance().getReviewData(ISBN));
+        this.reviews = Database.getReviewInstance().getReviewData(ISBN);
+        initReviewsContainer(reviews);
     }
 
     @Override

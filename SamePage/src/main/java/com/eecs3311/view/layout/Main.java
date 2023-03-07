@@ -190,6 +190,7 @@ public class Main extends JFrame implements ActionListener {
     setTitle("Same Page");
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setVisible(true);
+    setLocationRelativeTo(null);
   }
 
   @Override

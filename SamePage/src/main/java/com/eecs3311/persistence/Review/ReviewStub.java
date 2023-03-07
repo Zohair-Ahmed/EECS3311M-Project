@@ -13,6 +13,17 @@ public class ReviewStub implements IReview{
     }
 
     @Override
+    public int getTotalRatings(){
+        return 0;
+    }
+
+
+    @Override
+    public double getAverageRating(String ISBN){
+        return 0;
+    }
+
+    @Override
     public ArrayList<IReviewModel> getReviewData(String ISBN){
         return null;
     }

@@ -1,6 +1,7 @@
 package com.eecs3311.model.Book;
 
 import com.eecs3311.model.Review.ReviewModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class BookModel implements IBookModel {
     private String author;
     private String img;
     private String genre;
+    private double averageReview = 0;
 
     // Each Model class needs ONE Presenter class Interface
     private IBookPresenter bookPresenter;
@@ -97,4 +99,10 @@ public class BookModel implements IBookModel {
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
     }
+
+    @Override
+    public double getAverageReview() {
+        return Database.getReviewInstance().getAverageRating(getISBN());
+    }
+
 }

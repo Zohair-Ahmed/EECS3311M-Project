@@ -30,4 +30,6 @@ public interface IBookModel {
     String toString();
 
     String getImg();
+
+    double getAverageReview();
 }

@@ -1,10 +1,14 @@
 package com.eecs3311.view.Book;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
 import com.eecs3311.view.components.ReviewsPanel;
@@ -25,6 +29,12 @@ public class BookView implements IBookView {
     @Override
     public void setPresenter(IBookPresenter bp) {
         this.bookPresenter = bp;
+    }
+
+    @Override
+    public JPanel getAlternateView(){
+
+        return new JPanel();
     }
 
     /**
@@ -115,6 +125,7 @@ public class BookView implements IBookView {
         bookFrame.add(book.getView());
         bookFrame.setSize(1050, 535);
         bookFrame.setVisible(true);
+        bookFrame.setLocationRelativeTo(null);
         addWindowListener();
     }
     private void addWindowListener() {
