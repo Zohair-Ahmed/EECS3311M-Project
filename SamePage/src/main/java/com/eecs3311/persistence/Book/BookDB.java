@@ -5,6 +5,7 @@ import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.util.log.console.ConsoleLogs;
 import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -37,9 +38,8 @@ public class BookDB extends AbstractDatabase implements IBook {
     public BookDB() {
         super();
         try {
-            if (!dataExists()) {
+            if (!dataExists())
                 prepopulateData();
-            }
             getDBdata();
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,10 +58,10 @@ public class BookDB extends AbstractDatabase implements IBook {
         // been called and data exists. Else return false.
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            System.out.println("Data exists in table.");
+            System.out.println(ConsoleLogs.DATABASE("Data exists in Book table of BookDB."));
             return true;
         } else {
-            System.out.println("Data does not exist in table.");
+            System.out.println(ConsoleLogs.DATABASE("Data does not exist in Book table of BookDB."));
             return false;
         }
     }
@@ -74,6 +74,7 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (getConnection() != null) {
+                System.out.println(ConsoleLogs.DATABASE("Prepopulating data..."));
                 String query = " INSERT INTO BOOK (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = getConnection().prepareStatement(query);
@@ -94,7 +95,7 @@ public class BookDB extends AbstractDatabase implements IBook {
                 }
             }
             else {
-                System.out.println("Failed to connect");
+                System.out.println(ConsoleLogs.ERROR("Failed to prepopulate BookDB data"));
             }
         }
         catch(Exception e){
