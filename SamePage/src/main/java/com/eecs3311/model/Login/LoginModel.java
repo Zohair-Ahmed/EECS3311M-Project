@@ -2,8 +2,6 @@ package com.eecs3311.model.Login;
 
 import com.eecs3311.model.User;
 import com.eecs3311.persistence.Database;
-import com.eecs3311.persistence.Login.ILogin;
-import com.eecs3311.persistence.Login.LoginDB;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.Book.DisplayBookInformation;
 
@@ -36,7 +34,6 @@ public class LoginModel implements ILoginModel {
             loginMessage = "Successfully Logged in as " + User.getInstance().getUsername();
             DisplayBookInformation.setErrorMessage("");
         }
-
         this.getPresenter().updateViewFromModel(loginMessage);
     }
 

@@ -1,9 +1,6 @@
 package com.eecs3311.model.Register;
 
 import com.eecs3311.presenter.Register.IRegisterPresenter;
-import com.eecs3311.persistence.Register.RegisterDB;
-
-
 public interface IRegisterModel {
 /**
      * Return the presenter
@@ -15,16 +12,16 @@ public interface IRegisterModel {
     /**
      * Sets the presenter
      * 
-     * @param ilp
+     * @param ilp presenter
      */
     void setPresenter(IRegisterPresenter ilp);
 
     /**
      * Updates the model from interactions from the view
      * 
-     * @param username
-     * @param email
-     * @param password
+     * @param username username
+     * @param email email
+     * @param password password
      */
     void updateModelFromView(String username, String email, String password);
 }

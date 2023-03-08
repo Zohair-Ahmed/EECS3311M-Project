@@ -13,24 +13,24 @@ public interface IReviewModel {
     /**
      * Sets the presenter
      *
-     * @param irp
+     * @param irp presenter
      */
     void setPresenter(IReviewPresenter irp);
 
     /**
      * Updates the model from interactions from the view
      *
-     * @param review
-     * @param rating
-     * @param isbn
+     * @param review review
+     * @param rating rating
+     * @param isbn isbn
      */
     void updateModelFromView(String review, String rating, String isbn);
 
-    public String getUsername();
+    String getUsername();
 
-    public String getRating();
+    String getRating();
 
-    public String getReview();
+    String getReview();
 
-    public String getDate();
+    String getDate();
 }

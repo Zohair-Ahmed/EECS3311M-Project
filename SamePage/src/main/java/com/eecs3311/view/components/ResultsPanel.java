@@ -41,6 +41,9 @@ public class ResultsPanel implements ActionListener, IPanelView {
         this.container.updateUI();
     }
 
+    /**
+     * To initialize
+     */
     private void initTextLayout() {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;

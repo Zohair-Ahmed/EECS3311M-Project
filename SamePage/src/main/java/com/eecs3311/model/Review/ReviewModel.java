@@ -4,9 +4,6 @@ import com.eecs3311.model.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Review.IReviewPresenter;
-import com.eecs3311.presenter.Review.ReviewPresenter;
-
-import java.util.Date;
 
 /**
  * Reviews class with intended functionality in itr2
@@ -62,7 +59,6 @@ public class ReviewModel implements IReviewModel{
         this.review = review;
         this.rating = rating;
         this.isbn = isbn;
-
         createReview(review, rating, isbn);
     }
 

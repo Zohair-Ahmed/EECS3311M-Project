@@ -2,12 +2,9 @@ package com.eecs3311.model.Register;
 
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Register.IRegisterPresenter;
-import com.eecs3311.persistence.Register.RegisterDB;
-
 
 public class RegisterModel implements IRegisterModel {
     private IRegisterPresenter RegisterPresenter;
-//    private RegisterDB registerDB;
     private String username;
     private String email;
     private String password;
@@ -27,7 +24,6 @@ public class RegisterModel implements IRegisterModel {
         this.username = username;
         this.email = email;
         this.password = password;
-
         validateRegister();
     }
 

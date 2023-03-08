@@ -1,12 +1,7 @@
 package com.eecs3311.presenter.Review;
 
 import com.eecs3311.model.Review.IReviewModel;
-import com.eecs3311.presenter.Book.BookPresenter;
-import com.eecs3311.view.Book.DisplayBookInformation;
 import com.eecs3311.view.Review.IReviewPanelView;
-
-import java.awt.print.Book;
-import java.io.IOException;
 
 public class ReviewPresenter implements IReviewPresenter{
 

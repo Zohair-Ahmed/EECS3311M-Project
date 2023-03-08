@@ -15,8 +15,6 @@ public class BookModel implements IBookModel {
     private String img;
     private String genre;
     private double averageReview = 0;
-
-    // Each Model class needs ONE Presenter class Interface
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, ArrayList<ReviewModel> reviews, String ISBN,

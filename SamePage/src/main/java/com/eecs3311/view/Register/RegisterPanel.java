@@ -23,13 +23,8 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	// Register button
 	private JButton btnRegister;
 
-	// Text labels
-	private JLabel lblUserCheck;
-	private JLabel lblEmailCheck;
-	private JLabel lblPassCheck;
-	private JLabel lblConfCheck;
-	private JLabel lblTermsCheck;
-	private JLabel lblConfirmation;
+	// Label used to output feedback from registration
+	private JLabel lblConfirmation = new JLabel("");
 
 	// Input fields
 	private JTextField tfUsername;

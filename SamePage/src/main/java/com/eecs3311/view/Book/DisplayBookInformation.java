@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.User;
 import com.eecs3311.model.enums.State;
@@ -38,8 +36,6 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     private String imgUrl = "";
     private static JLabel errMsg = new JLabel("");
     private JLabel reviewLabel = new JLabel();
-//    private final Color color = new Color(238, 238, 238);
-
     private JButton submitButton = new JButton("Submit");
     private JSlider ratingSlider = new JSlider(1, 5, 3);
     private JTextArea reviewArea = new JTextArea(5, 20);
@@ -111,6 +107,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         //display list of reviews from other users
     }
 
+    /**
+     * To initialize the book image
+     */
     private void initImage() {
         try{
             URL url = new URL(imgUrl);
@@ -126,6 +125,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         }
     }
 
+    /**
+     * To initialize the book genre
+     */
     private void initGenre() {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -135,6 +137,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(GenreLabel, c);
     }
 
+    /**
+     * To initialize the book author
+     */
     private void initAuthor() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel authorLabel = new JLabel("Author:  "+author);
@@ -145,6 +150,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     }
 
+    /**
+     * To initialize the ISBN
+     */
     private void initISBN() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel ISBNLabel = new JLabel("ISBN:  "+isbn);
@@ -154,6 +162,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(ISBNLabel, c);
     }
 
+    /**
+     * To initialize the summary of the book
+     */
     private void initSummary() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel summaryLabel = new JLabel("About the novel:");
@@ -162,8 +173,7 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         summaryArea.setEditable(false);
         summaryArea.setText(summary);
         summaryArea.setLineWrap(true);
-        JScrollPane scrollPane = new JScrollPane(summaryArea,
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane(summaryArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(400, 110));
         summaryArea.setBackground(new Color(238, 238, 238));
         c.insets = new Insets(0, 30, 0, 0);
@@ -177,6 +187,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         SwingUtilities.invokeLater(() -> scrollPane.getViewport().setViewPosition( new Point(0, 0) ));
     }
 
+    /**
+     * To initialize the label to leave a rating
+     */
     private void initUserRating() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel ratingLabel = new JLabel("Rating:");
@@ -193,6 +206,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(ratingSlider, c);
     }
 
+    /**
+     * To initialize a label to leave a review for the book
+     */
     private void initUserReview() {
         GridBagConstraints c = new GridBagConstraints();
         JLabel reviewLabel = new JLabel("Leave a review:");
@@ -209,6 +225,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(scrollPane, c);
     }
 
+    /**
+     * To initialize the submit review button
+     */
     private void initSubmitButton(){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 1;
@@ -217,6 +236,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(submitButton, c);
     }
 
+    /**
+     * To initialize a message on an unsuccessful review submission
+     */
     private void initErrorMessage(){
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 2;
@@ -227,6 +249,9 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(errMsg, c);
     }
 
+    /**
+     * To initialize a container to display all the reviews relevant to the clicked book
+     */
     public void initAllReviews() {
         reviews = new ReviewsPanel(isbn);
         reviewLabel = new JLabel("Reviews:     Total Reviews: "+
@@ -244,10 +269,15 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
         root.add(reviews.getView(), c);
     }
 
+    /**
+     * To set an error message on an unsuccessful attempt at leaving a review
+     * @param errorMessage
+     */
     public static void setErrorMessage(String errorMessage) {
         errMsg.setText(errorMessage);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             if (User.getInstance().getLoginState().equals(State.MEMBER)) {
@@ -284,7 +314,16 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     public void setParentContainer(JPanel parent) {
     }
 
-    public void setClicked(String title, String author, String description, String isbn, String genre, String imgUrl) {
+    /**
+     * To set the information of the book to display
+     * @param title
+     * @param author
+     * @param description
+     * @param isbn
+     * @param genre
+     * @param imgUrl
+     */
+    private void setClicked(String title, String author, String description, String isbn, String genre, String imgUrl) {
         this.titleB = title;
         this.author = author;
         this.summary = description;

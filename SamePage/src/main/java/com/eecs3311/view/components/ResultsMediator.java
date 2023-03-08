@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.eecs3311.model.Book.IBookModel;
 
+// Mediator Pattern
 // Method used for connected the search bar and results panels in the landing page
 public class ResultsMediator {
     private ResultsPanel lbv;

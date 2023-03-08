@@ -8,20 +8,19 @@ import com.eecs3311.persistence.Register.*;
 import com.eecs3311.persistence.Review.*;
 
 
-
+// Single Pattern
 public class Database {
 
     private static ILogin login;
     private static IRegister register;
     private static IBook book;
     private static IReview review;
-
     private static Database database;
     private static boolean isUsingStubDB;
 
+
     private Database(boolean isUsingStub){
         isUsingStubDB = isUsingStub;
-
         if (!isUsingStubDB) {
             login = new LoginDB();
             register = new RegisterDB();
@@ -35,6 +34,10 @@ public class Database {
         }
     }
 
+    /**
+     * Retrieves the class instance. Uses dependency injection to switch between stub and real-time database
+     * @param isUsingStub To use stub = True | To use real db = False
+     */
     public static Database getInstance(boolean isUsingStub) {
         isUsingStubDB = isUsingStub;
         if (database == null)

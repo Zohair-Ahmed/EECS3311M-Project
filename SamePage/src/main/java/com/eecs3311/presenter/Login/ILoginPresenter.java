@@ -14,7 +14,7 @@ public interface ILoginPresenter {
     /**
      * Sets the model
      * 
-     * @param ilm
+     * @param ilm model
      */
     void setModel(ILoginModel ilm);
 
@@ -28,7 +28,7 @@ public interface ILoginPresenter {
     /**
      * Sets the view
      * 
-     * @param ilv
+     * @param ilv view
      */
     void setView(ILoginPanelView ilv);
 

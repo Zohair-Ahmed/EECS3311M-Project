@@ -6,12 +6,9 @@ import com.eecs3311.model.enums.State;
 public class User {
 
     private String username;
-
     private String email;
     private String password;
-
     private State loginState = State.GUEST;
-
     private static User user;
 
     private User(String email, String password) {
@@ -19,6 +16,10 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Manages one class creation
+     * @return class instance
+     */
     public static User getInstance() {
         if (user == null)
             user = new User("x", "x");

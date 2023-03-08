@@ -1,7 +1,5 @@
 package com.eecs3311.persistence.Review;
 
-import com.eecs3311.model.Book.BookModel;
-import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.model.User;
 import com.eecs3311.persistence.AbstractDatabase;
@@ -16,12 +14,7 @@ import java.util.ArrayList;
 
 public class ReviewDB extends AbstractDatabase implements IReview{
 
-    private String username;
-    private String reviewBody;
     private ArrayList<IReviewModel> reviews = new ArrayList<>();
-    private String bookID;
-    private String date;
-    private String rating;
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
@@ -47,11 +40,11 @@ public class ReviewDB extends AbstractDatabase implements IReview{
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query); // execute the query, and get a java resultset
                 while (rs.next()) { // iterate through the java resultset
-                    username = rs.getString("Username");
-                    reviewBody = rs.getString("ReviewDesc");
-                    date = rs.getString("DatePosted");
-                    rating = rs.getString("Rating");
-                    bookID = rs.getString("BookID");
+                    String username = rs.getString("Username");
+                    String reviewBody = rs.getString("ReviewDesc");
+                    String date = rs.getString("DatePosted");
+                    String rating = rs.getString("Rating");
+                    String bookID = rs.getString("BookID");
                     revs.add(new ReviewModel(username, reviewBody, date, rating, bookID));
                 }
                 addToList(revs);
@@ -82,6 +75,10 @@ public class ReviewDB extends AbstractDatabase implements IReview{
         return this.reviews == null ? 0 : this.reviews.size();
     }
 
+    /**
+     * To convert the Review models to incorporate an MVP connection in order to serve the view
+     * @param revs reviews
+     */
     private void addToList(ArrayList<IReviewModel> revs) {
         for (IReviewModel irm : revs) {
             IReviewPresenter irp = new ReviewPresenter();
@@ -94,8 +91,6 @@ public class ReviewDB extends AbstractDatabase implements IReview{
         }
     }
 
-
-    private Connection conn;
     public ReviewDB() {
        super();
     }

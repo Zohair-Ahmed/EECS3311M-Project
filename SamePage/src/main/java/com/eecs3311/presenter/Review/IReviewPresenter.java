@@ -14,7 +14,7 @@ public interface IReviewPresenter {
     /**
      * Sets the model
      *
-     * @param irm
+     * @param irm model
      */
     void setModel(IReviewModel irm);
 
@@ -28,7 +28,7 @@ public interface IReviewPresenter {
     /**
      * Sets the view
      *
-     * @param irv
+     * @param irv view
      */
     void setView(IReviewPanelView irv);
 
@@ -46,7 +46,6 @@ public interface IReviewPresenter {
      * based on the object. May need to implement separate methods
      * for each attribute - TBD
      *
-     * @return any updated attribute(s)
      */
     void updateViewFromModel();
 }

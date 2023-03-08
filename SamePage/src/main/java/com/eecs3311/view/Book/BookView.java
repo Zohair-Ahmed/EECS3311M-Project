@@ -2,7 +2,6 @@ package com.eecs3311.view.Book;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -11,13 +10,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.eecs3311.presenter.Book.IBookPresenter;
-import com.eecs3311.view.components.ReviewsPanel;
 
 public class BookView implements IBookView {
 
     private IBookPresenter bookPresenter;
     private JFrame bookFrame;
     private DisplayBookInformation book;
+
     public BookView() {
     }
 
@@ -33,16 +32,9 @@ public class BookView implements IBookView {
 
     @Override
     public JPanel getAlternateView(){
-
         return new JPanel();
     }
 
-    /**
-     * Returns a GUI component relating to the model. Include updatedViewFromModel
-     * function to ensure the view is up-to-date and change return type as needed
-     *
-     * @return JPanel - Component that has views related to BookModel
-     */
     @Override
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
@@ -52,6 +44,64 @@ public class BookView implements IBookView {
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
         JButton favouriteBtn = new JButton("Favourite");
+
+        initBookImage(mainPanel, c);
+        initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
+        initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
+
+        mainPanel.addMouseListener(onBookClicked());
+        mainPanel.revalidate();
+        return mainPanel;
+    }
+
+    /**
+     * Initilaizes the layout of the components of the book view
+     * @param mainPanel
+     * @param titleLbl
+     * @param authorLbl
+     * @param avgReviews
+     * @param favouriteBtn
+     * @param c
+     */
+    private void initLayout(JPanel mainPanel, JLabel titleLbl, JLabel authorLbl, JLabel avgReviews, JButton favouriteBtn, GridBagConstraints c) {
+        c.gridx = 0;
+        c.gridy = 1;
+        mainPanel.add(titleLbl, c);
+        c.gridy = 2;
+        mainPanel.add(authorLbl, c);
+        c.gridy = 3;
+        mainPanel.add(avgReviews, c);
+        c.gridy = 4;
+        c.insets = new Insets(5, 0, 50, 15);
+        mainPanel.add(favouriteBtn, c);
+    }
+
+
+    /**
+     * Initializes the fonts for the labels and buttons
+     * @param titleLbl
+     * @param authorLbl
+     * @param avgReviews
+     * @param favouriteBtn
+     */
+    private void initFonts(JLabel titleLbl, JLabel authorLbl, JLabel avgReviews, JButton favouriteBtn) {
+        titleLbl.setFont(new Font("Futura", Font.BOLD, 12));
+        authorLbl.setFont(new Font("Futura", Font.BOLD | Font.ITALIC, 10));
+        avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
+        avgReviews.setForeground(new Color(255, 191, 0));
+        favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
+        favouriteBtn.setBackground(new Color(29, 152, 252));
+        favouriteBtn.setForeground(new Color(255, 255, 255));
+        favouriteBtn.setOpaque(true);
+        favouriteBtn.setBorderPainted(false);
+    }
+
+    /**
+     * Initializes the book image for the book view
+     * @param mainPanel book view panel
+     * @param c layout constraint
+     */
+    private void initBookImage(JPanel mainPanel, GridBagConstraints c){
         try {
             URL url = new URL(bookPresenter.getUpdatedViewFromModel().getImg());
             BufferedImage img = ImageIO.read(url);
@@ -63,28 +113,6 @@ public class BookView implements IBookView {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        titleLbl.setFont(new Font("Futura", Font.BOLD, 12));
-        authorLbl.setFont(new Font("Futura", Font.BOLD | Font.ITALIC, 10));
-        avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
-        avgReviews.setForeground(new Color(255, 191, 0));
-        favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
-        favouriteBtn.setBackground(new Color(29, 152, 252));
-        favouriteBtn.setForeground(new Color(255, 255, 255));
-        favouriteBtn.setOpaque(true);
-        favouriteBtn.setBorderPainted(false);
-        c.gridx = 0;
-        c.gridy = 1;
-        mainPanel.add(titleLbl, c);
-        c.gridy = 2;
-        mainPanel.add(authorLbl, c);
-        c.gridy = 3;
-        mainPanel.add(avgReviews, c);
-        c.gridy = 4;
-        c.insets = new Insets(5, 0, 50, 15);
-        mainPanel.add(favouriteBtn, c);
-        mainPanel.addMouseListener(onBookClicked());
-        mainPanel.revalidate();
-        return mainPanel;
     }
 
     /**
@@ -114,6 +142,10 @@ public class BookView implements IBookView {
             }
         };
     }
+
+    /**
+     * Opens a bigger display for the Book View on a mouse click
+     */
     private void displaySelectedBook(){
         try {
             book = DisplayBookInformation.getInstance(getPresenter());
@@ -128,6 +160,7 @@ public class BookView implements IBookView {
         bookFrame.setLocationRelativeTo(null);
         addWindowListener();
     }
+
     private void addWindowListener() {
         WindowListener wl = new WindowAdapter() {
             @Override
