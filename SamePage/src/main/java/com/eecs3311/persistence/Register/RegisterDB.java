@@ -34,7 +34,7 @@ public class RegisterDB extends AbstractDatabase implements IRegister {
             
             if (!matchingCredentials) {
             	temp.executeUpdate("insert into Users (Username, Email, UserPassword) values ('" + username + "', '" + email + "', '" + password + "')");
-                result = "Successfully registered as a SamePage member";
+                result = "Successfully registered!";
             }
         }
 
