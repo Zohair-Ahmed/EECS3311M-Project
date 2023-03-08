@@ -1,6 +1,7 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.Reviews;
+import com.eecs3311.model.Review.ReviewModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
@@ -8,16 +9,15 @@ import java.util.ArrayList;
 public class BookModel implements IBookModel {
     private String title;
     private String description;
-    private ArrayList<Reviews> reviews;
+    private ArrayList<ReviewModel> reviews;
     private String ISBN;
     private String author;
     private String img;
     private String genre;
-
-    // Each Model class needs ONE Presenter class Interface
+    private double averageReview = 0;
     private IBookPresenter bookPresenter;
 
-    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, String ISBN,
+    public BookModel(String title, String author, String description, ArrayList<ReviewModel> reviews, String ISBN,
                      String genre, String img) {
         this.title = title;
         this.author = author;
@@ -48,7 +48,7 @@ public class BookModel implements IBookModel {
         return description;
     }
 
-    public ArrayList<Reviews> getReviews() {
+    public ArrayList<ReviewModel> getReviews() {
         return reviews;
     }
 
@@ -56,7 +56,7 @@ public class BookModel implements IBookModel {
         this.description = description;
     }
 
-    public void setReviews(ArrayList<Reviews> reviews) {
+    public void setReviews(ArrayList<ReviewModel> reviews) {
         this.reviews = reviews;
     }
 
@@ -97,4 +97,10 @@ public class BookModel implements IBookModel {
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
     }
+
+    @Override
+    public double getAverageReview() {
+        return Database.getReviewInstance().getAverageRating(getISBN());
+    }
+
 }

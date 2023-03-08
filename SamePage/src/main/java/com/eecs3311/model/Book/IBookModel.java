@@ -1,6 +1,6 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.Reviews;
+import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
@@ -25,9 +25,11 @@ public interface IBookModel {
 
     String getDescription();
 
-    ArrayList<Reviews> getReviews();
+    ArrayList<ReviewModel> getReviews();
 
     String toString();
 
     String getImg();
+
+    double getAverageReview();
 }

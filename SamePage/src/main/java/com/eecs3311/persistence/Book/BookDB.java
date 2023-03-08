@@ -2,7 +2,7 @@ package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.BookModel;
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Reviews;
+import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
@@ -22,12 +22,10 @@ import java.util.ArrayList;
 public class BookDB extends AbstractDatabase implements IBook {
     private String title;
     private String description;
-    private ArrayList<Reviews> reviews;
     private String ISBN;
     private String author;
     private String genre;
     private String img;
-    //private Connection conn;
     private ObjectMapper objectMapper = new ObjectMapper();
     private InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -48,9 +46,6 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
-    /**
-     * Checks if book data has already been pre-populated and exists in database
-     */
     @Override
     public boolean dataExists() throws SQLException {
         // select from book where the ISBN matches the first entry
@@ -69,16 +64,14 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
-    /**
-     * Parse JSON to prepopulate data in book database.
-     */
+    @Override
     public void prepopulateData(){
         // make sure entry is not null
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (getConnection() != null) {
                 System.out.println("Connection is successful");
-                String query = " insert into book (Title, Author, Description, ISBN13, Img, Genre)"
+                String query = " INSERT INTO BOOK (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = getConnection().prepareStatement(query);
                 for (JsonNode node : jsonNode) {
@@ -106,16 +99,12 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
-    /**
-     * Returns the bookList with all latest books in DB
-     */
+    @Override
     public ArrayList<IBookModel> getLatestReleases(){
         return bookList;
     }
 
-    /**
-     * Get the existing book data from database and pass it to Book Model
-     */
+    @Override
     public void getDBdata() {
         try {
             if (getConnection() != null) {
@@ -145,6 +134,7 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
+    @Override
     public void addToList(ArrayList<IBookModel> info) {
         for (IBookModel ibm : info) {
             // Set Model <-> Presenter <-> View connection to model

@@ -14,7 +14,7 @@ public interface IRegisterPresenter {
     /**
      * Sets the model
      * 
-     * @param irm
+     * @param irm model
      */
     void setModel(IRegisterModel irm);
 
@@ -28,7 +28,7 @@ public interface IRegisterPresenter {
     /**
      * Sets the view
      * 
-     * @param irv
+     * @param irv view
      */
     void setView(IRegisterPanelView irv);
 

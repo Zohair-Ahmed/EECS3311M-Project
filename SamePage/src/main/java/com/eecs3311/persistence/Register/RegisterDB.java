@@ -25,15 +25,16 @@ public class RegisterDB extends AbstractDatabase implements IRegister {
 
                 if (dbUsername.equals(username)) {
                     result = "A SamePage account with this username already exists";
+                    matchingCredentials = true;
                 } else if (dbEmail.equals(email)) {
                     result = "A SamePage account with this email already exists";
+                    matchingCredentials = true;
                 }
-                matchingCredentials = true;
             }
             
             if (!matchingCredentials) {
             	temp.executeUpdate("insert into Users (Username, Email, UserPassword) values ('" + username + "', '" + email + "', '" + password + "')");
-                result = "Successfully registered as a SamePage member";
+                result = "Successfully registered!";
             }
         }
 
