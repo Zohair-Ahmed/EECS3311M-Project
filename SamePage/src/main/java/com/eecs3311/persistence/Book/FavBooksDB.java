@@ -1,16 +1,11 @@
 package com.eecs3311.persistence.Book;
 
-import com.eecs3311.model.Book.BookModel;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.Reviews;
 import com.eecs3311.model.User;
 import com.eecs3311.persistence.AbstractDatabase;
-import com.eecs3311.presenter.Book.BookPresenter;
-import com.eecs3311.presenter.Book.IBookPresenter;
-import com.eecs3311.view.Book.BookView;
-import com.eecs3311.view.Book.IBookView;
+import com.eecs3311.persistence.Database;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -56,7 +51,8 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         favBooks = new ArrayList<IBookModel>();
         try {
             if (getConnection() != null) {
-                ArrayList<IBookModel> info = new ArrayList<>();
+//                ArrayList<IBookModel> info = new ArrayList<>();
+                ArrayList<String> bookISBN = new ArrayList<String>();
                 System.out.println("Connection is successful");
                 String query = "SELECT Book.* " +
                         "FROM Favorites " +
@@ -66,16 +62,22 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
                 // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
                 // iterate through the java resultset
+//                while (rs.next()) {
+//                    title = rs.getString("Title");
+//                    author = rs.getString("Author");
+//                    description = rs.getString("Description");
+//                    ISBN = rs.getString("ISBN13");
+//                    genre = rs.getString("Genre");
+//                    img = rs.getString("Img");
+//                    info.add(new BookModel(title, author, description, null, ISBN, genre, img));
+//                }
+//                addToList(info);
+
                 while (rs.next()) {
-                    title = rs.getString("Title");
-                    author = rs.getString("Author");
-                    description = rs.getString("Description");
                     ISBN = rs.getString("ISBN13");
-                    genre = rs.getString("Genre");
-                    img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description, null, ISBN, genre, img));
+                    bookISBN.add(ISBN);
                 }
-                addToList(info);
+                addToList(bookISBN);
             } else {
                 System.out.println("Failed to connect");
             }
@@ -84,16 +86,28 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         }
     }
 
-    public void addToList(ArrayList<IBookModel> info) {
-        for (IBookModel ibm : info) {
-            // Set Model <-> Presenter <-> View connection to model
-            IBookPresenter bp = new BookPresenter();
-            IBookView bv = new BookView();
-            bp.setModel(ibm);
-            ibm.setPresenter(bp);
-            bp.setView(bv);
-            bv.setPresenter(bp);
-            this.favBooks.add(ibm);
+//    public void addToList(ArrayList<IBookModel> info) {
+//        for (IBookModel ibm : info) {
+//            // Set Model <-> Presenter <-> View connection to model
+//            IBookPresenter bp = new BookPresenter();
+//            IBookView bv = new BookView();
+//            bp.setModel(ibm);
+//            ibm.setPresenter(bp);
+//            bp.setView(bv);
+//            bv.setPresenter(bp);
+//            this.favBooks.add(ibm);
+//        }
+//    }
+
+    public void addToList(ArrayList<String> info) {
+        ArrayList<IBookModel> allBooks = Database.getBookInstance().getLatestReleases();
+
+        for (String isbn : info) {
+            for (IBookModel book : allBooks) {
+                if (book.getISBN().equals(isbn)) {
+                    this.favBooks.add(book);
+                }
+            }
         }
     }
 
