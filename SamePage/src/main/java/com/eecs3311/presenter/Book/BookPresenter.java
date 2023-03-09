@@ -5,7 +5,6 @@ import com.eecs3311.view.Book.IBookView;
 
 public class BookPresenter implements IBookPresenter {
 
-    // Each Presenter object should have 1 Model and 1 View
     private IBookModel bookModel;
     private IBookView bookView;
 

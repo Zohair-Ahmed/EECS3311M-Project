@@ -26,8 +26,8 @@ import com.eecs3311.view.components.Menubar;
 public class Main extends JFrame implements ActionListener {
 
   private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  private final int HEIGHT = (int) (0.75 * screenSize.height);
-  private final int WIDTH = (int) (0.75 * screenSize.width);
+  private final int HEIGHT = (int) (screenSize.height);
+  private final int WIDTH = (int) (screenSize.width);
 
   private JButton loginButton;
   private JButton registerButton;
@@ -210,6 +210,7 @@ public class Main extends JFrame implements ActionListener {
     setTitle("Same Page");
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setVisible(true);
+    setLocationRelativeTo(null);
   }
 
   @Override

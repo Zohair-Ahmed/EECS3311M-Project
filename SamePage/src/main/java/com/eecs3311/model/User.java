@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class User {
 
     private String username;
-
     private String email;
     private String password;
     private int userID;
@@ -27,6 +26,10 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Manages one class creation
+     * @return class instance
+     */
     public static User getInstance() {
         if (user == null)
             user = new User("x", "x");
@@ -67,9 +70,7 @@ public class User {
         return userID;
     }
 
-    public State getLoginState() {
-        return loginState;
-    }
+
 
     @Override
     public String toString() {
@@ -85,5 +86,10 @@ public class User {
     public void setMain(Main main) {
         this.main = main;
     }
+
+    public State getLoginState() {
+        return loginState;
+    }
+
 
 }

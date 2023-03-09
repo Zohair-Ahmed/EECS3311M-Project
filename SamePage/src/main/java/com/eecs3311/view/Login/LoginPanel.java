@@ -36,7 +36,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	public LoginPanel() {
 		initComponents();
 
-		timer = new Timer(3000, new ActionListener() {
+		timer = new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Switch to the landing frame panel

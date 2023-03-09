@@ -13,15 +13,15 @@ public interface ILoginModel {
     /**
      * Sets the presenter
      * 
-     * @param ilp
+     * @param ilp presenter
      */
     void setPresenter(ILoginPresenter ilp);
 
     /**
      * Updates the model from interactions from the view
      * 
-     * @param username
-     * @param password
+     * @param username username
+     * @param password password
      */
     void updateModelFromView(String username, String password);
 }

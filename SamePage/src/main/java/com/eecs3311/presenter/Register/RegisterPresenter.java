@@ -3,9 +3,6 @@ package com.eecs3311.presenter.Register;
 import com.eecs3311.model.Register.IRegisterModel;
 import com.eecs3311.view.Register.IRegisterPanelView;
 
-// import com.eecs3311.model.Register.IRegisterModel;
-// import com.eecs3311.view.Register.IRegisterView;
-
 public class RegisterPresenter implements IRegisterPresenter {
 
     // Each Presenter object should have 1 Model and 1 View

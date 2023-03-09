@@ -17,7 +17,6 @@ public class Menubar extends JMenuBar {
 	@Override
 	protected void paintComponent(Graphics g) { // Utilize awt to fill the JMenubar component with the appropriate colour
 		super.paintComponent(g);
-		;
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(bgColor);
 		g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
