@@ -1,13 +1,7 @@
 package com.eecs3311.model;
 
-import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.enums.State;
-import com.eecs3311.persistence.Book.FavBooksDB;
 import com.eecs3311.view.layout.Main;
-import com.eecs3311.view.layout.ProfilePanel;
-
-import java.awt.print.Book;
-import java.util.ArrayList;
 
 // Singleton pattern
 public class User {

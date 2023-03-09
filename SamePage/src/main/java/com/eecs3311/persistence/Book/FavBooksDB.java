@@ -1,7 +1,6 @@
 package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Reviews;
 import com.eecs3311.model.User;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.persistence.Database;
@@ -14,7 +13,6 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     private ArrayList<IBookModel> favBooks;
     private String title;
     private String description;
-    private ArrayList<Reviews> reviews;
     private String ISBN;
     private String author;
     private String genre;

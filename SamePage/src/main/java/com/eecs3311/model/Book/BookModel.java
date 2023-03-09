@@ -2,13 +2,8 @@ package com.eecs3311.model.Book;
 
 import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.persistence.Database;
-import com.eecs3311.model.User;
-import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
-import com.eecs3311.view.Book.BookView;
-import com.eecs3311.view.Book.IBookView;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
@@ -19,7 +14,6 @@ public class BookModel implements IBookModel {
     private String author;
     private String img;
     private String genre;
-    private double averageReview = 0;
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, ArrayList<ReviewModel> reviews, String ISBN,

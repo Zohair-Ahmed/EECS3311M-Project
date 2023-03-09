@@ -46,10 +46,10 @@ public class BookView implements IBookView {
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
 
-        JButton favoriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove from Favorites" : "Add to Favorites");
+        JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove from Favorites" : "Add to Favorites");
 
         // add the action listener to the favorite button
-        favoriteBtn.addActionListener(e -> {
+        favouriteBtn.addActionListener(e -> {
             if (User.getInstance().getLoginState() == State.GUEST) {
                 // Show a prompt JFrame using JOptionPane
                 JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favorites");
@@ -57,7 +57,7 @@ public class BookView implements IBookView {
                 if (getPresenter().checkModelFavBooks()) {
                     // remove the book from the user's favorites
                     getPresenter().removeFavBook();
-                    favoriteBtn.setText("Add to Favorites");
+                    favouriteBtn.setText("Add to Favorites");
                     User.getInstance().getMainInit().addProfilePanel();
                     if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
                         User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
@@ -66,25 +66,15 @@ public class BookView implements IBookView {
                 } else {
                     // add the book to the user's favorites
                     getPresenter().updateModelFavBooks();
-                    favoriteBtn.setText("Remove from Favorites");
+                    favouriteBtn.setText("Remove from Favorites");
                     User.getInstance().getMainInit().addProfilePanel();
                 }
             }
         });
 
-        JButton favouriteBtn = new JButton("Favourite");
-
         initBookImage(mainPanel, c);
         initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
         initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
-
-
-        // create a new panel for the favorite button
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        buttonPanel.add(favoriteBtn, BorderLayout.EAST);
-        c.gridx++;
-        c.weightx = 1.0; // make the button panel take up remaining horizontal space
-        mainPanel.add(buttonPanel, c);
 
         mainPanel.addMouseListener(onBookClicked());
         mainPanel.revalidate();

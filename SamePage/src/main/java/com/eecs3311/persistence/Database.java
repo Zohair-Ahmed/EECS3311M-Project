@@ -65,7 +65,7 @@ public class Database {
     }
 
     public static IReview getReviewInstance() {
-        database = database.getInstance(isUsingStubDB);
+        database = Database.getInstance(isUsingStubDB);
         return review;
     }
 }
