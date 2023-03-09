@@ -2,7 +2,6 @@ package com.eecs3311.view.Login;
 
 import javax.swing.*;
 
-import com.eecs3311.model.Member;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.layout.Main;
@@ -149,7 +148,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	public void updateLoginStatus(String status) {
 		loginStatus.setText(status);
 
-		if (checkLogin() == true) {
+		if (checkLogin()) {
 			// Start the timer if the login is successful
 			timer.start();
 		}

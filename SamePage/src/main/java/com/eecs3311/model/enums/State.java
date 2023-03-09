@@ -4,9 +4,9 @@ package com.eecs3311.model.enums;
 public enum State {
     GUEST("Guest"), MEMBER("Member");
 
-    String value;
+    final String value;
 
-    private State(String value) {
+    State(String value) {
         this.value = value;
     }
 

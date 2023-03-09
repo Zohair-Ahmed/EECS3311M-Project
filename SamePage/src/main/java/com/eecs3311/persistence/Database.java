@@ -29,7 +29,7 @@ public class Database {
         } else {
             login = new LoginStub();
             register = new RegisterStub();
-            book = new BookStub();
+            book = BookStub.getInstance();
             review = new ReviewStub();
         }
     }
@@ -61,7 +61,7 @@ public class Database {
     }
 
     public static IReview getReviewInstance() {
-        database = database.getInstance(isUsingStubDB);
+        database = Database.getInstance(isUsingStubDB);
         return review;
     }
 }

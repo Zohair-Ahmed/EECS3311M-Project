@@ -2,7 +2,6 @@ package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.BookModel;
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
@@ -26,9 +25,9 @@ public class BookDB extends AbstractDatabase implements IBook {
     private String author;
     private String genre;
     private String img;
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
-    private ArrayList<IBookModel> bookList = new ArrayList<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
+    private final ArrayList<IBookModel> bookList = new ArrayList<>();
 
     /**
      * BookDB constructor, makes initial connection to database
@@ -46,7 +45,9 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
-    @Override
+    /**
+     * Checks if book data has already been pre-populated and exists in database
+     */
     public boolean dataExists() throws SQLException {
         // select from book where the ISBN matches the first entry
         String sql = "SELECT * FROM Book WHERE ISBN13 = 9789000307975";
@@ -64,7 +65,9 @@ public class BookDB extends AbstractDatabase implements IBook {
         }
     }
 
-    @Override
+    /**
+     * Parse JSON to prepopulate data in book database.
+     */
     public void prepopulateData(){
         // make sure entry is not null
         try {
@@ -104,7 +107,9 @@ public class BookDB extends AbstractDatabase implements IBook {
         return bookList;
     }
 
-    @Override
+    /**
+     * Get the existing book data from database and pass it to Book Model
+     */
     public void getDBdata() {
         try {
             if (getConnection() != null) {
@@ -122,7 +127,7 @@ public class BookDB extends AbstractDatabase implements IBook {
                     ISBN = rs.getString("ISBN13");
                     genre = rs.getString("Genre");
                     img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description, null, ISBN, genre, img));
+                    info.add(new BookModel(title, author, description,  ISBN, genre, img));
                 }
                 addToList(info);
                 getConnection().close();

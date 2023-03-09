@@ -1,7 +1,6 @@
 package com.eecs3311.view.Review;
 
 import com.eecs3311.presenter.Review.IReviewPresenter;
-import com.eecs3311.view.layout.Main;
 
 import javax.swing.*;
 
