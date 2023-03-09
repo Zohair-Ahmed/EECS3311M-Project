@@ -112,6 +112,6 @@ Attendance: Zohair, Kyle, Ammad, Nick, Nargis
 Meeting topic:
 	•	New app demo with updated UI features done by Nick and Ammad
 	•	Go over the left over features, connecting the add new book and favorites to the database as well as merging them together
-	•	Email drafted for connecting with QA team before submission deadline
+	•	Email drafted for connecting with QA team before submission deadline, screenshot included in Itr2Documentation folder
 	•	Go over the Junit testing requirements and progress
 	•	Ammad updated iteration 2 documentation, Nargis to complete logs
