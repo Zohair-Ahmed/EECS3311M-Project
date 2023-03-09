@@ -26,8 +26,8 @@ public class Database {
             book = new BookDB();
             review = new ReviewDB();
         } else {
-            login = new LoginStub();
-            register = new RegisterStub();
+            login = LoginStub.getInstance();
+            register = RegisterStub.getInstance();
             book = BookStub.getInstance();
             review = new ReviewStub();
         }
