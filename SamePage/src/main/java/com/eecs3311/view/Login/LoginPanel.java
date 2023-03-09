@@ -3,6 +3,7 @@ package com.eecs3311.view.Login;
 import javax.swing.*;
 
 import com.eecs3311.model.Member;
+import com.eecs3311.model.User;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.layout.LandingPanel;
@@ -42,6 +43,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 				main.setLandingPanel(new LandingPanel());
 				main.getCard().show(main.getContainer(), "Landing");
 				main.addProfilePanel();
+				User.getInstance().setMain(main);
 			}
 		});
 		timer.setRepeats(false); // Only perform the action once
@@ -143,10 +145,6 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	@Override
 	public void setPresenter(ILoginPresenter ilp) {
 		this.loginPresenter = ilp;
-	}
-
-	public Main getMainInit() {
-		return this.main;
 	}
 
 	public void setMain(Main main) {

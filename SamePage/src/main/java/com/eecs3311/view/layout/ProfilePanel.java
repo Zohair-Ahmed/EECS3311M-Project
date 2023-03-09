@@ -20,11 +20,14 @@ public class ProfilePanel implements IPanelView {
     private ResultsMediator mediator;
     private ResultsPanel lbv;
 
+    private JPanel bookView;
+
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
+        bookView = lbv.getView();
         initComponents();
     }
     @Override
@@ -57,7 +60,7 @@ public class ProfilePanel implements IPanelView {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 2;
-        root.add(lbv.getView(), c);
+        root.add(bookView, c);
     }
 
     private void initUserPanel() {
@@ -74,5 +77,26 @@ public class ProfilePanel implements IPanelView {
         ProfileIcon profileIcon = new ProfileIcon("SamePage");
         userPanel.add(profileIcon);
         root.add(userPanel, c);
+    }
+
+    public void updatePanel() {
+        root.remove(bookView);
+
+        lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks());
+        bookView = lbv.getView();
+
+        // add the new bookView
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.weightx = 0.0;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 2;
+        root.add(bookView, c);
+
+        root.revalidate(); // revalidate the root panel to update the UI
+        root.repaint(); // repaint the root panel to update the UI
     }
 }

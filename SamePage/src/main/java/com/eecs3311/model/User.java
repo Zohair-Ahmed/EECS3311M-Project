@@ -3,6 +3,8 @@ package com.eecs3311.model;
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Book.FavBooksDB;
+import com.eecs3311.view.layout.Main;
+import com.eecs3311.view.layout.ProfilePanel;
 
 import java.awt.print.Book;
 import java.util.ArrayList;
@@ -17,11 +19,9 @@ public class User {
     private int userID;
 
     private State loginState = State.GUEST;
-
-    private ArrayList<IBookModel> favBooks;
-
     private static User user;
-
+    private Main main;
+    
     private User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -67,14 +67,6 @@ public class User {
         return userID;
     }
 
-    public void addFavBook(IBookModel book) {
-        favBooks.add(book);
-    }
-
-    public ArrayList<IBookModel> getFavBooks() {
-        return favBooks;
-    }
-
     public State getLoginState() {
         return loginState;
     }
@@ -84,6 +76,14 @@ public class User {
         if (loginState.equals(State.GUEST))
             return "Not Logged In";
         return "Current User = " + getEmail() + " - " + getPassword();
+    }
+
+    public Main getMainInit() {
+        return this.main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 
 }
