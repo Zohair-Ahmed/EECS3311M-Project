@@ -50,6 +50,7 @@ public class BookStub implements IBook{
 
     @Override
     public ArrayList<IBookModel> getLatestReleases(){
+        System.out.println("STUB DATA");
         return bookList;
     }
 

@@ -16,11 +16,10 @@ public class Database {
     private static IBook book;
     private static IReview review;
     private static Database database;
-    private static boolean isUsingStubDB;
+    // isUsingStub To use stub = True | To use real db = False
+    private static boolean isUsingStubDB = false;
 
-
-    private Database(boolean isUsingStub){
-        isUsingStubDB = isUsingStub;
+    private Database(){
         if (!isUsingStubDB) {
             login = new LoginDB();
             register = new RegisterDB();
@@ -36,32 +35,30 @@ public class Database {
 
     /**
      * Retrieves the class instance. Uses dependency injection to switch between stub and real-time database
-     * @param isUsingStub To use stub = True | To use real db = False
      */
-    public static Database getInstance(boolean isUsingStub) {
-        isUsingStubDB = isUsingStub;
+    public static Database getInstance() {
         if (database == null)
-            database = new Database(isUsingStubDB);
+            database = new Database();
         return database;
     }
 
     public static ILogin getLoginInstance() {
-        database = Database.getInstance(isUsingStubDB);
+        database = Database.getInstance();
         return login;
     }
 
     public static IRegister getRegisterInstance() {
-        database = Database.getInstance(isUsingStubDB);
+        database = Database.getInstance();
         return register;
     }
 
     public static IBook getBookInstance() {
-        database = Database.getInstance(isUsingStubDB);
+        database = Database.getInstance();
         return book;
     }
 
     public static IReview getReviewInstance() {
-        database = Database.getInstance(isUsingStubDB);
+        database = Database.getInstance();
         return review;
     }
 }

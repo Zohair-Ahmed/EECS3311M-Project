@@ -179,7 +179,7 @@ public class Main extends JFrame implements ActionListener {
     initHomeButtonUI();
 
     // DP for database implementation
-    Database.getInstance(false);
+    Database.getInstance();
 
     // Add the button to the menu bar
     menuBar.add(loginButton);
