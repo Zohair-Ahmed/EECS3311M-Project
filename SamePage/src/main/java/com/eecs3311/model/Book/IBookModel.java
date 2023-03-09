@@ -1,9 +1,6 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.presenter.Book.IBookPresenter;
-
-import java.util.ArrayList;
 
 // Interface for accessing data of a book object
 public interface IBookModel {
@@ -15,19 +12,11 @@ public interface IBookModel {
 
     String getGenre();
 
-    void setTitle(String title);
-
-    void setAuthor(String author);
-
     void setPresenter(IBookPresenter bookPresenter);
 
     IBookPresenter getPresenter();
 
     String getDescription();
-
-    ArrayList<ReviewModel> getReviews();
-
-    String toString();
 
     String getImg();
 

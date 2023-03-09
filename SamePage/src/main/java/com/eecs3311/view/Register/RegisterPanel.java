@@ -14,7 +14,7 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	private IRegisterPresenter registerPresenter;
 
 	// Input labels
-	private JLabel lblEmail = new JLabel("Email:");;
+	private JLabel lblEmail = new JLabel("Email:");
 	private JLabel lblUsername = new JLabel("Username:");
 	private JLabel lblPassword = new JLabel("Password:");
 	private JLabel lblConfirmPass = new JLabel("Confirm Password:");
