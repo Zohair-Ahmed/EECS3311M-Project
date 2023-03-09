@@ -54,10 +54,16 @@ public class BookView implements IBookView {
                     // remove the book from the user's favorites
                     getPresenter().removeFavBook();
                     favoriteBtn.setText("Add to Favorites");
+                    User.getInstance().getMainInit().addProfilePanel();
+                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    }
+
                 } else {
                     // add the book to the user's favorites
                     getPresenter().updateModelFavBooks();
                     favoriteBtn.setText("Remove from Favorites");
+                    User.getInstance().getMainInit().addProfilePanel();
                 }
             }
         });

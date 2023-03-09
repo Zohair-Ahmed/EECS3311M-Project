@@ -106,7 +106,6 @@ public class BookModel implements IBookModel {
 
     public void addFavoriteBook() {
         Database.getFavBooksInstance().addBook(this);
-//        User.getInstance().addFavBook(this);
     }
 
     @Override

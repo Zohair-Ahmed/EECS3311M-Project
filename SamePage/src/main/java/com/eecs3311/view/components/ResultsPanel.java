@@ -27,6 +27,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     public ResultsPanel(ArrayList<IBookModel> books) {
         container.setLayout(new GridBagLayout());
+        textJLabel.setText("Favorite Books:");
         initReleaseContainer(books);
     }
 

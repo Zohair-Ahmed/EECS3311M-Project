@@ -38,6 +38,8 @@ public class Main extends JFrame implements ActionListener {
 
   private CardLayout cards = new CardLayout();
   private JPanel container = new JPanel(cards);
+  private JPanel loginPanel;
+  private JPanel registerPanel;
 
   private ILoginPanelView ilv = new LoginPanel();
   private ILoginPresenter ilp = new LoginPresenter();
@@ -149,9 +151,10 @@ public class Main extends JFrame implements ActionListener {
 
     configureLoginMVP();
     configureRegisterMVP();
+    configurePanelNames(mainPanel, ilv.getView(), irv.getView());
     container.add(mainPanel, "Landing");
-    container.add(ilv.getView(), "Login");
-    container.add(irv.getView(), "Register");
+    container.add(this.loginPanel, "Login");
+    container.add(this.registerPanel, "Register");
   }
 
   public void setLandingPanel(LandingPanel lp) {
@@ -173,6 +176,15 @@ public class Main extends JFrame implements ActionListener {
     irm.setPresenter(irp);
     irp.setView(irv);
     irv.setPresenter(irp);
+  }
+
+  private void configurePanelNames(JPanel mainPanel, JPanel loginPanel, JPanel registerPanel) {
+    mainPanel.setName("Landing");
+    this.loginPanel = loginPanel;
+    this.loginPanel.setName("Login");
+
+    this.registerPanel = registerPanel;
+    this.registerPanel.setName("Register");
   }
 
   public Main() {
@@ -206,11 +218,15 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Login");
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
-    if (e.getSource() == homeButton)
+    if (e.getSource() == homeButton) {
+      if (User.getInstance().getLoginState() != State.GUEST) {
+        setLandingPanel(new LandingPanel());
+      }
       cards.show(container, "Landing");
+    }
     if (e.getSource() == profileButton) {
-      container.remove(profile.getView());
-      addProfilePanel();
+//      container.remove(profile.getView());
+//      addProfilePanel();
       cards.show(container, "Profile");
     }
   }
@@ -225,7 +241,9 @@ public class Main extends JFrame implements ActionListener {
   }
   public void addProfilePanel() {
     profile= new ProfilePanel();
-    container.add(profile.getView(), "Profile");
+    JPanel profilePanel = profile.getView();
+    profilePanel.setName("Profile");
+    container.add(profile.getView(), profilePanel.getName());
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);
@@ -233,6 +251,26 @@ public class Main extends JFrame implements ActionListener {
 
     tempBar.add(homeButton);
     tempBar.add(profileButton);
+  }
+
+  /*
+  This method is used to check if the current JPanel shown on the GUI is the profile panel when a book is
+  removed from the favorites list of a user. If the current card string is Profile then an updated view of the profile panel
+  is shown
+   */
+  public String checkCurrentCard() {
+    String current = "";
+    JPanel card = null;
+
+    for (Component comp : container.getComponents()) {
+      if (comp.isVisible() == true) {
+        card = (JPanel) comp;
+      }
+    }
+    if (card.getName().equals("Profile")) {
+      current = card.getName();
+    }
+    return current;
   }
 
 }
