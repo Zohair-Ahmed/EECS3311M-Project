@@ -21,7 +21,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	private JLabel email = new JLabel("Email: ");
 	private JLabel password = new JLabel("Password: ");
 	private JButton loginSubmit = new JButton("Login");
-	private JLabel lblHeader = new JLabel("Login to SamePage");
+	private JLabel lblHeader = new JLabel("Login");
 	private JLabel loginStatus = new JLabel("status pending");
 	private SpringLayout layout = new SpringLayout();
 	private Main main;
@@ -32,8 +32,9 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 
 	// Constructor for an instance of the Login page
 	public LoginPanel() {
+		panel.setLayout(new GridBagLayout());
 		initComponents();
-
+		//Create time to  allow login to switch to landing page
 		timer = new Timer(500, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -48,51 +49,86 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 
 	@Override
 	public void initComponents() {
-		setSizeOfComponents();
+		initLoginLabel();
+		initEmailLabel();
+		initEmailTextField();
+		initPasswordLabel();
+		initPasswordTextField();
+		initLoginButton();
+		initStatusLabel();
+	}
 
+	// Initializing the login header
+	public void initLoginLabel() {
+		JLabel filler1 = new JLabel("");
+		JLabel filler2 = new JLabel("");
+		GridBagConstraints c = new GridBagConstraints();
+		lblHeader.setFont(new Font("Futura", Font.BOLD, 25));
+		c.insets = new Insets(0, 35, 35, 55);
+		panel.add(filler1, c);
+		c.gridx = 1;
+		panel.add(lblHeader, c);
+		c.gridx = 2;
+		panel.add(filler2, c);
+	}
+
+	// Initializing email label above the user text field
+	public void initEmailLabel() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.WEST;
+		c.insets = new Insets(0, 0, 5, 0);
+		c.gridy = 1;
+		panel.add(email, c);
+	}
+
+	// Email text field where user can enter their email
+	public void initEmailTextField() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(0, 0, 20, 0);
+		c.gridy = 2;
+		c.gridwidth = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		panel.add(emailField, c);
+	}
+
+	// Initializing password label
+	private void initPasswordLabel() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.WEST;
+		c.insets = new Insets(0, 0, 5, 0);
+		c.gridy = 3;
+		panel.add(password, c);
+	}
+
+	// Initializing password label
+	private void initPasswordTextField() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(0, 0, 20, 0);
+		c.gridy = 4;
+		c.gridwidth = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		panel.add(passwordField, c);
+	}
+
+	// Initializing login button to give feedback on click
+	private void initLoginButton() {
 		loginSubmit.addActionListener(this);
-		layout.putConstraint(SpringLayout.NORTH, lblHeader, 26, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.EAST, lblHeader, 0, SpringLayout.EAST, emailField);
-		panel.setLayout(layout);
-
-		// Adding components to the JPanel
-		panel.add(lblHeader);
-		panel.add(email);
-		panel.add(emailField);
-		panel.add(password);
-		panel.add(passwordField);
-		panel.add(loginSubmit);
-		panel.add(loginStatus);
-		initSpringLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(10, 35, 0, 0);
+		c.gridx = 1;
+		c.gridy = 5;
+		c.anchor = GridBagConstraints.WEST;
+		panel.add(loginSubmit, c);
 	}
 
-	// Resizing and setting the design of the components within the panel
-	private void setSizeOfComponents() {
-		lblHeader.setHorizontalAlignment(JLabel.CENTER);
-		lblHeader.setFont(new Font("Futura", Font.BOLD, 23));
-
-		password.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
-
-		emailField.setPreferredSize(new Dimension(150, emailField.getPreferredSize().height));
-		passwordField.setPreferredSize(new Dimension(150, passwordField.getPreferredSize().height));
-	}
-
-	// Setting the sizing and format of the panel
-	private void initSpringLayout() {
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblHeader, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.NORTH, email, 100, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, email, -50, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.NORTH, emailField, 100, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, emailField, 50, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.NORTH, password, 130, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, password, -55, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.NORTH, passwordField, 130, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, passwordField, 105, SpringLayout.HORIZONTAL_CENTER,
-				password);
-		layout.putConstraint(SpringLayout.NORTH, loginSubmit, 180, SpringLayout.NORTH, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, loginSubmit, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, loginStatus, 0, SpringLayout.HORIZONTAL_CENTER, panel);
-		layout.putConstraint(SpringLayout.SOUTH, loginStatus, -100, SpringLayout.SOUTH, panel);
+	// Initializing status message label design
+	private void initStatusLabel() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(25, 0, 0, 40);
+		c.gridx = 1;
+		c.gridy = 6;
+		c.anchor = GridBagConstraints.EAST;
+		panel.add(loginStatus, c);
 	}
 
 	@Override
@@ -141,10 +177,6 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 	@Override
 	public void setPresenter(ILoginPresenter ilp) {
 		this.loginPresenter = ilp;
-	}
-
-	public Main getMainInit() {
-		return this.main;
 	}
 
 	public void setMain(Main main) {
