@@ -1,5 +1,6 @@
 package com.eecs3311.model.User;
 
+import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.enums.State;
 
@@ -12,6 +13,7 @@ public class UserStub {
     private State loginState = State.GUEST;
     private ArrayList<UserStub> users = new ArrayList<>();
     private ArrayList<IReviewModel> userReviews = new ArrayList<>();
+    private ArrayList<IBookModel> favourites = new ArrayList<>();
     private static UserStub instance = null;
 
     public UserStub(String email, String username, String password) {
@@ -34,6 +36,8 @@ public class UserStub {
         return userReviews;
     }
 
+    public ArrayList<IBookModel> getFavourites() {return favourites;}
+
     public static UserStub getInstance(){
         if(instance == null){
             instance = new UserStub();
@@ -43,6 +47,23 @@ public class UserStub {
 
     public void addNewUser(String email, String username, String password){
         users.add(new UserStub(email, username,password));
+    }
+
+    public void addBookToFavourite(IBookModel ibm) {
+        boolean found = false;
+        for (IBookModel favIbm : favourites) {
+            if (ibm.getISBN().equals(favIbm.getISBN())){
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            favourites.add(ibm);
+    }
+
+    public void setFavourites(ArrayList<IBookModel> favs){
+        this.favourites = favs;
     }
 
     public String getUsername() {
