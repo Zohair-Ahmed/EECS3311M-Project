@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-public class SamePageIntegrationTest {
+public class BookIntegrationTest {
     IBook book = Database.getBookInstance();
     ArrayList<IBookModel> results = new ArrayList<>();
     ArrayList<IBookModel> bookModels = book.getLatestReleases();
@@ -35,7 +35,12 @@ public class SamePageIntegrationTest {
             }
         }
         assertTrue(emptyResults.isEmpty());
-        assertEquals(bookModels.get(0).getPresenter().getModel().getTitle(), bookModels.get(0).getTitle());
+        for (IBookModel book : bookModels){
+            assertEquals(book.getPresenter().getModel().getTitle(), book.getTitle());
+            assertEquals(book.getPresenter().getModel().getISBN(), book.getISBN());
+            assertEquals(book.getPresenter().getUpdatedViewFromModel().getPresenter().getModel().getISBN(),book.getISBN());
+        }
+
     }
 
     //user adds reviews to book, compare
@@ -46,8 +51,11 @@ public class SamePageIntegrationTest {
         ArrayList<IReviewModel> previous = addedRev.getReviewData("9780552159722");
         addedRev.submitReview("A new reviews added to the db","4","9780552159722");
         ArrayList<IReviewModel> results = addedRev.getReviewData("9780552159722");
-        assertEquals(results.size(),previous.size());
-        assertEquals(previous.get(0).getPresenter().getModel().getReview(), previous.get(0).getReview());
+        assertEquals(results.size(),previous.size()+1);
+        for (IReviewModel reviewModel : results){
+            assertEquals(reviewModel.getPresenter().getModel().getReview(), reviewModel.getReview());
+            assertEquals(reviewModel.getPresenter().getModel().getISBN(), reviewModel.getISBN());
+        }
     }
 
     //user adds book to favorites, compare
