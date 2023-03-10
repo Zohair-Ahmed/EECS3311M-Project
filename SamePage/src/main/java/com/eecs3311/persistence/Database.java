@@ -98,7 +98,7 @@ public class Database extends AbstractDatabase {
     }
 
     public static IWishlist getWishlistInstance() {
-        database = Database.getInstance(isUsingStubDB);
+        database = Database.getInstance();
         return wishlist;
     }
 }

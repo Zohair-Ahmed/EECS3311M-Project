@@ -53,4 +53,3 @@ CREATE TABLE IF NOT EXISTS Wishlist (
                         AdditionalNotes VARCHAR(500),
                         PRIMARY KEY (WishlistID)
 );
->>>>>>> 4930822 ([47] Create DB for AddBook and setup automatically run db setup script)
