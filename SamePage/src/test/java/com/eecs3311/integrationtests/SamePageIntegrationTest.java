@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class SamePageIntegrationTest {
     IBook book = Database.getBookInstance();
+    ArrayList<IBookModel> results = new ArrayList<>();
+    ArrayList<IBookModel> bookModels = book.getLatestReleases();
     @Test
     public void getSearchResults() {
-        ArrayList<IBookModel> bookModels = book.getLatestReleases();
-        ArrayList<IBookModel> results = new ArrayList<>();
         String search = "Ha";
         for(IBookModel book : bookModels){
             if (book.getTitle().toLowerCase().contains(search.toLowerCase())){
@@ -26,7 +26,6 @@ public class SamePageIntegrationTest {
         assertEquals(results.get(0).getTitle(),"Safe Haven");
         assertEquals(results.get(1).getTitle(), "In het hart");
         assertEquals(results.get(2).getTitle(),"Winter Chalet");
-
         //search not found
         search = "hfkjahdsf";
         ArrayList<IBookModel> emptyResults = new ArrayList<>();
@@ -36,6 +35,7 @@ public class SamePageIntegrationTest {
             }
         }
         assertTrue(emptyResults.isEmpty());
+        assertEquals(bookModels.get(0).getPresenter().getModel().getTitle(), bookModels.get(0).getTitle());
     }
 
     //user adds reviews to book, compare
@@ -43,7 +43,6 @@ public class SamePageIntegrationTest {
     public void getUserReviews(){
         User.getInstance().setUsername("test1");
         IReview addedRev = Database.getReviewInstance();
-        //int current = addedRev.getReviewData("9780552159722").size();
         ArrayList<IReviewModel> previous = addedRev.getReviewData("9780552159722");
         addedRev.submitReview("A new reviews added to the db","4","9780552159722");
         ArrayList<IReviewModel> results = addedRev.getReviewData("9780552159722");
