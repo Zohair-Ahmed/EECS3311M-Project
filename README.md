@@ -37,3 +37,12 @@ db.url=${db.url}
 db.username=${username}
 db.password=${password}
 ```
+
+# Stub Data
+If you want to run the application with stub data only, refer to src/main/java/com/eecs3311/persistence/Database.java and turn the stub data flag on: 
+```shell
+private static boolean isUsingStubDB = true;
+```
+
+# TESTING NOTES
+You can either test with stub data only or test fully with a database, ensure you have a schema created refer to resources/data/samepageschema.sql
