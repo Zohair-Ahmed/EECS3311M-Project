@@ -3,7 +3,7 @@ package com.eecs3311.view.layout;
 import javax.swing.*;
 import java.awt.*;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.view.components.ResultsPanel;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ResultsMediator;

@@ -2,8 +2,12 @@ package com.eecs3311.persistence.Review;
 
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.Review.ReviewModel;
-import com.eecs3311.model.UserStub;
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserStub;
 import com.eecs3311.presenter.Review.IReviewPresenter;
+import com.eecs3311.presenter.Review.ReviewPresenter;
+import com.eecs3311.view.Review.IReviewPanelView;
+import com.eecs3311.view.Review.ReviewPanelView;
 
 import java.util.ArrayList;
 
@@ -41,11 +45,17 @@ public class ReviewStub implements IReview{
         reviewList.add(review4);
         reviewList.add(review5);
         reviewList.add(review6);
+        addToList(reviewList);
     }
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
-
+        int i = UserStub.getInstance().userList().indexOf(User.getInstance().getUsername())+1;
+        IReviewModel newReview = new ReviewModel(User.getInstance().getUsername(),
+                review, "2013-01-05", rating, isbn );
+        UserStub.getInstance().userList().get(i).getUserReviews().add(newReview);
+        reviewList.add(newReview);
+        addToList(reviewList);
     }
 
     @Override
@@ -53,29 +63,41 @@ public class ReviewStub implements IReview{
         return reviewList.size();
     }
 
-
     @Override
     public double getAverageRating(String ISBN){
-        double avg = 0; double total = getTotalRatings();
-
+        double avg = 0;
+        double total = getTotalRatings();
         if (total == 0)
             return 0;
 
         for (IReviewModel irm : reviewList) {
-            if (irm.getISBN().equals(ISBN))
-                avg += Double.parseDouble(irm.getRating());
+            avg += Double.parseDouble(irm.getRating());
         }
-
         return avg/total;
     }
 
     @Override
     public ArrayList<IReviewModel> getReviewData(String ISBN){
-        return null;
+        return reviewList;
     }
 
     public ArrayList<IReviewModel> getAllReviews(){
         return reviewList;
+    }
+
+    /**
+     * To convert the Review models to incorporate an MVP connection in order to serve the view
+     * @param revs reviews
+     */
+    private void addToList(ArrayList<IReviewModel> revs) {
+        for (IReviewModel irm : revs) {
+            IReviewPresenter irp = new ReviewPresenter();
+            IReviewPanelView irpv = new ReviewPanelView();
+            irp.setModel(irm);
+            irm.setPresenter(irp);
+            irp.setView(irpv);
+            irpv.setPresenter(irp);
+        }
     }
 
 }

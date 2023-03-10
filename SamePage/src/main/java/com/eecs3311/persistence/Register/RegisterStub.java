@@ -1,12 +1,12 @@
 package com.eecs3311.persistence.Register;
 
-import com.eecs3311.model.UserStub;
+import com.eecs3311.model.User.UserStub;
 
 import java.util.ArrayList;
 
 public class RegisterStub implements IRegister{
     //list of usernames and email
-    private ArrayList<UserStub> users;
+    private final ArrayList<UserStub> users;
     UserStub userStub = UserStub.getInstance();
     private static RegisterStub instance = null;
 

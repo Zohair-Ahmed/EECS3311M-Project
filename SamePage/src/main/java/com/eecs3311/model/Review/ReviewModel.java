@@ -1,6 +1,6 @@
 package com.eecs3311.model.Review;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Review.IReviewPresenter;
@@ -37,8 +37,7 @@ public class ReviewModel implements IReviewModel{
     private String isbn;
     private String date;
     private IReviewPresenter reviewPresenter;
-    private int reviewLikes;
-    private int reviewDislikes;
+
     public ReviewModel(String username, String reviewBody, String date, String rating, String BookID){
         this.username = username;
         this.review = reviewBody;

@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Review;
 
 import com.eecs3311.model.Review.ReviewModel;
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.presenter.Review.IReviewPresenter;

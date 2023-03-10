@@ -1,4 +1,4 @@
-package com.eecs3311.model;
+package com.eecs3311.model.User;
 
 import com.eecs3311.model.enums.State;
 

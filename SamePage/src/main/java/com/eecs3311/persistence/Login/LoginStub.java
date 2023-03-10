@@ -1,13 +1,13 @@
 package com.eecs3311.persistence.Login;
 
-import com.eecs3311.model.User;
-import com.eecs3311.model.UserStub;
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserStub;
 
 import java.util.ArrayList;
 
 public class LoginStub implements ILogin{
 
-    private ArrayList<UserStub> users;
+    private final ArrayList<UserStub> users;
     UserStub userStub = UserStub.getInstance();
     private static LoginStub instance = null;
 

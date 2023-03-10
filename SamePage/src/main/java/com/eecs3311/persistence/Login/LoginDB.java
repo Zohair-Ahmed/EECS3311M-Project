@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Login;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.AbstractDatabase;
 import java.sql.*;
 

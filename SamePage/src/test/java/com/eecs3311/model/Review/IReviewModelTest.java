@@ -1,6 +1,6 @@
 package com.eecs3311.model.Review;
 
-import com.eecs3311.model.UserStub;
+import com.eecs3311.model.User.UserStub;
 import com.eecs3311.persistence.Review.ReviewStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

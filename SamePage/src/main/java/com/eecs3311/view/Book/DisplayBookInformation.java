@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import com.eecs3311.model.Review.IReviewModel;
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
@@ -43,7 +43,6 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
 
     private static IReviewPresenter reviewPresenter = new ReviewPresenter();
     private static IReviewModel reviewModel = new ReviewModel("", "", "", "", "");
-    private static IReviewPanelView reviewView = new ReviewPanelView();
     private ReviewsPanel reviews = new ReviewsPanel("");
 
     /**

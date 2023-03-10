@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Register;
 
-import com.eecs3311.model.UserStub;
+import com.eecs3311.model.User.UserStub;
 import com.eecs3311.persistence.Database;
 import org.junit.jupiter.api.Test;
 
