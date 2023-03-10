@@ -12,7 +12,7 @@ public class ProfileIcon extends JPanel {
 
     public ProfileIcon(String initials) {
         this.initials = initials.toUpperCase();
-        setPreferredSize(new Dimension(200, 200));
+        setPreferredSize(new Dimension(120, 120));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
@@ -22,7 +22,7 @@ public class ProfileIcon extends JPanel {
         g.setColor(Color.LIGHT_GRAY);
         g.fillOval(0, 0, getWidth(), getHeight());
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.setFont(new Font("Arial", Font.BOLD, 18));
         int textWidth = g.getFontMetrics().stringWidth(initials);
         int textHeight = g.getFontMetrics().getHeight();
         g.drawString(initials, (getWidth()-textWidth)/2, (getHeight()+textHeight)/2);

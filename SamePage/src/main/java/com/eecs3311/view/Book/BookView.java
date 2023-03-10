@@ -56,7 +56,15 @@ public class BookView implements IBookView {
                     User.getInstance().getMainInit().addProfilePanel();
                 }
             }
+            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
         });
+    }
+
+    // Initializing whether the favourite button is blue or red
+    public Color initFavouriteBtnColour(JButton favouriteBtn) {
+        if (favouriteBtn.getText().equals("Favourite"))
+            return new Color(29, 152, 252);
+        else return new Color (255, 26, 18);
     }
 
     @Override
@@ -68,8 +76,10 @@ public class BookView implements IBookView {
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
         JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
-        ;
+
         initFavouriteBtn(mainPanel, favouriteBtn);
+        favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+
         initBookImage(mainPanel, c);
         initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
         initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
@@ -115,7 +125,6 @@ public class BookView implements IBookView {
         avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
         avgReviews.setForeground(new Color(255, 191, 0));
         favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
-        favouriteBtn.setBackground(new Color(29, 152, 252));
         favouriteBtn.setForeground(new Color(255, 255, 255));
         favouriteBtn.setOpaque(true);
         favouriteBtn.setBorderPainted(false);
