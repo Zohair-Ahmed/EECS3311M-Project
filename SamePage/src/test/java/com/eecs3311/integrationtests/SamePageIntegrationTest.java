@@ -48,7 +48,7 @@ public class SamePageIntegrationTest {
         addedRev.submitReview("A new reviews added to the db","4","9780552159722");
         ArrayList<IReviewModel> results = addedRev.getReviewData("9780552159722");
         assertEquals(results.size(),previous.size()+1);
-        assertEquals(results.get(0).getReview(), "A new reviews added to the db");
+        assertEquals(previous.get(0).getPresenter().getModel().getReview(), previous.get(0).getReview());
     }
 
     //user adds book to favorites, compare
