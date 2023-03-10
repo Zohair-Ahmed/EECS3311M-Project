@@ -33,6 +33,11 @@ public class Database {
         }
     }
 
+    public static void setIsUsingStubDB(boolean val) {
+        isUsingStubDB = val;
+        database = new Database();
+    }
+
     /**
      * Retrieves the class instance. Uses dependency injection to switch between stub and real-time database
      */

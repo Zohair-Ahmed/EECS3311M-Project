@@ -39,6 +39,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     }
 
     public ArrayList<IBookModel> getFavBooks(){
+        getDBdata();
         return favBooks;
     }
 
