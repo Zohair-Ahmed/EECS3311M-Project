@@ -29,7 +29,7 @@ public class Database {
             login = LoginStub.getInstance();
             register = RegisterStub.getInstance();
             book = BookStub.getInstance();
-            review = new ReviewStub();
+            review = ReviewStub.getInstance();
         }
     }
 

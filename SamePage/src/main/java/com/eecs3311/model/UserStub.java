@@ -1,5 +1,6 @@
 package com.eecs3311.model;
 
+import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.enums.State;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class UserStub {
     private String password;
     private State loginState = State.GUEST;
     private ArrayList<UserStub> users = new ArrayList<>();
+    private ArrayList<IReviewModel> userReviews = new ArrayList<>();
     private static UserStub instance = null;
 
     public UserStub(String email, String username, String password) {
@@ -26,6 +28,10 @@ public class UserStub {
 
     public ArrayList<UserStub> userList(){
         return users;
+    }
+
+    public ArrayList<IReviewModel> getUserReviews(){
+        return userReviews;
     }
 
     public static UserStub getInstance(){
