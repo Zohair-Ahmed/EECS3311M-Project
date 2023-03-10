@@ -6,6 +6,9 @@ package com.eecs3311.util.log.console;
 public class ConsoleLogs {
     // SUCCESS messages (GREEN)
     public static final String SUCCESSFUL = ConsoleColours.GREEN + "SUCCESSFUL" + ConsoleColours.RESET;
+    public static String SUCCESSFUL(String successString) {
+        return ConsoleColours.GREEN + successString + ConsoleColours.RESET;
+    }
 
     // ERROR messages (RED)
     public static final String ERROR = ConsoleColours.RED + "ERROR" + ConsoleColours.RESET;

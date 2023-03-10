@@ -44,7 +44,6 @@ public class Main extends JFrame implements ActionListener {
   private ILoginPanelView ilv = new LoginPanel();
   private ILoginPresenter ilp = new LoginPresenter();
   private ILoginModel ilm = new LoginModel();
-
   
   private IRegisterPanelView irv = new RegisterPanel();
   private IRegisterPresenter irp = new RegisterPresenter();
