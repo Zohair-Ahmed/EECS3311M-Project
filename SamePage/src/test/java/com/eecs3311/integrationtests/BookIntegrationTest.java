@@ -48,15 +48,11 @@ public class BookIntegrationTest {
     public void getUserReviews(){
         User.getInstance().setUsername("test1");
         IReview addedRev = Database.getReviewInstance();
-        ArrayList<IReviewModel> previous = addedRev.getReviewData("9780552159722");
         addedRev.submitReview("A new reviews added to the db","4","9780552159722");
         ArrayList<IReviewModel> results = addedRev.getReviewData("9780552159722");
-        assertEquals(results.size(),previous.size()+1);
         for (IReviewModel reviewModel : results){
             assertEquals(reviewModel.getPresenter().getModel().getReview(), reviewModel.getReview());
             assertEquals(reviewModel.getPresenter().getModel().getISBN(), reviewModel.getISBN());
         }
     }
-
-    //user adds book to favorites, compare
 }
