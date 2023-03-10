@@ -1,5 +1,6 @@
 package com.eecs3311.view.layout;
 
+import com.eecs3311.model.User;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
@@ -11,9 +12,17 @@ import java.awt.*;
 public class ProfilePanel implements IPanelView {
 
     private JPanel root;
+    private SpringLayout layout = new SpringLayout();
+    private Spring x;
+    private Spring y;
+    private Spring width = Spring.constant(0);
+    private Spring height = Spring.constant(0);
+
+
     private ResultsPanel lbv;
 
     private JPanel bookView;
+    private JPanel userPanel;
 
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
@@ -42,38 +51,38 @@ public class ProfilePanel implements IPanelView {
     public void initComponents() {
         initUserPanel();
         initBooksLayout();
+
+        // Set the vertical split between userPanel and bookView
+        root.setLayout(new BorderLayout());
+        root.add(userPanel, BorderLayout.NORTH);
+        root.add(bookView);
     }
 
     private void initBooksLayout() {
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy = 1;
-        c.insets = new Insets(50, 0,0,0);
-        root.add(bookView, c);
+
+        // Set the preferred size of bookView
+        bookView.setPreferredSize(new Dimension(0, 300));
     }
 
     private void initUserPanel() {
-        GridBagConstraints c = new GridBagConstraints();
-        c.weighty = 1;
-        c.gridy = 0;
-        c.insets = new Insets(0, 0, 50, 0);
-        c.fill = GridBagConstraints.VERTICAL;
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        JPanel userPanel = new JPanel();
+        userPanel = new JPanel();
         ProfileIcon profileIcon = new ProfileIcon("SamePage");
-        userPanel.add(profileIcon);
-        root.add(userPanel, c);
-    }
+        JLabel username = new JLabel("  My Profile");
+        username.setFont(new Font("Futura", Font.BOLD, 30));
 
-    public void updatePanel() {
-        root.remove(bookView);
+        userPanel.add(profileIcon, BorderLayout.NORTH);
+        userPanel.add(username);
+        layout.putConstraint(SpringLayout.NORTH, username, 40, SpringLayout.NORTH, root);
 
-        lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks());
-        bookView = lbv.getView();
+        root.add(userPanel);
 
-        initBooksLayout();
-
-        root.revalidate(); // revalidate the root panel to update the UI
-        root.repaint(); // repaint the root panel to update the UI
+        x = Spring.constant(0);
+        y = Spring.constant(0);
+        width = Spring.width(bookView); // set the width of userPanel to be same as bookView
+        height = Spring.scale(height, 1f/2); // set the height to be half of the root panel height
+        layout.putConstraint(SpringLayout.NORTH, userPanel, y, SpringLayout.NORTH, root);
+        layout.putConstraint(SpringLayout.WEST, userPanel, x, SpringLayout.WEST, root);
+        layout.putConstraint(SpringLayout.EAST, userPanel, width, SpringLayout.WEST, userPanel);
+        layout.putConstraint(SpringLayout.SOUTH, userPanel, height, SpringLayout.NORTH, userPanel);
     }
 }
