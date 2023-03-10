@@ -14,7 +14,6 @@ public class BookModel implements IBookModel {
     private String author;
     private String img;
     private String genre;
-    private double averageReview = 0;
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, ArrayList<ReviewModel> reviews, String ISBN,
@@ -97,6 +96,31 @@ public class BookModel implements IBookModel {
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
     }
+
+    public void addFavoriteBook() {
+        Database.getFavBooksInstance().addBook(this);
+    }
+
+    @Override
+    public void removeFavoriteBook() {
+        Database.getFavBooksInstance().removeFromFavorites(this);
+    }
+
+    public boolean checkFavoriteBook() {
+        boolean checkBook = false;
+        ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
+
+        if (userBooks != null) {
+            for (IBookModel ibm : userBooks) {
+                if (this.getISBN().equals(ibm.getISBN())) {
+                    checkBook = true;
+                }
+            }
+        }
+
+        return checkBook;
+    }
+
 
     @Override
     public double getAverageReview() {

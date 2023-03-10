@@ -3,8 +3,10 @@ package com.eecs3311.view.Login;
 import javax.swing.*;
 
 import com.eecs3311.model.Member;
+import com.eecs3311.model.User;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.layout.LandingPanel;
 import com.eecs3311.view.layout.Main;
 
 import java.awt.*;
@@ -35,12 +37,14 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 		panel.setLayout(new GridBagLayout());
 		initComponents();
 		//Create time to  allow login to switch to landing page
-		timer = new Timer(500, new ActionListener() {
+		timer = new Timer(150, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Switch to the landing frame panel
+				main.setLandingPanel(new LandingPanel());
 				main.getCard().show(main.getContainer(), "Landing");
 				main.addProfilePanel();
+				User.getInstance().setMain(main);
 			}
 		});
 		timer.setRepeats(false); // Only perform the action once
