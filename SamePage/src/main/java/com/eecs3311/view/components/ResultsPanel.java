@@ -81,8 +81,8 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
         JScrollPane scroll = new JScrollPane(
                 releaseContainer,
-                JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
         );
 
         if (state.equals("resultPage")) {

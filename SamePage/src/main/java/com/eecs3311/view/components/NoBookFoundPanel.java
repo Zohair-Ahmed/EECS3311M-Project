@@ -22,9 +22,6 @@ public class NoBookFoundPanel implements IPanelView {
     // root panel
     private JPanel bookNotFoundPanel;
 
-    // wishlist frame
-    private JFrame wishlistFrame;
-
     private WishlistPanel wishlistPanel;
 
     /**
@@ -90,8 +87,9 @@ public class NoBookFoundPanel implements IPanelView {
             @Override
             public void mousePressed(MouseEvent e) {
                 System.out.println(ConsoleLogs.ACTION("`Add button!` button clicked..."));
-                if (!WishlistPanel.isActive()) {
-                    WishlistPanel.getInstance();
+                if (wishlistPanel == null) {
+                    wishlistPanel = WishlistPanel.getInstance();
+                    wishlistPanel.setPresenter(WishlistPanel.getInstance().getPresenter());
                     WishlistPanel.displayWishlistFrame();
                 }
             }

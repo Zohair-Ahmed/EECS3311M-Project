@@ -2,5 +2,8 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/SamePage/src/main/java/com/eecs3311/persistence/Book/BookDB.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/SamePage/src/main/java/com/eecs3311/persistence/Wishlist/WishlistDB.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SamePage/src/main/resources/data/samepageschema.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/SamePage/target/classes/data/samepageschema.sql" dialect="MySQL" />
   </component>
 </project>

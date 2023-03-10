@@ -1,7 +1,10 @@
 package com.eecs3311.view.Wishlist;
 
 import com.eecs3311.model.User;
+import com.eecs3311.model.Wishlist.IWishlistModel;
+import com.eecs3311.model.Wishlist.WishlistModel;
 import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
+import com.eecs3311.presenter.Wishlist.WishlistPresenter;
 import com.eecs3311.util.log.console.ConsoleLogs;
 import com.eecs3311.view.IPanelView;
 import javax.swing.*;
@@ -10,7 +13,6 @@ import java.awt.event.*;
 
 public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionListener {
     private static final JPanel containerPanel = new JPanel();
-    private IWishlistPreseter wishlistPresenter;
     private static JFrame wishlistFrame;
 
     // labels
@@ -22,7 +24,10 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
     private JTextArea tfAdditionalNotes;
 
     // buttons
-    private JButton addBookBtn = new JButton("Add book!");
+    private final JButton addBookBtn = new JButton("Add book!");
+
+    private static IWishlistPreseter iwp = new WishlistPresenter();
+    private static IWishlistModel iwm = new WishlistModel();
 
     // layout
     private static final SpringLayout sl_containerPanel = new SpringLayout();
@@ -32,6 +37,8 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
 
     public WishlistPanel() {
         initComponents();
+        iwp.setModel(iwm);
+        iwm.setPresenter(iwp);
         containerPanel.setLayout(sl_containerPanel);
     }
 
@@ -172,11 +179,11 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      */
     private ActionListener onAddButtonClicked() {
         return e -> {
-            System.out.println(ConsoleLogs.ACTION("`Add button!` button clicked..."));
-            lblConfirmation.setText("BOOK ADDED!");
+            System.out.println(ConsoleLogs.ACTION("`Add book!` button clicked..."));
+            lblConfirmation.setText(lblConfirmation.getText());
             lblConfirmation.revalidate();
-            this.wishlistPresenter.updateModelFromView(
-                    User.getInstance().getEmail(),
+            iwp.updateModelFromView(
+                    User.getInstance().getUsername(),
                     getBookTitle(),
                     getAuthor(),
                     getAdditionalNotes()
@@ -256,7 +263,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      */
     @Override
     public IWishlistPreseter getPresenter() {
-        return this.wishlistPresenter;
+        return iwp;
     }
 
     /**
@@ -266,7 +273,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      */
     @Override
     public void setPresenter(IWishlistPreseter iwp) {
-        this.wishlistPresenter = iwp;
+        WishlistPanel.iwp = iwp;
     }
 
     /**

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-223.8617.56">
-    <data-source name="Same Page" uuid="d66a8902-10c8-4113-9838-b63b4b4163ee">
+  <component name="dataSourceStorageLocal" created-in="IU-222.3739.54">
+    <data-source name="Same Page" uuid="52a05d94-416b-4ef9-8ada-4508c1a3623c">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <secret-storage>forget</secret-storage>
       <schema-mapping />
     </data-source>
   </component>

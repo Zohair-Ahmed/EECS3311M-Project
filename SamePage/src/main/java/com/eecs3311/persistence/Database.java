@@ -9,10 +9,19 @@ import com.eecs3311.persistence.Goals.IGoals;
 import com.eecs3311.persistence.Login.*;
 import com.eecs3311.persistence.Register.*;
 import com.eecs3311.persistence.Review.*;
+import com.eecs3311.persistence.Wishlist.IWishlist;
+import com.eecs3311.persistence.Wishlist.WishlistDB;
+import com.eecs3311.persistence.Wishlist.WishlistStub;
+import com.eecs3311.util.log.console.ConsoleLogs;
+import org.apache.ibatis.jdbc.ScriptRunner;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 
 // Single Pattern
-public class Database {
+public class Database extends AbstractDatabase {
 
     private static ILogin login;
     private static IRegister register;
@@ -21,12 +30,14 @@ public class Database {
     private static IReview review;
     private static IFollower follower;
     private static IGoals goal;
+    private static IWishlist wishlist;
     private static Database database;
     // isUsingStub To use stub = True | To use real db = False
     private static boolean isUsingStubDB = false;
 
     private Database(){
         if (!isUsingStubDB) {
+            configDBScript();
             login = new LoginDB();
             register = new RegisterDB();
             book = new BookDB();
@@ -34,6 +45,7 @@ public class Database {
             review = new ReviewDB();
             follower = new FollowerDB();
             goal = new GoalDB();
+            wishlist = new WishlistDB();
         } else {
             login = LoginStub.getInstance();
             register = RegisterStub.getInstance();
@@ -46,6 +58,25 @@ public class Database {
     public static void setIsUsingStubDB(boolean val) {
         isUsingStubDB = val;
         database = new Database();
+    }
+
+    /**
+     * Run the initial database setup script
+     *
+     * Will configure necessary tables and login if needed
+     */
+    private void configDBScript() {
+        try {
+            InputStream getDBScript = this.getClass().getClassLoader().getResourceAsStream("data/samepageschema.sql");
+            ScriptRunner sr = new ScriptRunner(getConnection());
+            assert getDBScript != null;
+            Reader readDBScript = new InputStreamReader(getDBScript);
+            sr.runScript(readDBScript);
+            System.out.println( ConsoleLogs.SUCCESSFUL("SUCCESSFULLY CONFIGURED THE DATABASE SETUP SCRIPT..."));
+        } catch (Exception e) {
+            System.out.println(ConsoleLogs.ERROR("--- !ERROR! COULD NOT CONFIGURE DATABASE SETUP SCRIPT ---"));
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -87,8 +118,13 @@ public class Database {
         return follower;
     }
 
-    public static IGoals getGoalInstance(){
+    public static IGoals getGoalInstance() {
         database = Database.getInstance();
         return goal;
+    }
+
+    public static IWishlist getWishlistInstance() {
+        database = Database.getInstance();
+        return wishlist;
     }
 }
