@@ -28,6 +28,9 @@ public class ReviewModel implements IReviewModel{
     @Override
     public String getDate() {return date;}
 
+    @Override
+    public String getISBN() {return isbn;}
+
     private String username;
     private String review;
     private String rating;

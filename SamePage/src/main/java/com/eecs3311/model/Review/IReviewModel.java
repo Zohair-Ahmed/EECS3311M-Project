@@ -33,4 +33,6 @@ public interface IReviewModel {
     String getReview();
 
     String getDate();
+
+    String getISBN();
 }
