@@ -1,0 +1,117 @@
+Meeting Logs:
+/-----------------------------/
+SamePage Itr2 Meeting 1
+February 22, 2023 @ 3:00 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topic: Itr2 requirements analysis
+	•	Client Team Meeting Recap:
+	    ◦	New client story - met with client team over Zoom call to discuss the project demo, go over the SamePage project goals, Wiki, and Big User Stories. Client team feedback was provided.
+	    ◦	Questions that came up in the meeting from clients included if a downloadable link from our user stories was applicable in the app? Further discussions were made that this feature was not too relevant.
+	    ◦	Client provided different suggestions,
+	    1 - User to be able to add/request a new book to the application if it is not available from searching for it as well as an attachable link,
+	    2 - Book Clubs to have name and description, while being able to search up for book clubs,
+	    3 - Client Requested to display user’s favorite books under info
+	•	Given thought, discussion, and considering what would qualify for a Big User Story, the client suggestion for the user requesting to add a new book from was taken on as a new Big User Story.
+	•   Refer to Itr2 Big User Stories for the updated details.
+	•	Met with the Dev team on Zoom, viewed their demo The Library Book System, discussed their user stories and the project vision and suggested to the team as their big user story to add Big User Story for finding books in another location.
+
+/------End of Meeting 1-------/
+
+Itr2 Meeting 2
+February 22, 2023 @ 6:00 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topic: Itr2 requirements analysis
+	•	Priortize items - items to refactor from iteration 1, cleaning up code, adding comments, discuss how to set up the test package and stub data
+	•	Discuss the TA marking and feedback received from iteration 1 and how we can implement this in our iteration 2 timeline
+	•	Address Bugs and assign to dev
+	•	Add Iteration 2 dev tickets in github under Projects https://github.com/users/Zohair-Ahmed/projects/1/views/1
+	•	Tickets created and listed
+
+Tasks: Ammad & Nick work on remaining iteration 1 feedback from TA, fixing landing page bug, and refactoring iteration 1
+	•	Zohair work on researching APIs for book data
+	•	Nargis and Kyle look into database connection
+
+/------End of Meeting 2-------/
+
+Itr2 Meeting 3
+March 1, 2023 @ 3:00 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting Topic:
+	•	Discuss project architecture
+	•	Kyle and Ammad updating team on the persistence layer and how the interaction between database should be set up
+	•	Team has updated the resuibilty in the UI components
+
+Big User Stories:
+•	User Reviews - As a member, I want to upload/leave a review of the book I have read.
+•	Book Information - As a guest or member, when I click on the book, I should be able to view the main information of the book.
+•	Favorites - As a member, I want to favorite books that I like or want to read later in the future.
+•	Add New Book to App - As a user I can request to add the book to the App if I do not see it on SamePage.
+Itr2 Detailed User Stories:
+•	View Reviews - Display the book reviews upon clicking on a specific book.
+•	Add Reviews - Users logged in, and add reviews to the selected book upon clicking on a specific book.
+•	Display Favorite Books - Display the favourited user books in user information.
+•	Add Favorite Books - Add a book to the user's favourites upon the user selecting a specific book from the search.
+•	Remove Favorite Books - Remove a book from user favourites upon the user selecting a specific book from their user information list.
+•	Display Book Information - Display book information such as title, author, publication date, summary, reviews, and ISBN number.
+•	Client Feature – Request to Add New Book - If a book is not listed, the user can submit a request/suggest the app to add the new book to a queue.
+
+
+Development Tasks:
+Iteration 1 Carry Over Tasks:
+Itr1 Refactor and Merge Search Bar/Component -> assigned to Ammad.Cost=1 day Actual=1 day
+Refactor UI Components for Reusability -> assigned to Ammad.Cost=1 day Actual=1 day
+Itr1 Feedback - Add test package ->assigned to Ammad & Kyle.Cost=0.5 day Actual=0.5 day
+Itr1 Refactor Navbar -> assigned to Nick.Cost=1 day Actual=1 day
+Itr1 Bugs - Login Feature ->assigned to Nick.Cost=1 day Actual=1 day
+Itr1 Feedback - Add comments & remove long code -> assigned to Nick and Ammad.Cost=1 day Actual=1 day
+Itr1 Feedback - Add DB Stub & Interface -> assigned to Kyle.Cost=2 days Actual=2 days
+
+Book Information - Big User Story
+“How to implement API” -> assigned to Zohair. Cost=1day Actual=1day
+“Display Book Information” -> assigned to Nargis. Cost=3days Actual=3days
+“Make database connection” -> assigned to Nargis. Cost=2days Actual=2days
+“Update Display Book UI with images” -> assigned to Nargis. Cost=0.5day Actual=0.5day
+
+User Reviews - Big User Story
+“Make a database connection for Login and Register” -> assigned to Kyle and Ammad Cost=2days Actual=2days
+“View Reviews” -> assigned to Nick. Cost=3days Actual=3days
+“Add Reviews” -> assigned to Nick. Cost=3days Actual=3days
+“Clean up and revamp UI for application”-> assigned to Nick & Ammad.Cost=2days Actual=3days
+
+Add New Book to App - Big User Story
+“Add New Book” -> assigned to Zohair. Cost=3days Actual=3days
+“Add New Books Wishlist UI feature and integrate with search” -> assigned to Zohair. Cost=2days Actual=2days
+
+Favorites - Big User Story
+“Add Favorite Books” -> assigned to Kyle Cost=3days Actual = 3days
+“Remove Favorite Books” -> assigned to Kyle Cost=3days Actual=3days
+
+Testing Tickets
+JUnit testing -> assigned to Nargis & Ammad
+Integration testing for DB -> assigned to team
+
+Itr2 Meeting 4
+March 3rd, 2023 @12:00 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+Meeting topic:
+	•	Standup meeting
+	•	Team updates on tasks, what has been completed
+	•	Update github project ticket board, move items to in progress or done
+	•	View open PR and code review as a team
+	•	Accept/Approve new changes and merge
+	•	Discuss how we will be setting up the testing, how we need to test between different classes
+Overview of the meeting, priortizing what tickets are left over and what we can complete for iteration 2
+
+Meeting 5
+March 8th @ 12:20pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis
+
+Meeting topic:
+	•	New app demo with updated UI features done by Nick and Ammad
+	•	Go over the left over features, connecting the add new book and favorites to the database as well as merging them together
+	•	Email drafted for connecting with QA team before submission deadline, screenshot included in Itr2Documentation folder
+	•	Go over the Junit testing requirements and progress
+	•	Ammad updated iteration 2 documentation, Nargis to complete logs

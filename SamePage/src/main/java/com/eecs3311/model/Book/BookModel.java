@@ -1,32 +1,27 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.Reviews;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
-import com.eecs3311.model.enums.Genre;
 
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
-
-    private String title;
-    private String description;
-    private ArrayList<Reviews> reviews;
-    private int ISBN;
-    private String author;
-
-    private Genre genre;
-
-    // Each Model class needs ONE Presenter class Interface
+    private final String title;
+    private final String description;
+    private final String ISBN;
+    private final String author;
+    private final String img;
+    private final String genre;
     private IBookPresenter bookPresenter;
 
-    public BookModel(String title, String author, String description, ArrayList<Reviews> reviews, int ISBN,
-            Genre genre) {
+    public BookModel(String title, String author, String description, String ISBN,
+                     String genre, String img) {
         this.title = title;
         this.author = author;
         this.description = description;
-        this.reviews = reviews;
         this.ISBN = ISBN;
         this.genre = genre;
+        this.img = img;
     }
 
     @Override
@@ -40,40 +35,11 @@ public class BookModel implements IBookModel {
         return title;
     }
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public ArrayList<Reviews> getReviews() {
-        return reviews;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setReviews(ArrayList<Reviews> reviews) {
-        this.reviews = reviews;
-    }
-
-    public void setISBN(int ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -82,16 +48,46 @@ public class BookModel implements IBookModel {
     }
 
     public String getGenre() {
-        return genre.toString();
+        return genre;
     }
 
-    @Override
-    public String toString() {
-        return this.getTitle() + "   " + this.getAuthor() + "   " + this.getISBN() + "   " + this.getGenre();
+    public String getImg() {
+        return img;
     }
 
     @Override
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
     }
+
+    public void addFavoriteBook() {
+        Database.getFavBooksInstance().addBook(this);
+    }
+
+    @Override
+    public void removeFavoriteBook() {
+        Database.getFavBooksInstance().removeFromFavorites(this);
+    }
+
+    public boolean checkFavoriteBook() {
+        boolean checkBook = false;
+        ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
+
+        if (userBooks != null) {
+            for (IBookModel ibm : userBooks) {
+                if (this.getISBN().equals(ibm.getISBN())) {
+                    checkBook = true;
+                }
+            }
+        }
+
+        return checkBook;
+    }
+
+
+    @Override
+    public double getAverageReview() {
+        return Database.getReviewInstance().getAverageRating(getISBN());
+    }
+
 }

@@ -1,13 +1,23 @@
 package com.eecs3311.view.Book;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {
 
     private IBookPresenter bookPresenter;
+    private JFrame bookFrame;
+    private DisplayBookInformation book;
 
     public BookView() {
     }
@@ -23,27 +33,175 @@ public class BookView implements IBookView {
     }
 
     /**
-     * Returns a GUI component relating to the model. Include updatedViewFromModel
-     * function to ensure the view is up-to-date and change return type as needed
-     * 
-     * @return JPanel - Component that has views related to BookModel
+     * Initilaizes the favourites button for the book view; changes button text depending on
+     * whether the book is in favourites list of logged-in user
+     * @param mainPanel
+     * @param favouriteBtn
      */
+    public void initFavouriteBtn(JPanel mainPanel, JButton favouriteBtn) {
+        favouriteBtn.addActionListener(e -> {
+            if (User.getInstance().getLoginState() == State.GUEST) {
+                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favourites");
+            } else {
+                if (getPresenter().checkModelFavBooks()) {
+                    getPresenter().removeFavBook();
+                    favouriteBtn.setText("Favourite");
+                    User.getInstance().getMainInit().addProfilePanel();
+                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    }
+                } else {
+                    getPresenter().updateModelFavBooks();
+                    favouriteBtn.setText("Remove");
+                    User.getInstance().getMainInit().addProfilePanel();
+                }
+            }
+            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+        });
+    }
+
+    // Initializing whether the favourite button is blue or red
+    public Color initFavouriteBtnColour(JButton favouriteBtn) {
+        if (favouriteBtn.getText().equals("Favourite"))
+            return new Color(29, 152, 252);
+        else return new Color (255, 26, 18);
+    }
+
     @Override
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(4, 1, 1, 1));
-        mainPanel.setBackground(new Color(179, 191, 184));
-
+        mainPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
-        JLabel genreLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getGenre());
+        JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
+        JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
 
-        mainPanel.setPreferredSize(new Dimension(300, 300));
+        initFavouriteBtn(mainPanel, favouriteBtn);
+        favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
 
-        mainPanel.add(titleLbl);
-        mainPanel.add(genreLbl);
-        mainPanel.add(authorLbl);
+        initBookImage(mainPanel, c);
+        initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
+        initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
 
+        mainPanel.addMouseListener(onBookClicked());
+        mainPanel.revalidate();
         return mainPanel;
+    }
+
+    /**
+     * Initilaizes the layout of the components of the book view
+     * @param mainPanel
+     * @param titleLbl
+     * @param authorLbl
+     * @param avgReviews
+     * @param favouriteBtn
+     * @param c
+     */
+    private void initLayout(JPanel mainPanel, JLabel titleLbl, JLabel authorLbl, JLabel avgReviews, JButton favouriteBtn, GridBagConstraints c) {
+        c.gridx = 0;
+        c.gridy = 1;
+        mainPanel.add(titleLbl, c);
+        c.gridy = 2;
+        mainPanel.add(authorLbl, c);
+        c.gridy = 3;
+        mainPanel.add(avgReviews, c);
+        c.gridy = 4;
+        c.insets = new Insets(5, 0, 50, 15);
+        mainPanel.add(favouriteBtn, c);
+    }
+
+
+    /**
+     * Initializes the fonts for the labels and buttons
+     * @param titleLbl
+     * @param authorLbl
+     * @param avgReviews
+     * @param favouriteBtn
+     */
+    private void initFonts(JLabel titleLbl, JLabel authorLbl, JLabel avgReviews, JButton favouriteBtn) {
+        titleLbl.setFont(new Font("Futura", Font.BOLD, 12));
+        authorLbl.setFont(new Font("Futura", Font.BOLD | Font.ITALIC, 10));
+        avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
+        avgReviews.setForeground(new Color(255, 191, 0));
+        favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
+        favouriteBtn.setForeground(new Color(255, 255, 255));
+        favouriteBtn.setOpaque(true);
+        favouriteBtn.setBorderPainted(false);
+    }
+
+    /**
+     * Initializes the book image for the book view
+     * @param mainPanel book view panel
+     * @param c layout constraint
+     */
+    private void initBookImage(JPanel mainPanel, GridBagConstraints c){
+        try {
+            URL url = new URL(bookPresenter.getUpdatedViewFromModel().getImg());
+            BufferedImage img = ImageIO.read(url);
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(img).getImage().getScaledInstance(120, 180, Image.SCALE_SMOOTH));
+            JLabel picLabel = new JLabel(imageIcon);
+            mainPanel.add(picLabel, c);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * MouseListener for which book the user has selected.
+     */
+    private MouseListener onBookClicked() {
+        return new MouseAdapter()
+        {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                System.out.printf("Clicked %s\n",getPresenter().getUpdatedViewFromModel().getTitle());
+                if (bookFrame == null) {
+                    // If not, create a new frame and show it
+                    displaySelectedBook();
+                } else if(book!=null && !book.getTitleB().equals(getPresenter().getUpdatedViewFromModel().getTitle())){
+                    //so book frame is already there, now check if the user is clicking a new book result
+                    // then dispose the popup and open a new display book view
+                    bookFrame.dispose();
+                    displaySelectedBook();
+                }
+                else{
+                    // user has clicked the same book popup and thus bring the open book frame to the front
+                    bookFrame.setVisible(true);
+                    bookFrame.toFront();
+                }
+            }
+        };
+    }
+
+    /**
+     * Opens a bigger display for the Book View on a mouse click
+     */
+    private void displaySelectedBook(){
+        try {
+            book = DisplayBookInformation.getInstance(getPresenter());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        bookFrame = new JFrame("Book Reviews");
+        bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        bookFrame.add(book.getView());
+        bookFrame.setSize(1250, 550);
+        bookFrame.setVisible(true);
+        bookFrame.setLocationRelativeTo(null);
+        addWindowListener();
+    }
+
+    private void addWindowListener() {
+        WindowListener wl = new WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e){
+                bookFrame.setVisible(false);
+            }
+        };
+        bookFrame.addWindowListener(wl);
     }
 }

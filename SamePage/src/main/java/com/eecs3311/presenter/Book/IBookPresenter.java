@@ -13,15 +13,6 @@ public interface IBookPresenter {
     void setView(IBookView bv);
 
     /**
-     * To be used when a UI component is changing any information on the screen.
-     * Ex: Loading new page, submitting a form, etc. Params would be made according
-     * to what is expected to be changed through an action
-     * 
-     * @param title - Attribute(s) to be changed
-     */
-    void updateModelFromView(String title);
-
-    /**
      * Used when fetching updated Model data. getModel()
      * can be used but this class is more of a customizable class
      * based on the object. May need to implement separate methods
@@ -30,4 +21,21 @@ public interface IBookPresenter {
      * @return any updated attribute(s)
      */
     IBookModel getUpdatedViewFromModel();
+
+    /**
+     * To be used when a UI component is adding this book to the favorites list of the logged-in user.
+     */
+    void updateModelFavBooks();
+
+    /**
+     * To be used when a UI component is checking if this book is in the favorites list of the logged-in user.
+     *
+     * @return boolean value for book favorite status
+     */
+    boolean checkModelFavBooks();
+
+    /**
+     * To be used when a UI component is removing this book from the favorites list of the logged-in user.
+     */
+    void removeFavBook();
 }

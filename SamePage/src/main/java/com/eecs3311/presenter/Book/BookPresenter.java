@@ -5,7 +5,6 @@ import com.eecs3311.view.Book.IBookView;
 
 public class BookPresenter implements IBookPresenter {
 
-    // Each Presenter object should have 1 Model and 1 View
     private IBookModel bookModel;
     private IBookView bookView;
 
@@ -30,16 +29,6 @@ public class BookPresenter implements IBookPresenter {
     }
 
     /**
-     * Presenter class gets details of what to change for the model.
-     * 
-     * @param title - Attribute to be updated/changed - can be multiple
-     */
-    @Override
-    public void updateModelFromView(String title) {
-        getModel().setTitle(title);
-    }
-
-    /**
      * Sends updated information about the model to the view
      *
      * @return - implement return type as needed
@@ -47,5 +36,18 @@ public class BookPresenter implements IBookPresenter {
     @Override
     public IBookModel getUpdatedViewFromModel() {
         return this.bookModel;
+    }
+
+    public void updateModelFavBooks() {
+        getModel().addFavoriteBook();
+    }
+
+    public void removeFavBook() {
+        getModel().removeFavoriteBook();
+    }
+
+    public boolean checkModelFavBooks() {
+        boolean check = getModel().checkFavoriteBook();
+        return check;
     }
 }
