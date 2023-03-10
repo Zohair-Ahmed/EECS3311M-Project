@@ -189,7 +189,7 @@ public class BookView implements IBookView {
         bookFrame = new JFrame("Book Reviews");
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bookFrame.add(book.getView());
-        bookFrame.setSize(1350, 550);
+        bookFrame.setSize(1250, 550);
         bookFrame.setVisible(true);
         bookFrame.setLocationRelativeTo(null);
         addWindowListener();

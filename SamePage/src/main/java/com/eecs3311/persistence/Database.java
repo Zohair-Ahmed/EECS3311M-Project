@@ -16,7 +16,7 @@ public class Database {
     private static IReview review;
     private static Database database;
     // isUsingStub To use stub = True | To use real db = False
-    private static boolean isUsingStubDB = false;
+    private static boolean isUsingStubDB = true;
 
     private Database(){
         if (!isUsingStubDB) {
