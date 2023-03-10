@@ -220,14 +220,12 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-      if (User.getInstance().getLoginState() != State.GUEST) {
+      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
         setLandingPanel(new LandingPanel());
       }
       cards.show(container, "Landing");
     }
     if (e.getSource() == profileButton) {
-//      container.remove(profile.getView());
-//      addProfilePanel();
       cards.show(container, "Profile");
     }
   }
@@ -240,6 +238,10 @@ public class Main extends JFrame implements ActionListener {
   public CardLayout getCard() {
     return this.cards;
   }
+
+  /**
+   * Adds the profile panel on successful login for users to view profile specific information
+   */
   public void addProfilePanel() {
     profile= new ProfilePanel();
     JPanel profilePanel = profile.getView();
@@ -254,13 +256,11 @@ public class Main extends JFrame implements ActionListener {
     tempBar.add(profileButton);
   }
 
-  /*
-  This method is used to check if the current JPanel shown on the GUI is the profile panel when a book is
-  removed from the favorites list of a user. If the current card string is Profile then an updated view of the profile panel
-  is shown
+  /**
+   * Checks the name of the current JPanel on gui and returns the name as a string
+   * Used when a specific action is to be performed if a certain panel is shown on GUI
    */
   public String checkCurrentCard() {
-    String current = "";
     JPanel card = null;
 
     for (Component comp : container.getComponents()) {
@@ -268,10 +268,8 @@ public class Main extends JFrame implements ActionListener {
         card = (JPanel) comp;
       }
     }
-    if (card.getName().equals("Profile")) {
-      current = card.getName();
-    }
-    return current;
+
+    return card.getName();
   }
 
 }

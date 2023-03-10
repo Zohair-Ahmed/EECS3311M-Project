@@ -16,5 +16,4 @@ public interface IBookView {
      * @return JPanel - Component that has views related to BookModel
      */
     JPanel getView();
-    JPanel getAlternateView();
 }

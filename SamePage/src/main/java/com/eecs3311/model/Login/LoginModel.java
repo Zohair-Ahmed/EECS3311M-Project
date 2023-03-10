@@ -28,6 +28,10 @@ public class LoginModel implements ILoginModel {
         validateLogin();
     }
 
+    /**
+     * Passes the login credentials from user input to the persistence layer to check for valid login attempt
+     * Passes to the presenter a status update string for the current login attempt to be shown on LoginView
+     */
     private void validateLogin() {
         String loginMessage = "Invalid Login Credentials";
         if (Database.getLoginInstance().isLoginValid(getEmail(), getPassword())) {

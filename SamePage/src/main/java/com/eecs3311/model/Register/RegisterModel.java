@@ -27,6 +27,10 @@ public class RegisterModel implements IRegisterModel {
         validateRegister();
     }
 
+    /**
+     * Passes the register credentials from user input to the persistence layer to check for existing users before adding to database
+     * Passes to the presenter a status update string for the current register attempt to be shown on RegisterView
+     */
     private void validateRegister() {
         String queryResult = Database.getRegisterInstance().registerUser(this.username, this.email, this.password);
         this.getPresenter().updateViewFromModel(queryResult);

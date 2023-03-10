@@ -32,9 +32,31 @@ public class BookView implements IBookView {
         this.bookPresenter = bp;
     }
 
-    @Override
-    public JPanel getAlternateView(){
-        return new JPanel();
+    /**
+     * Initilaizes the favorites button for the book view; changes button text depending on
+     * whether the book is in favorites list of logged-in user
+     * @param mainPanel
+     * @param favouriteBtn
+     */
+    public void initFavoriteBtn(JPanel mainPanel, JButton favouriteBtn) {
+        favouriteBtn.addActionListener(e -> {
+            if (User.getInstance().getLoginState() == State.GUEST) {
+                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favorites");
+            } else {
+                if (getPresenter().checkModelFavBooks()) {
+                    getPresenter().removeFavBook();
+                    favouriteBtn.setText("Add to Favorites");
+                    User.getInstance().getMainInit().addProfilePanel();
+                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    }
+                } else {
+                    getPresenter().updateModelFavBooks();
+                    favouriteBtn.setText("Remove from Favorites");
+                    User.getInstance().getMainInit().addProfilePanel();
+                }
+            }
+        });
     }
 
     @Override
@@ -45,33 +67,9 @@ public class BookView implements IBookView {
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
-
         JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove from Favorites" : "Add to Favorites");
 
-        // add the action listener to the favorite button
-        favouriteBtn.addActionListener(e -> {
-            if (User.getInstance().getLoginState() == State.GUEST) {
-                // Show a prompt JFrame using JOptionPane
-                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favorites");
-            } else {
-                if (getPresenter().checkModelFavBooks()) {
-                    // remove the book from the user's favorites
-                    getPresenter().removeFavBook();
-                    favouriteBtn.setText("Add to Favorites");
-                    User.getInstance().getMainInit().addProfilePanel();
-                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
-                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
-                    }
-
-                } else {
-                    // add the book to the user's favorites
-                    getPresenter().updateModelFavBooks();
-                    favouriteBtn.setText("Remove from Favorites");
-                    User.getInstance().getMainInit().addProfilePanel();
-                }
-            }
-        });
-
+        initFavoriteBtn(mainPanel, favouriteBtn);
         initBookImage(mainPanel, c);
         initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
         initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);

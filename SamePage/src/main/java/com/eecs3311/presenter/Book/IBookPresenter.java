@@ -31,9 +31,20 @@ public interface IBookPresenter {
      */
     IBookModel getUpdatedViewFromModel();
 
+    /**
+     * To be used when a UI component is adding this book to the favorites list of the logged-in user.
+     */
     void updateModelFavBooks();
 
+    /**
+     * To be used when a UI component is checking if this book is in the favorites list of the logged-in user.
+     *
+     * @return boolean value for book favorite status
+     */
     boolean checkModelFavBooks();
 
+    /**
+     * To be used when a UI component is removing this book from the favorites list of the logged-in user.
+     */
     void removeFavBook();
 }

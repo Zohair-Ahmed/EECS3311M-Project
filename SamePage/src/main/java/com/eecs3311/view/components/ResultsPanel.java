@@ -25,6 +25,11 @@ public class ResultsPanel implements ActionListener, IPanelView {
         initComponents();
     }
 
+    /**
+     * Initializes a result panel JPanel containing bookView components for all book models
+     * in the logged-in users favorites list
+     * @param books
+     */
     public ResultsPanel(ArrayList<IBookModel> books) {
         container.setLayout(new GridBagLayout());
         textJLabel.setText("Favorite Books:");

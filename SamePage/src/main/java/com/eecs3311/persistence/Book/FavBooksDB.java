@@ -38,39 +38,19 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         }
     }
 
-    /**
-     * Returns the bookList with all latest books in DB
-     */
     public ArrayList<IBookModel> getFavBooks(){
         return favBooks;
     }
 
     public void getDBdata() {
-        favBooks = new ArrayList<IBookModel>();
+        favBooks = new ArrayList<>();
         try {
             if (getConnection() != null) {
-//                ArrayList<IBookModel> info = new ArrayList<>();
-                ArrayList<String> bookISBN = new ArrayList<String>();
+                ArrayList<String> bookISBN = new ArrayList<>();
                 System.out.println("Connection is successful");
-                String query = "SELECT Book.* " +
-                        "FROM Favorites " +
-                        "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " +
-                        "WHERE Favorites.FavID = " + User.getInstance().getUserID();
+                String query = "SELECT Book.* " + "FROM Favorites " + "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " + "WHERE Favorites.FavID = " + User.getInstance().getUserID();
                 Statement st = getConnection().createStatement();
-                // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
-                // iterate through the java resultset
-//                while (rs.next()) {
-//                    title = rs.getString("Title");
-//                    author = rs.getString("Author");
-//                    description = rs.getString("Description");
-//                    ISBN = rs.getString("ISBN13");
-//                    genre = rs.getString("Genre");
-//                    img = rs.getString("Img");
-//                    info.add(new BookModel(title, author, description, null, ISBN, genre, img));
-//                }
-//                addToList(info);
-
                 while (rs.next()) {
                     ISBN = rs.getString("ISBN13");
                     bookISBN.add(ISBN);
@@ -83,20 +63,6 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
             e.printStackTrace();
         }
     }
-
-//    public void addToList(ArrayList<IBookModel> info) {
-//        for (IBookModel ibm : info) {
-//            // Set Model <-> Presenter <-> View connection to model
-//            IBookPresenter bp = new BookPresenter();
-//            IBookView bv = new BookView();
-//            bp.setModel(ibm);
-//            ibm.setPresenter(bp);
-//            bp.setView(bv);
-//            bv.setPresenter(bp);
-//            this.favBooks.add(ibm);
-//        }
-//    }
-
     public void addToList(ArrayList<String> info) {
         ArrayList<IBookModel> allBooks = Database.getBookInstance().getLatestReleases();
 
