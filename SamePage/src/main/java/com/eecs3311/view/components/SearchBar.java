@@ -69,7 +69,6 @@ public class SearchBar implements ActionListener, IPanelView {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                searchTextKeyReleased();
             }
         });
         this.container.add(this.searchInputField, c);

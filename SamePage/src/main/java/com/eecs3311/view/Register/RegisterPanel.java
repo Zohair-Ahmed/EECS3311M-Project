@@ -238,16 +238,15 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 			lblEmail.setText("Email:");
 			lblPassword.setText("Password:");
 			lblConfirmPass.setText("Confirm Password:");
-			if (!tfPassword.getText().equals(tfConfirmPass.getText())) { try {
+			if (!tfPassword.getText().equals(tfConfirmPass.getText())) {
 					lblConfirmation.setText("Passwords don't match!");
 					lblPassword.setText(lblPassword.getText().substring(0,lblPassword.getText().indexOf(":")+1)+""+" *");
 					lblPassword.setForeground(new Color(255, 25, 9));
 					lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-					lblConfirmPass.setText(lblPassword.getText().substring(0,lblConfirmPass.getText().indexOf(":")+1)+""+" *");
+					lblConfirmPass.setText(lblConfirmPass.getText().substring(0,lblConfirmPass.getText().indexOf(":")+1)+""+" *");
 					lblConfirmPass.setForeground(new Color(255, 25, 9));
 					lblConfirmPass.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-				} catch (Exception e) {/* Need to fix*/}
-				return false;
+					return false;
 			}
 			return true;
 		} else {
