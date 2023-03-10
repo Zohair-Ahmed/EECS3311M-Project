@@ -1,8 +1,6 @@
 package com.eecs3311.persistence;
 
-import com.eecs3311.persistence.Book.BookDB;
-import com.eecs3311.persistence.Book.BookStub;
-import com.eecs3311.persistence.Book.IBook;
+import com.eecs3311.persistence.Book.*;
 import com.eecs3311.persistence.Login.*;
 import com.eecs3311.persistence.Register.*;
 import com.eecs3311.persistence.Review.*;
@@ -14,6 +12,7 @@ public class Database {
     private static ILogin login;
     private static IRegister register;
     private static IBook book;
+    private static IFavBooks favBooks;
     private static IReview review;
     private static Database database;
     // isUsingStub To use stub = True | To use real db = False
@@ -24,6 +23,7 @@ public class Database {
             login = new LoginDB();
             register = new RegisterDB();
             book = new BookDB();
+            favBooks = new FavBooksDB();
             review = new ReviewDB();
         } else {
             login = LoginStub.getInstance();
@@ -55,6 +55,10 @@ public class Database {
     public static IBook getBookInstance() {
         database = Database.getInstance();
         return book;
+    }
+
+    public static IFavBooks getFavBooksInstance() {
+        return favBooks;
     }
 
     public static IReview getReviewInstance() {

@@ -8,6 +8,8 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
@@ -36,6 +38,8 @@ public class Main extends JFrame implements ActionListener {
 
   private CardLayout cards = new CardLayout();
   private JPanel container = new JPanel(cards);
+  private JPanel loginPanel;
+  private JPanel registerPanel;
 
   private ILoginPanelView ilv = new LoginPanel();
   private ILoginPresenter ilp = new LoginPresenter();
@@ -46,7 +50,7 @@ public class Main extends JFrame implements ActionListener {
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
 
-  private ProfilePanel profile = new ProfilePanel();
+  private ProfilePanel profile;
   private Menubar menuBar;
 
   private void initHomeButtonUI() {
@@ -130,26 +134,33 @@ public class Main extends JFrame implements ActionListener {
     profileButton.addActionListener(this);
   }
 
+  JPanel mainPanel;
+  LandingPanel landingPanel;
   private void initPageSetup() {
     contentPane = new JPanel();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
     setContentPane(contentPane);
 
-    JPanel mainPanel = new JPanel();
+    mainPanel = new JPanel();
     mainPanel.setLayout(new BorderLayout());
     mainPanel.setBackground(new Color(128, 128, 255));
 
-    LandingPanel landingPanel = new LandingPanel();
+    landingPanel = new LandingPanel();
     mainPanel.add(landingPanel.getView());
     mainPanel.setSize(500, 500);
 
     configureLoginMVP();
     configureRegisterMVP();
+    configurePanelNames(mainPanel, ilv.getView(), irv.getView());
     container.add(mainPanel, "Landing");
-    container.add(ilv.getView(), "Login");
-    container.add(irv.getView(), "Register");
-    container.add(profile.getView(), "Profile");
+    container.add(this.loginPanel, "Login");
+    container.add(this.registerPanel, "Register");
+  }
 
+  public void setLandingPanel(LandingPanel lp) {
+    mainPanel.remove(this.landingPanel.getView());
+    this.landingPanel = lp;
+    mainPanel.add(this.landingPanel.getView());
   }
 
   private void configureLoginMVP() {
@@ -165,6 +176,15 @@ public class Main extends JFrame implements ActionListener {
     irm.setPresenter(irp);
     irp.setView(irv);
     irv.setPresenter(irp);
+  }
+
+  private void configurePanelNames(JPanel mainPanel, JPanel loginPanel, JPanel registerPanel) {
+    mainPanel.setName("Landing");
+    this.loginPanel = loginPanel;
+    this.loginPanel.setName("Login");
+
+    this.registerPanel = registerPanel;
+    this.registerPanel.setName("Register");
   }
 
   public Main() {
@@ -199,10 +219,15 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Login");
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
-    if (e.getSource() == homeButton)
+    if (e.getSource() == homeButton) {
+      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
+        setLandingPanel(new LandingPanel());
+      }
       cards.show(container, "Landing");
-    if (e.getSource() == profileButton)
+    }
+    if (e.getSource() == profileButton) {
       cards.show(container, "Profile");
+    }
   }
 
 
@@ -213,7 +238,15 @@ public class Main extends JFrame implements ActionListener {
   public CardLayout getCard() {
     return this.cards;
   }
+
+  /**
+   * Adds the profile panel on successful login for users to view profile specific information
+   */
   public void addProfilePanel() {
+    profile= new ProfilePanel();
+    JPanel profilePanel = profile.getView();
+    profilePanel.setName("Profile");
+    container.add(profile.getView(), profilePanel.getName());
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);
@@ -221,6 +254,22 @@ public class Main extends JFrame implements ActionListener {
 
     tempBar.add(homeButton);
     tempBar.add(profileButton);
+  }
+
+  /**
+   * Checks the name of the current JPanel on gui and returns the name as a string
+   * Used when a specific action is to be performed if a certain panel is shown on GUI
+   */
+  public String checkCurrentCard() {
+    JPanel card = null;
+
+    for (Component comp : container.getComponents()) {
+      if (comp.isVisible() == true) {
+        card = (JPanel) comp;
+      }
+    }
+
+    return card.getName();
   }
 
 }

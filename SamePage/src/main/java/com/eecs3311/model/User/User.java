@@ -1,6 +1,7 @@
 package com.eecs3311.model.User;
 
 import com.eecs3311.model.enums.State;
+import com.eecs3311.view.layout.Main;
 
 // Singleton pattern
 public class User {
@@ -8,9 +9,12 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private int userID;
+
     private State loginState = State.GUEST;
     private static User user;
-
+    private Main main;
+    
     private User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -51,11 +55,30 @@ public class User {
         this.password = password;
     }
 
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+
+
     @Override
     public String toString() {
         if (loginState.equals(State.GUEST))
             return "Not Logged In";
         return "Current User = " + getEmail() + " - " + getPassword();
+    }
+
+    public Main getMainInit() {
+        return this.main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 
     public State getLoginState() {

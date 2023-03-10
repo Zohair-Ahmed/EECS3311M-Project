@@ -2,6 +2,8 @@ package com.eecs3311.persistence.Login;
 
 import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.AbstractDatabase;
+import com.eecs3311.persistence.Database;
+
 import java.sql.*;
 
 public class LoginDB extends AbstractDatabase implements ILogin{
@@ -23,11 +25,14 @@ public class LoginDB extends AbstractDatabase implements ILogin{
                 String getEmail = rs.getString("Email");
                 String getUsername = rs.getString("Username");
                 String getPassword = rs.getString("UserPassword");
+                int getUserID = rs.getInt("UserID");
 
                 if (getEmail.equals(email) && getPassword.equals(password)) {
                     User.getInstance().setEmail(getEmail);
                     User.getInstance().setUsername(getUsername);
                     User.getInstance().setPassword(getPassword);
+                    User.getInstance().setUserID(getUserID);
+                    Database.getFavBooksInstance().getDBdata();
                     return true;
                 }
             }

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 public class BookView implements IBookView {
@@ -30,9 +32,39 @@ public class BookView implements IBookView {
         this.bookPresenter = bp;
     }
 
-    @Override
-    public JPanel getAlternateView(){
-        return new JPanel();
+    /**
+     * Initilaizes the favourites button for the book view; changes button text depending on
+     * whether the book is in favourites list of logged-in user
+     * @param mainPanel
+     * @param favouriteBtn
+     */
+    public void initFavouriteBtn(JPanel mainPanel, JButton favouriteBtn) {
+        favouriteBtn.addActionListener(e -> {
+            if (User.getInstance().getLoginState() == State.GUEST) {
+                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favourites");
+            } else {
+                if (getPresenter().checkModelFavBooks()) {
+                    getPresenter().removeFavBook();
+                    favouriteBtn.setText("Favourite");
+                    User.getInstance().getMainInit().addProfilePanel();
+                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    }
+                } else {
+                    getPresenter().updateModelFavBooks();
+                    favouriteBtn.setText("Remove");
+                    User.getInstance().getMainInit().addProfilePanel();
+                }
+            }
+            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+        });
+    }
+
+    // Initializing whether the favourite button is blue or red
+    public Color initFavouriteBtnColour(JButton favouriteBtn) {
+        if (favouriteBtn.getText().equals("Favourite"))
+            return new Color(29, 152, 252);
+        else return new Color (255, 26, 18);
     }
 
     @Override
@@ -43,7 +75,10 @@ public class BookView implements IBookView {
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
-        JButton favouriteBtn = new JButton("Favourite");
+        JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
+
+        initFavouriteBtn(mainPanel, favouriteBtn);
+        favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
 
         initBookImage(mainPanel, c);
         initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
@@ -90,7 +125,6 @@ public class BookView implements IBookView {
         avgReviews.setFont(new Font("Futura", Font.ITALIC, 14));
         avgReviews.setForeground(new Color(255, 191, 0));
         favouriteBtn.setFont(new Font("Euphemia UCAS", Font.BOLD, 14));
-        favouriteBtn.setBackground(new Color(29, 152, 252));
         favouriteBtn.setForeground(new Color(255, 255, 255));
         favouriteBtn.setOpaque(true);
         favouriteBtn.setBorderPainted(false);
