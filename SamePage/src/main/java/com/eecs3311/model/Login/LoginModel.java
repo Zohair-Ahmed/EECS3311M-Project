@@ -1,6 +1,6 @@
 package com.eecs3311.model.Login;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.view.Book.DisplayBookInformation;

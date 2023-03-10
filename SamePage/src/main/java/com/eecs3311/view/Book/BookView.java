@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
@@ -189,7 +189,7 @@ public class BookView implements IBookView {
         bookFrame = new JFrame("Book Reviews");
         bookFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         bookFrame.add(book.getView());
-        bookFrame.setSize(1150, 550);
+        bookFrame.setSize(1250, 550);
         bookFrame.setVisible(true);
         bookFrame.setLocationRelativeTo(null);
         addWindowListener();

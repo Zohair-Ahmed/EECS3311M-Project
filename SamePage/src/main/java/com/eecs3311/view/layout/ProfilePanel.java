@@ -1,6 +1,6 @@
 package com.eecs3311.view.layout;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;

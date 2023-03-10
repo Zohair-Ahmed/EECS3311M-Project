@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
@@ -199,7 +199,7 @@ public class Main extends JFrame implements ActionListener {
     initHomeButtonUI();
 
     // DP for database implementation
-    Database.getInstance(false);
+    Database.getInstance();
 
     // Add the button to the menu bar
     menuBar.add(loginButton);

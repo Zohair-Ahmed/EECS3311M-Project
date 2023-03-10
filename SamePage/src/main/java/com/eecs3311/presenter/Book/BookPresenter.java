@@ -29,16 +29,6 @@ public class BookPresenter implements IBookPresenter {
     }
 
     /**
-     * Presenter class gets details of what to change for the model.
-     * 
-     * @param title - Attribute to be updated/changed - can be multiple
-     */
-    @Override
-    public void updateModelFromView(String title) {
-        getModel().setTitle(title);
-    }
-
-    /**
      * Sends updated information about the model to the view
      *
      * @return - implement return type as needed

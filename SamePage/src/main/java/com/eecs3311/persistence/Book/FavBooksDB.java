@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.persistence.Database;
 

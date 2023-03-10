@@ -1,27 +1,24 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
-    private String title;
-    private String description;
-    private ArrayList<ReviewModel> reviews;
-    private String ISBN;
-    private String author;
-    private String img;
-    private String genre;
+    private final String title;
+    private final String description;
+    private final String ISBN;
+    private final String author;
+    private final String img;
+    private final String genre;
     private IBookPresenter bookPresenter;
 
-    public BookModel(String title, String author, String description, ArrayList<ReviewModel> reviews, String ISBN,
+    public BookModel(String title, String author, String description, String ISBN,
                      String genre, String img) {
         this.title = title;
         this.author = author;
         this.description = description;
-        this.reviews = reviews;
         this.ISBN = ISBN;
         this.genre = genre;
         this.img = img;
@@ -38,37 +35,8 @@ public class BookModel implements IBookModel {
         return title;
     }
 
-    @Override
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public ArrayList<ReviewModel> getReviews() {
-        return reviews;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setReviews(ArrayList<ReviewModel> reviews) {
-        this.reviews = reviews;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getISBN() {
@@ -81,11 +49,6 @@ public class BookModel implements IBookModel {
 
     public String getGenre() {
         return genre;
-    }
-
-    @Override
-    public String toString() {
-        return this.getTitle() + "   " + this.getAuthor() + "   " + this.getISBN() + "   " + this.getGenre();
     }
 
     public String getImg() {
