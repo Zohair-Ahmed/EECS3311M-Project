@@ -1,45 +1,50 @@
 package com.eecs3311.integrationtests;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.User.UserStub;
-import com.eecs3311.persistence.Book.BookStub;
+import com.eecs3311.persistence.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
 public class FavouritesBooksIntegrationTest {
 
-    ArrayList<IBookModel> bookStub = BookStub.getInstance().getLatestReleases();
-    UserStub user1 = UserStub.getInstance().userList().get(0);
+    ArrayList<IBookModel> bookStub = new ArrayList<>();
     ArrayList<IBookModel> favouriteList = new ArrayList<>();
 
     @BeforeEach
     public void setData(){
-        for (int i=0; i<4; i++) {
-            user1.addBookToFavourite(bookStub.get(i));
-            favouriteList.add(bookStub.get(i));
-        }
+
+        Database.setIsUsingStubDB(false);
+        bookStub = Database.getBookInstance().getLatestReleases();
+        Database.getRegisterInstance().registerUser("SamePageTester", "SamePageTester@gmail.com", "1");
+
+        Database.getLoginInstance().isLoginValid("SamePageTester@gmail.com", "1");
+
+        Database.getFavBooksInstance().addBook(bookStub.get(0));
+        System.out.println(Database.getFavBooksInstance().getFavBooks().size());
     }
 
     @Test
     public void removeBookFromFavourite() {
         // Remove 1 book from favourites
-        IBookModel removedBook = bookStub.get(1);
-        user1.getFavourites().removeIf(ibm -> ibm.getTitle().equals(removedBook.getTitle()));
-        favouriteList.removeIf(ibm -> ibm.getTitle().equals(removedBook.getTitle()));
-        assertEquals(user1.getFavourites().size(), 3);
+        IBookModel removedBook = bookStub.get(0);
+
+        Database.getFavBooksInstance().removeFromFavorites(removedBook);
+        ArrayList<IBookModel> favs = Database.getFavBooksInstance().getFavBooks();
+        assertEquals(favs.size(), 0);
 
         // Check if book is not in favourites
-        for (IBookModel ibm : user1.getFavourites()) {
+        for (IBookModel ibm : favs) {
             assertNotEquals(removedBook.getTitle(), ibm.getTitle());
         }
 
-        for (int i=0; i<user1.getFavourites().size(); i++) {
-            IBookModel userFav = user1.getFavourites().get(i);
-            IBookModel stubFav = favouriteList.get(i);
+        for (int i=0; i<favs.size(); i++) {
+            IBookModel userFav = favs.get(i);
+            IBookModel stubFav = bookStub.get(i);
             // Checks for if UI shows the same content
             assertEquals(userFav.getPresenter().getModel().getTitle(), stubFav.getPresenter().getModel().getTitle());
         }
@@ -49,12 +54,13 @@ public class FavouritesBooksIntegrationTest {
     public void addExistingBookToFavourites(){
         // Add a new book to favourites - if exists, do not add
         IBookModel newbook = bookStub.get(0);
-        user1.addBookToFavourite(newbook);
-        assertTrue(user1.getFavourites().size() == 4);
+        Database.getFavBooksInstance().addBook(newbook);
+        ArrayList<IBookModel> favs = Database.getFavBooksInstance().getFavBooks();
+        assertTrue(favs.size() == 1);
 
-        for (int i=0; i<user1.getFavourites().size(); i++) {
-            IBookModel userFav = user1.getFavourites().get(i);
-            IBookModel stubFav = favouriteList.get(i);
+        for (int i=0; i<favs.size(); i++) {
+            IBookModel userFav = favs.get(i);
+            IBookModel stubFav = bookStub.get(i);
             // Checks for if UI shows the same content
             assertEquals(userFav.getPresenter().getModel().getTitle(), stubFav.getPresenter().getModel().getTitle());
         }
@@ -62,22 +68,28 @@ public class FavouritesBooksIntegrationTest {
 
     @Test
     public void addNewBookToFavourite() {
-        favouriteList.add(bookStub.get(5));
+        favouriteList.add(bookStub.get(1));
         // Add a new book to favourites - if it does not already exists
-        IBookModel newbook = bookStub.get(5);
-        user1.addBookToFavourite(newbook);
-        assertTrue(user1.getFavourites().size() == 5);
+        IBookModel newBook = bookStub.get(1);
+        Database.getFavBooksInstance().addBook(newBook);
 
-        for (int i=0; i<user1.getFavourites().size(); i++) {
-            IBookModel userFav = user1.getFavourites().get(i);
-            IBookModel stubFav = favouriteList.get(i);
+        ArrayList<IBookModel> favs = Database.getFavBooksInstance().getFavBooks();
+        assertEquals(2, favs.size());
+
+        for (int i=0; i<favs.size(); i++) {
+            IBookModel userFav = favs.get(i);
+            IBookModel stubFav = bookStub.get(i);
             // Checks for if UI shows the same content
             assertEquals(userFav.getPresenter().getModel().getTitle(), stubFav.getPresenter().getModel().getTitle());
         }
+
+
     }
 
     @AfterEach
     public void after(){
-        user1.setFavourites(new ArrayList<>());
+        for (int i=0; i<4; i++){
+            Database.getFavBooksInstance().removeFromFavorites(bookStub.get(i));
+        }
     }
 }
