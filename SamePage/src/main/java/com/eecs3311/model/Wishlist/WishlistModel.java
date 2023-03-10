@@ -1,6 +1,6 @@
 package com.eecs3311.model.Wishlist;
 
-import com.eecs3311.model.User;
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
