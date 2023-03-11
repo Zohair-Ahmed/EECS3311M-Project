@@ -1,5 +1,6 @@
 package com.eecs3311.persistence;
 
+import com.eecs3311.util.log.console.ConsoleLogs;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,10 +24,8 @@ public abstract class AbstractDatabase {
                     prop.getProperty("db.password")
             );
 
-            if (this.connection != null) {
-                System.out.println("Connection is successful");
-            }
-
+            String result = getConnection() != null ? ConsoleLogs.SUCCESSFUL : ConsoleLogs.ERROR;
+            System.out.println("--- CONNECTION TO " + ConsoleLogs.DATABASE(this.getClass().getSimpleName()) + ".........." + result + " ---");
         } catch (Exception e) {
             e.printStackTrace();
         }
