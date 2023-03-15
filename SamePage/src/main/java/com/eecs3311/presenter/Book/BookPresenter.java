@@ -38,6 +38,11 @@ public class BookPresenter implements IBookPresenter {
         return this.bookModel;
     }
 
+    @Override
+    public void setModelFromView() {
+        getModel().setLikes(getModel().getLikes() + 1);
+    }
+
     public void updateModelFavBooks() {
         getModel().addFavoriteBook();
     }

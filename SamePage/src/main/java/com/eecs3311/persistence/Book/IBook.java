@@ -17,4 +17,17 @@ public interface IBook {
      */
     void addToList(ArrayList<IBookModel> info);
 
+    /**
+     * Increment the like button on every click
+     * @param ISBN13 of the book to be updated
+     */
+    void addLike(String ISBN13);
+
+    /**
+     * get the amount of likes from the db
+     * @param ISBN13
+     * @return int number of likes
+     */
+    int getLikes(String ISBN13);
+
 }

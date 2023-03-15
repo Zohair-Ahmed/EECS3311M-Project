@@ -13,11 +13,13 @@ import com.eecs3311.model.User.User;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
-public class BookView implements IBookView {
+public class BookView implements IBookView, ActionListener {
 
     private IBookPresenter bookPresenter;
     private JFrame bookFrame;
     private DisplayBookInformation book;
+
+    private JButton likeButton = new JButton("Like");
 
     public BookView() {
     }
@@ -67,6 +69,7 @@ public class BookView implements IBookView {
         else return new Color (255, 26, 18);
     }
 
+
     @Override
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
@@ -76,6 +79,7 @@ public class BookView implements IBookView {
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
         JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
+        likeButton.addActionListener(this);
 
         initFavouriteBtn(mainPanel, favouriteBtn);
         favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
@@ -109,6 +113,8 @@ public class BookView implements IBookView {
         c.gridy = 4;
         c.insets = new Insets(5, 0, 50, 15);
         mainPanel.add(favouriteBtn, c);
+        c.gridy = 5;
+        mainPanel.add(likeButton, c);
     }
 
 
@@ -203,5 +209,13 @@ public class BookView implements IBookView {
             }
         };
         bookFrame.addWindowListener(wl);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (likeButton == e.getSource()) {
+            getPresenter().setModelFromView();
+            likeButton.setText(""+getPresenter().getModel().getLikes());
+        }
     }
 }

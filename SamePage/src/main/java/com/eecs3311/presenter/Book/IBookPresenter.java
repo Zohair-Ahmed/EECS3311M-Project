@@ -23,6 +23,11 @@ public interface IBookPresenter {
     IBookModel getUpdatedViewFromModel();
 
     /**
+     * Used when button clicked on UI updates model
+     */
+    void setModelFromView();
+
+    /**
      * To be used when a UI component is adding this book to the favorites list of the logged-in user.
      */
     void updateModelFavBooks();

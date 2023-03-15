@@ -25,6 +25,7 @@ public class BookDB extends AbstractDatabase implements IBook {
     private String author;
     private String genre;
     private String img;
+    private int likes;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private final ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -127,10 +128,11 @@ public class BookDB extends AbstractDatabase implements IBook {
                     ISBN = rs.getString("ISBN13");
                     genre = rs.getString("Genre");
                     img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description,  ISBN, genre, img));
+                    likes = rs.getInt("likes");
+                    info.add(new BookModel(title, author, description,  ISBN, genre, img, likes));
                 }
                 addToList(info);
-                getConnection().close();
+//                getConnection().close();
             } else {
                 System.out.println("Failed to connect");
             }
@@ -151,5 +153,35 @@ public class BookDB extends AbstractDatabase implements IBook {
             bv.setPresenter(bp);
             this.bookList.add(ibm);
         }
+    }
+
+    @Override
+    public void addLike(String ISBN13) {
+        if (getConnection() != null) {
+            try {
+                String query = "UPDATE Book SET Likes = Likes + 1 WHERE ISBN13="+"\""+ISBN13+"\"";
+                Statement st = getConnection().createStatement();
+                st.executeUpdate(query);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public int getLikes(String ISBN13) {
+        if (getConnection() != null) {
+            try {
+                String query = "SELECT Likes FROM Book WHERE ISBN13="+"\""+ISBN13+"\"";
+                Statement st = getConnection().createStatement();
+                ResultSet rs = st.executeQuery(query);
+                rs.next();
+                int likes = rs.getInt("likes");
+                return likes;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
     }
 }

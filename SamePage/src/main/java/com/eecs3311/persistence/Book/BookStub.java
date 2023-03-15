@@ -32,7 +32,8 @@ public class BookStub implements IBook{
                 String description = node.get("summary").asText();
                 String genre = node.get("genre").asText();
                 String img = node.get("image").asText();
-                bookList.add(new BookModel(title, author, description, ISBN, genre, img));
+                int likes = node.get("likes").asInt();
+                bookList.add(new BookModel(title, author, description, ISBN, genre, img, likes));
             }
             sort(bookList);
             addToList(bookList);
@@ -69,5 +70,15 @@ public class BookStub implements IBook{
             bp.setView(bv);
             bv.setPresenter(bp);
         }
+    }
+
+    @Override
+    public void addLike(String ISBN13) {
+
+    }
+
+    @Override
+    public int getLikes(String ISBN13) {
+        return 0;
     }
 }

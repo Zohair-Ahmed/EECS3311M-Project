@@ -21,6 +21,18 @@ public interface IBookModel {
     String getImg();
 
     /**
+     * Get likes from DB
+     * @return int like number
+     */
+    int getLikes();
+
+    /**
+     * Set the likes in the db
+     * @param num like amount
+     */
+    void setLikes(int num);
+
+    /**
      * Add this book to the favorites table in the database to maintain updated favorite
      * list for the logged in user
      */

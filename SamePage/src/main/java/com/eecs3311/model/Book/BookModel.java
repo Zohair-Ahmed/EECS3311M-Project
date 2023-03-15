@@ -3,6 +3,7 @@ package com.eecs3311.model.Book;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
@@ -12,16 +13,19 @@ public class BookModel implements IBookModel {
     private final String author;
     private final String img;
     private final String genre;
+
+    private int likes;
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, String ISBN,
-                     String genre, String img) {
+                     String genre, String img, int likes) {
         this.title = title;
         this.author = author;
         this.description = description;
         this.ISBN = ISBN;
         this.genre = genre;
         this.img = img;
+        this.likes = likes;
     }
 
     @Override
@@ -53,6 +57,17 @@ public class BookModel implements IBookModel {
 
     public String getImg() {
         return img;
+    }
+
+    @Override
+    public int getLikes() {
+        return Database.getBookInstance().getLikes(ISBN);
+    }
+
+    @Override
+    public void setLikes(int num) {
+        likes = num;
+        Database.getBookInstance().addLike(ISBN);
     }
 
     @Override
