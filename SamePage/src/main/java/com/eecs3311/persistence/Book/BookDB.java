@@ -141,8 +141,7 @@ public class BookDB extends AbstractDatabase implements IBook {
 
     @Override
     public void addToList(ArrayList<IBookModel> info) {
-        for (IBookModel ibm : info) {
-            // Set Model <-> Presenter <-> View connection to model
+        info.forEach(ibm -> {
             IBookPresenter bp = new BookPresenter();
             IBookView bv = new BookView();
             bp.setModel(ibm);
@@ -150,6 +149,6 @@ public class BookDB extends AbstractDatabase implements IBook {
             bp.setView(bv);
             bv.setPresenter(bp);
             this.bookList.add(ibm);
-        }
+        });
     }
 }

@@ -93,9 +93,9 @@ public class ResultsPanel implements ActionListener, IPanelView {
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         releaseContainer.setLayout(gridLayout);
-        for (IBookModel ibm : results) {
+        results.parallelStream().forEach(ibm -> {
             releaseContainer.add(ibm.getPresenter().getView().getView());
-        }
+        });
 
         initTextLayout();
         initScrollPaneView(results);
