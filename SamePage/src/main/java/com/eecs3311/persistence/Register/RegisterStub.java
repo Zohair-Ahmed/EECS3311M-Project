@@ -44,4 +44,13 @@ public class RegisterStub implements IRegister{
         System.out.println("This is the Register Stub DB");
         return result;
     }
+
+    @Override
+    public ArrayList<String> getUserList() {
+        ArrayList<String> usernames = new ArrayList<>();
+        for(UserStub user : users){
+            usernames.add(user.getUsername());
+        }
+        return usernames;
+    }
 }
