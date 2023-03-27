@@ -36,4 +36,10 @@ class RegisterDBTest {
         result = register.registerUser("testnewuser", "usertrieswithnewemail@mail.com", "pass1");
         assertEquals(result, "A SamePage account with this username already exists");
     }
+
+    @Test
+    void getUserList(){
+        registerStub.registerUser("test1", "test1@mail.com", "pass1");
+        assertEquals(registerStub.getUserList().get(0), "test1");
+    }
 }
