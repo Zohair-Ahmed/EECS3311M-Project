@@ -13,7 +13,7 @@ public interface IGoalView {
 
     /**
      * Sets the presenter
-     * @param igp
+     * @param igp presenter
      */
     void setPresenter(IGoalPresenter igp);
 
@@ -22,11 +22,6 @@ public interface IGoalView {
      * @param text reformatted ratio
      */
     void updateLabel(String text);
-
-    /**
-     * Used to initiate the formatted gaol text and progress bar values
-     */
-    void initiateText();
 
     /**
      * Retrieves the updated goal values for the UI
@@ -41,4 +36,8 @@ public interface IGoalView {
      */
     JPanel getView();
 
+    /**
+     * Initialize UI components
+     */
+    void initComponents();
 }

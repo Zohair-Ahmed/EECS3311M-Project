@@ -118,7 +118,7 @@ public class ProfilePanel implements IPanelView {
         igp.setModel(igm);
         igv.setPresenter(igp);
         igp.setView(igv);
-        igv.initiateText(); // Temp Fix - initiates the current user goal text
+        igv.initComponents(); // Temp Fix - initiates the current user goal text
         userGoalPanel.add(igv.getView());
         root.add(userGoalPanel);
         x = Spring.constant(0);
