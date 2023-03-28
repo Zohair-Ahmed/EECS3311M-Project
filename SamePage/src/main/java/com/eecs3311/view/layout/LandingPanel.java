@@ -42,7 +42,6 @@ public class LandingPanel implements IPanelView {
 
     @Override
     public void initComponents() {
-
         // Initialize panels for the gridbaglayout, herobanner, search bar, results
         initHeroBannerPanelLayout();
         initSearchBarPanel();
@@ -99,6 +98,10 @@ public class LandingPanel implements IPanelView {
 
     @Override
     public void setParentContainer(JPanel parent) {
+    }
+
+    public ResultsPanel getResultsPanel() {
+        return lbv;
     }
 
 }

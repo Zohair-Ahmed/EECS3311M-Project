@@ -93,7 +93,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         releaseContainer.setLayout(gridLayout);
-        results.parallelStream().forEach(ibm -> {
+        results.forEach(ibm -> {
             releaseContainer.add(ibm.getPresenter().getView().getView());
         });
 
@@ -113,7 +113,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getParentContainer() {
-        return null;
+        return releaseContainer;
     }
 
     @Override

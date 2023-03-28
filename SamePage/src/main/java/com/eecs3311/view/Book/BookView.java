@@ -46,6 +46,7 @@ public class BookView implements IBookView {
                 if (getPresenter().checkModelFavBooks()) {
                     getPresenter().removeFavBook();
                     favouriteBtn.setText("Favourite");
+                    favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
                     User.getInstance().getMainInit().addProfilePanel();
                     if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
                         User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
@@ -53,10 +54,11 @@ public class BookView implements IBookView {
                 } else {
                     getPresenter().updateModelFavBooks();
                     favouriteBtn.setText("Remove");
+                    favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
                     User.getInstance().getMainInit().addProfilePanel();
                 }
             }
-            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+            User.getInstance().getMainInit().updateLanding(this);
         });
     }
 
@@ -70,6 +72,7 @@ public class BookView implements IBookView {
     @Override
     public JPanel getView() {
         JPanel mainPanel = new JPanel();
+        mainPanel.setName(bookPresenter.getModel().getTitle());
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
