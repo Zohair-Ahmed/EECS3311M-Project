@@ -13,6 +13,19 @@
     }
   },
   {
+    "ISBN": 9781526646651,
+    "title": "Harry Potter",
+    "author": "J. K. Rowling",
+    "summary": "Harry Potter lives in the cupboard under the stairs at his uncle and aunt's house at number four, Privet Drive - until the day when a mysterious letter arrives from Hogwarts School of Witchcraft and Wizardry, and a giant on a flying motorcycle arrives to change his life with four simple words: 'Harry - yer a wizard.'",
+    "image": "https://media.s-bol.com/o8nDQPv9y81z/1WJRQ7Z/541x840.jpg",
+    "genre": "Fantasy",
+    "price": {
+      "currency": "EUR",
+      "value": 10,
+      "displayValue": "10.00"
+    }
+  },
+  {
     "ISBN": 9780552159722,
     "title": "Deception point",
     "author": "Dan Brown",

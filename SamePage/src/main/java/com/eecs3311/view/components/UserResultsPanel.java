@@ -2,6 +2,7 @@ package com.eecs3311.view.components;
 
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.User.UserView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,30 +79,17 @@ public class UserResultsPanel implements ActionListener, IPanelView {
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         GridBagConstraints c = new GridBagConstraints();
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource("/images/profileimg.png")).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-        JLabel picLabel = new JLabel(imageIcon);
+        c.gridheight = 100;
+        c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
-        releaseContainer.add(picLabel, c);
         results.parallelStream().forEach(ibm -> {
-            JLabel label = new JLabel(ibm);
-            label.addMouseListener(onUserClicked(label.getText()));
-            releaseContainer.add(label);
+            UserView userView = new UserView(ibm);
+            releaseContainer.add(userView.getView(),c);
         });
         initTextLayout();
         initScrollPaneView(results);
     }
 
-    private MouseListener onUserClicked(String label) {
-        return new MouseAdapter()
-        {
-            @Override
-            public void mousePressed(MouseEvent e)
-            {
-                System.out.printf("Clicked %s\n",label);
-                JOptionPane.showMessageDialog(releaseContainer, "Selected user "+label);
-            }
-        };
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
