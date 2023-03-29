@@ -42,9 +42,6 @@ class ReviewDBTest {
      */
     @Test
     void getAverageRating() {
-        for (IReviewModel irm : reviews.getAllReviews()) {
-            System.out.println(irm.getRating());
-        }
         String avgRating = String.format("%.1f",reviews.getAverageRating("isbn"));
         assertEquals(avgRating,"2.7");
     }
