@@ -22,7 +22,7 @@ public class FindFriendsPanel implements IPanelView {
         System.out.println(User.getInstance().toString());
         root.setLayout(new GridBagLayout());
         herobanner.setLayout(new GridBagLayout());
-        JLabel title = new JLabel("Find Friends"); // Title text and UI configurations
+        JLabel title = new JLabel("Search Users"); // Title text and UI configurations
         title.setForeground(new Color(12, 51, 127));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(new Font("Futura", Font.BOLD, 25));

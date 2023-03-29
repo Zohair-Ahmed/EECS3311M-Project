@@ -132,7 +132,7 @@ public class Main extends JFrame implements ActionListener {
   }
 
   private void initFindFriendsButtonUI(){
-    findFriendsButton = new JButton("Find Friends");
+    findFriendsButton = new JButton("Social");
     findFriendsButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     findFriendsButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {

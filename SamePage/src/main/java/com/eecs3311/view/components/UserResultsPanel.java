@@ -58,7 +58,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 1250;
-        c.ipady = 300;
+        c.ipady = 425;
         c.weightx = 0.0;
         c.gridwidth = 1;
         c.gridx = 0;
@@ -69,7 +69,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
             this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
             scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/7)+1, 7));
+            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/4)+1, 4));
         }
         container.add(scroll, c);
     }
@@ -77,7 +77,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     private void initReleaseContainer(ArrayList<String> results) {
         if (results == null)
             return;
-        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
+        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/4)+1, 4);
         GridBagConstraints c = new GridBagConstraints();
         c.gridheight = 100;
         c.gridwidth = 100;
