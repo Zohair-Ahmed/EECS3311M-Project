@@ -15,6 +15,7 @@ public class BookIntegrationTest {
     IBook book = Database.getBookInstance();
     ArrayList<IBookModel> results = new ArrayList<>();
     ArrayList<IBookModel> bookModels = book.getLatestReleases();
+
     @Test
     public void getSearchResults() {
         String search = "Ha";
@@ -42,6 +43,12 @@ public class BookIntegrationTest {
         }
 
     }
+
+    /*
+     ToDo: Inteferes with IReviewModelTest/getRating(), IReviewModelTest/getUsername()
+     - Both pass on its own but is impacted through this modification
+     - Implement set up and clean up
+     */
 
     //user adds reviews to book, compare
     @Test
