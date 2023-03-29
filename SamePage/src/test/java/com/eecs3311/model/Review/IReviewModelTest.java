@@ -24,26 +24,34 @@ class IReviewModelTest {
         assertEquals(reviewFromStubUsers.size(), reviewFromReviewStub.size(), "Missing reviews");
     }
 
+    /*
+     * FAILING TEST CASE: Read ToDo on BookIntegrationTest
+     */
     @Test
     void getUsername() {
         for (IReviewModel irm : reviewFromReviewStub) {
             for (IReviewModel userReview : reviewFromStubUsers) {
                 if (userReview.getISBN().equals(irm.getISBN()) && userReview.getUsername().equals(irm.getUsername())){
                     assertEquals(irm, userReview, "Usernames do not match");
+                    break;
                 }
             }
         }
     }
 
+    /*
+     * FAILING TEST CASE: Read ToDo on BookIntegrationTest
+     */
     @Test
     void getRating() {
         for (IReviewModel irm : reviewFromReviewStub) {
             for (IReviewModel userReview : reviewFromStubUsers) {
-                if (userReview.getISBN().equals(irm.getISBN()) && userReview.getUsername().equals(irm.getUsername()))
+                if (userReview.getISBN().equals(irm.getISBN()) && userReview.getUsername().equals(irm.getUsername())) {
                     assertEquals(userReview.getRating(), irm.getRating(), "Ratings do not match");
+                    break;
+                }
             }
         }
-
     }
 
     @Test

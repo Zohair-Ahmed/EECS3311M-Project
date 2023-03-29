@@ -28,13 +28,23 @@ class ReviewDBTest {
         assertEquals(reviews.getAllReviews().size(),currentSize+1);
     }
 
+    /*
+        FAILING TEST CASE: Read ToDo on BookIntegrationTest
+     */
     @Test
     void getTotalRatings() {
         assertEquals(reviews.getTotalRatings(),6);
     }
 
+
+    /*
+        FAILING TEST CASE: Read ToDo on BookIntegrationTest
+     */
     @Test
     void getAverageRating() {
+        for (IReviewModel irm : reviews.getAllReviews()) {
+            System.out.println(irm.getRating());
+        }
         String avgRating = String.format("%.1f",reviews.getAverageRating("isbn"));
         assertEquals(avgRating,"2.7");
     }
