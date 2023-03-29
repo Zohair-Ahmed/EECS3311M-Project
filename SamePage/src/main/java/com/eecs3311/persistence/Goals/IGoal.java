@@ -18,5 +18,6 @@ public interface IGoal {
      */
     int getNumOfBooksRead(int uid);
 
-
+    void setLevel(int level);
+    void setNumOfBooksRead(int level);
 }

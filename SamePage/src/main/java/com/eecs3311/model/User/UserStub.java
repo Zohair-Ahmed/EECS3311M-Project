@@ -25,16 +25,13 @@ public class UserStub {
         this.email = email;
         this.username = username;
         this.password = password;
-
+        this.userID = userID;
     }
 
     private UserStub(){
         users.add(new UserStub(1, "test1@mail.com","test1", "pass1"));
         users.add(new UserStub(2, "test2@mail.com","test2", "pass2"));
         users.add(new UserStub(3, "test3@mail.com","test3", "pass3"));
-        users.forEach(user -> {
-            userGoals.add(new GoalModel(user.getUserID()));
-        });
     }
 
     public ArrayList<UserStub> userList(){

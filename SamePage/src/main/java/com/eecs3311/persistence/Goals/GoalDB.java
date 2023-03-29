@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class GoalDB extends AbstractDatabase implements IGoal{
 
     /**
-     * MySQL procedure "UpdateGoals" invoked
+     * MySQL procedure "UpdateGoals" invoked - Procedure used instead to avoid checking at this level
      */
     @Override
     public void updateGoal(int uid) {
@@ -50,5 +50,15 @@ public class GoalDB extends AbstractDatabase implements IGoal{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public void setLevel(int level) {
+
+    }
+
+    @Override
+    public void setNumOfBooksRead(int level) {
+
     }
 }

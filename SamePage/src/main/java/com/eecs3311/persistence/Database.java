@@ -35,7 +35,7 @@ public class Database {
             register = RegisterStub.getInstance();
             book = BookStub.getInstance();
             review = ReviewStub.getInstance();
-            goal = new GoalStub();
+            goal = GoalStub.getInstance();
         }
     }
 

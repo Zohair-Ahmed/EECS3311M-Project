@@ -15,19 +15,20 @@ public class GoalModel implements  IGoalModel{
 
     @Override
     public void updateGoal() {
-        Database.getGoalInstance().updateGoal(uid);
+        if (numOfBooksRead + 1 >= level*10)
+            level++;
+        numOfBooksRead++;
+        Database.getGoalInstance().updateGoal(uid); // Called to sore values into database
         getPresenter().updateViewFromModel(getGoalInfo(), getLevel(), getNumOfBooksReads());
     }
 
     @Override
     public int getLevel() {
-        level = Database.getGoalInstance().getLevel(uid);
         return level;
     }
 
     @Override
     public int getNumOfBooksReads() {
-        numOfBooksRead = Database.getGoalInstance().getNumOfBooksRead(uid);
         return numOfBooksRead;
     }
 
