@@ -38,7 +38,7 @@ public class UserView implements ActionListener, IPanelView {
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 1;
-        c.fill = GridBagConstraints.WEST;
+        c.anchor = GridBagConstraints.WEST;
         mainPanel.add(titleLbl, c);
         c.gridy = 1;
         mainPanel.add(followers, c);
