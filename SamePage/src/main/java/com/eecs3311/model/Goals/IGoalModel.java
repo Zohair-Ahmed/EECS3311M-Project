@@ -27,6 +27,8 @@ public interface IGoalModel {
      */
     String getGoalInfo();
 
+    int getUID();
+
     /**
      * Sets the presenter
      * @param igp
@@ -38,4 +40,7 @@ public interface IGoalModel {
      * @return
      */
     IGoalPresenter getPresenter();
+
+    void setLevel(int level);
+    void setNumOfBooksRead(int level);
 }

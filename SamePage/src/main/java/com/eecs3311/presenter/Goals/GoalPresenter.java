@@ -29,7 +29,6 @@ public class GoalPresenter implements IGoalPresenter{
 
     @Override
     public void updateModelFromView() {
-        System.out.println("Clicked...");
         getGoalModel().updateGoal();
     }
 

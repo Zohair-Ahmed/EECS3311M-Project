@@ -1,5 +1,6 @@
 package com.eecs3311.view.Goals;
 
+import com.eecs3311.model.User.User;
 import com.eecs3311.presenter.Goals.IGoalPresenter;
 import com.eecs3311.view.IPanelView;
 import javax.swing.*;

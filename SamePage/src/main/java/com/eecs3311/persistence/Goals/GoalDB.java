@@ -13,11 +13,11 @@ public class GoalDB extends AbstractDatabase implements IGoal{
      * MySQL procedure "UpdateGoals" invoked
      */
     @Override
-    public void updateGoal() {
+    public void updateGoal(int uid) {
         try {
             String query = "{CALL UpdateGoals(?)}";
             CallableStatement updateGoalsProcedure =  getConnection().prepareCall(query);
-            updateGoalsProcedure.setInt("UID", User.getInstance().getUserID());
+            updateGoalsProcedure.setInt("UID", uid);
             ResultSet rs = updateGoalsProcedure.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -25,9 +25,9 @@ public class GoalDB extends AbstractDatabase implements IGoal{
     }
 
     @Override
-    public int getLevel() {
+    public int getLevel(int uid) {
         try {
-            String query = "SELECT Level FROM Goals WHERE UserID = "+ User.getInstance().getUserID()+";";
+            String query = "SELECT Level FROM Goals WHERE UserID = "+ uid+";";
             Statement stmt = getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next())
@@ -39,9 +39,9 @@ public class GoalDB extends AbstractDatabase implements IGoal{
     }
 
     @Override
-    public int getNumOfBooksRead() {
+    public int getNumOfBooksRead(int uid) {
         try {
-            String query = "SELECT NumOfBooksRead FROM Goals WHERE UserID = "+ User.getInstance().getUserID()+";";
+            String query = "SELECT NumOfBooksRead FROM Goals WHERE UserID = "+ uid+";";
             Statement stmt = getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next())
@@ -49,6 +49,6 @@ public class GoalDB extends AbstractDatabase implements IGoal{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 1;
+        return 0;
     }
 }
