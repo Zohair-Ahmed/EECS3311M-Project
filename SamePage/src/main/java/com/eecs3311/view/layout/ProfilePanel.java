@@ -111,7 +111,7 @@ public class ProfilePanel implements IPanelView {
      * Initialize the Goal Panel for User Goals
      */
     private void initGoalPanel() {
-        IGoalModel igm = new GoalModel();
+        IGoalModel igm = new GoalModel(User.getInstance().getUserID());
         IGoalPresenter igp = new GoalPresenter();
         IGoalView igv = new GoalView();
         igm.setPresenter(igp);

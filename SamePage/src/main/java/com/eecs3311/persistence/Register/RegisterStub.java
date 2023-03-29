@@ -1,5 +1,6 @@
 package com.eecs3311.persistence.Register;
 
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.User.UserStub;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class RegisterStub implements IRegister{
             i++;
         }
         if (!matchingCredentials) {
-            userStub.addNewUser(email, username, password);
+            userStub.addNewUser(UserStub.getInstance().userList().size()+1, email, username, password);
             //users.add(new UserStub(email,username,password));
             result = "Successfully registered!";
         }
