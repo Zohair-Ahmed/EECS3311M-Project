@@ -17,8 +17,6 @@ public class User {
     private static User user;
     private Main main;
 
-//    private IGoalModel userGoal = new GoalModel();
-
     private User(String email, String password) {
         this.email = email;
         this.password = password;

@@ -80,6 +80,8 @@ public class UserStub {
         return password;
     }
 
+    public int getUserID(){return userID;}
+
     @Override
     public String toString() {
         if (loginState.equals(State.GUEST))
