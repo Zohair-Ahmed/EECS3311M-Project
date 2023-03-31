@@ -7,6 +7,8 @@ import com.eecs3311.persistence.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FavBooksDB extends AbstractDatabase implements IFavBooks {
 
@@ -47,7 +49,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         favBooks = new ArrayList<>();
         try {
             if (getConnection() != null) {
-                ArrayList<String> bookISBN = new ArrayList<>();
+                Set<String> bookISBN = new HashSet<>();
                 System.out.println("Connection is successful");
                 String query = "SELECT Book.* " + "FROM Favorites " + "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " + "WHERE Favorites.FavID = " + User.getInstance().getUserID();
                 Statement st = getConnection().createStatement();
@@ -64,16 +66,12 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
             e.printStackTrace();
         }
     }
-    public void addToList(ArrayList<String> info) {
+    public void addToList(Set<String> info) {
         ArrayList<IBookModel> allBooks = Database.getBookInstance().getLatestReleases();
-
-        for (String isbn : info) {
-            for (IBookModel book : allBooks) {
-                if (book.getISBN().equals(isbn)) {
-                    this.favBooks.add(book);
-                }
-            }
-        }
+        allBooks.parallelStream().forEach(book -> {
+            if (info.contains(book.getISBN()))
+                this.favBooks.add(book);
+        });
     }
 
     public void removeFromFavorites(IBookModel book) {

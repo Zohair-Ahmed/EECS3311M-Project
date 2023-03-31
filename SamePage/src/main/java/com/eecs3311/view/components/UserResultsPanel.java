@@ -1,52 +1,39 @@
 package com.eecs3311.view.components;
 
-import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.User.UserView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
+import java.util.ArrayList;
 
-public class ResultsPanel implements ActionListener, IPanelView {
+public class UserResultsPanel implements ActionListener, IPanelView {
 
     private JPanel container = new JPanel();
-
     private JPanel releaseContainer = new JPanel();
-    private JLabel textJLabel = new JLabel("Latest Releases");
+    private JLabel textJLabel = new JLabel("Find Friends");
     private String state = "releasePage";
 
-    // Mediator:
-    ResultsMediator mediator;
-
-    public ResultsPanel(ResultsMediator mediator) {
-        this.mediator = mediator;
+    public UserResultsPanel() {
         initComponents();
-    }
-
-    /**
-     * Initializes a result panel JPanel containing bookView components for all book models
-     * in the logged-in users favorites list
-     * @param books
-     */
-    public ResultsPanel(ArrayList<IBookModel> books) {
-        container.setLayout(new GridBagLayout());
-        textJLabel.setText("Favorite Books:");
-        initReleaseContainer(books);
     }
 
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());
-
-        initReleaseContainer(Database.getBookInstance().getLatestReleases());
+        initReleaseContainer(Database.getRegisterInstance().getUserList());
     }
 
     // Update book view from search input from search bar
-    public void updateBookView(ArrayList<IBookModel> results) {
+    public void updateFriendsView(ArrayList<String> results) {
         this.releaseContainer.removeAll();
+        this.releaseContainer.revalidate();
+        this.releaseContainer.repaint();
         this.container.removeAll();
+        this.container.revalidate();
+        this.container.repaint();
         state = "resultPage";
         initReleaseContainer(results);
         this.container.updateUI();
@@ -67,11 +54,11 @@ public class ResultsPanel implements ActionListener, IPanelView {
         container.add(textJLabel, c);
     }
 
-    private void initScrollPaneView(ArrayList<IBookModel> results) {
+    private void initScrollPaneView(ArrayList<String> results) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 1250;
-        c.ipady = 300;
+        c.ipady = 425;
         c.weightx = 0.0;
         c.gridwidth = 1;
         c.gridx = 0;
@@ -82,28 +69,30 @@ public class ResultsPanel implements ActionListener, IPanelView {
             this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
             scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/7)+1, 7));
+            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/4)+1, 4));
         }
         container.add(scroll, c);
     }
 
-    private void initReleaseContainer(ArrayList<IBookModel> results) {
-
+    private void initReleaseContainer(ArrayList<String> results) {
         if (results == null)
             return;
-        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
+        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/4)+1, 4);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridheight = 100;
+        c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
         results.parallelStream().forEach(ibm -> {
-            releaseContainer.add(ibm.getPresenter().getView().getView());
+            UserView userView = new UserView(ibm);
+            releaseContainer.add(userView.getView(),c);
         });
-
         initTextLayout();
         initScrollPaneView(results);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
@@ -118,6 +107,5 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public void setParentContainer(JPanel parent) {
-
     }
 }
