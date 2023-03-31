@@ -1,21 +1,16 @@
 package com.eecs3311.model.Goals;
 
 import com.eecs3311.persistence.Database;
-import com.eecs3311.persistence.Goals.GoalStub;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoalModelTest {
 
-
     @BeforeEach
     void setup(){
-        Database.setIsUsingStubDB(false);
+        Database.setIsUsingStubDB(true);
     }
 
     @Test

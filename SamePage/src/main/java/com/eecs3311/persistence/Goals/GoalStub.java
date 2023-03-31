@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class GoalStub implements IGoals{
 
+    // Holds user goal information
     private ArrayList<int[]> goalStubDB = new ArrayList<>();
 
     private static GoalStub instance = null;
@@ -50,6 +51,10 @@ public class GoalStub implements IGoals{
         return -1;
     }
 
+    /**
+     * Fills in the stub wth goal information based on userID
+     * @param db Stub Database
+     */
     private void generateDBs(ArrayList<int[]> db){
         UserStub.getInstance().userList().forEach(u -> {
             db.add(new int [] {u.getUserID(), 1, 0}); // UID, LEVEL, NUM_OF_BOOKS
@@ -60,6 +65,9 @@ public class GoalStub implements IGoals{
         return goalStubDB;
     }
 
+    /**
+     * Resets the Stub Database to the original
+     */
     public void setBackToOriginal() {
         goalStubDB = new ArrayList<>();
         UserStub.getInstance().userList().forEach(u -> {

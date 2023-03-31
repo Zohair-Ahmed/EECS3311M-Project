@@ -1,7 +1,5 @@
 package com.eecs3311.model.User;
 
-import com.eecs3311.model.Goals.GoalModel;
-import com.eecs3311.model.Goals.IGoalModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.view.layout.Main;
 

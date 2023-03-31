@@ -3,7 +3,7 @@ package com.eecs3311.persistence.Goals;
 public interface IGoals {
 
     /**
-     * Update the goal values based on username
+     * Update the goal values based on userID
      * @param uid userID
      */
     void updateGoals(int uid);
