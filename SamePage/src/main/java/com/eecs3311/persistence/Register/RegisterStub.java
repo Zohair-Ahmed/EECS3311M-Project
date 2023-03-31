@@ -37,7 +37,7 @@ public class RegisterStub implements IRegister{
             i++;
         }
         if (!matchingCredentials) {
-            userStub.addNewUser(email, username, password);
+            userStub.addNewUser(UserStub.getInstance().userList().size()+1, email, username, password);
             //users.add(new UserStub(email,username,password));
             result = "Successfully registered!";
         }

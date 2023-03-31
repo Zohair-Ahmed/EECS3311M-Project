@@ -10,22 +10,24 @@ public class UserStub {
     private String username;
     private String email;
     private String password;
+    private int userID;
     private State loginState = State.GUEST;
     private ArrayList<UserStub> users = new ArrayList<>();
     private ArrayList<IReviewModel> userReviews = new ArrayList<>();
     private ArrayList<IBookModel> favourites = new ArrayList<>();
     private static UserStub instance = null;
 
-    public UserStub(String email, String username, String password) {
+    public UserStub(int userID, String email, String username, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.userID = userID;
     }
 
     private UserStub(){
-        users.add(new UserStub("test1@mail.com","test1", "pass1"));
-        users.add(new UserStub("test2@mail.com","test2", "pass2"));
-        users.add(new UserStub("test3@mail.com","test3", "pass3"));
+        users.add(new UserStub(1,"test1@mail.com","test1", "pass1"));
+        users.add(new UserStub(2,"test2@mail.com","test2", "pass2"));
+        users.add(new UserStub(3,"test3@mail.com","test3", "pass3"));
     }
 
     public ArrayList<UserStub> userList(){
@@ -45,8 +47,8 @@ public class UserStub {
         return instance;
     }
 
-    public void addNewUser(String email, String username, String password){
-        users.add(new UserStub(email, username,password));
+    public void addNewUser(int userID, String email, String username, String password){
+        users.add(new UserStub(userID, email, username,password));
     }
 
     public void addBookToFavourite(IBookModel ibm) {

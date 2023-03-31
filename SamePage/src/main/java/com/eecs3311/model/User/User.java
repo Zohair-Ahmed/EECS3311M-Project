@@ -1,5 +1,7 @@
 package com.eecs3311.model.User;
 
+import com.eecs3311.model.Goals.GoalModel;
+import com.eecs3311.model.Goals.IGoalModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.view.layout.Main;
 
@@ -14,7 +16,9 @@ public class User {
     private State loginState = State.GUEST;
     private static User user;
     private Main main;
-    
+
+//    private IGoalModel userGoal = new GoalModel();
+
     private User(String email, String password) {
         this.email = email;
         this.password = password;
