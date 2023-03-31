@@ -53,4 +53,12 @@ public class RegisterStub implements IRegister{
         }
         return usernames;
     }
+
+    @Override
+    public int getLatestRegisterUserID() {
+        int n = UserStub.getInstance().userList().size();
+        if (n == 0)
+            return -1;
+        return UserStub.getInstance().userList().get(n-1).getUserID();
+    }
 }

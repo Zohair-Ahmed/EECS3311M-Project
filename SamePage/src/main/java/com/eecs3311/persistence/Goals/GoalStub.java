@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class GoalStub implements IGoals{
 
     private ArrayList<int[]> goalStubDB = new ArrayList<>();
+
     private static GoalStub instance = null;
 
     public static GoalStub getInstance() {
@@ -16,9 +17,7 @@ public class GoalStub implements IGoals{
     }
 
     private GoalStub(){
-        UserStub.getInstance().userList().forEach(u -> {
-            goalStubDB.add(new int [] {u.getUserID(), 1, 0}); // UID, LEVEL, NUM_OF_BOOKS
-        });
+        generateDBs(goalStubDB);
     }
 
     @Override
@@ -51,11 +50,20 @@ public class GoalStub implements IGoals{
         return -1;
     }
 
+    private void generateDBs(ArrayList<int[]> db){
+        UserStub.getInstance().userList().forEach(u -> {
+            db.add(new int [] {u.getUserID(), 1, 0}); // UID, LEVEL, NUM_OF_BOOKS
+        });
+    }
+
     public ArrayList<int[]> getGoalStubDB(){
         return goalStubDB;
     }
 
-    public void setGoalStubDB(ArrayList<int[]> db) {
-        this.goalStubDB = db;
+    public void setBackToOriginal() {
+        goalStubDB = new ArrayList<>();
+        UserStub.getInstance().userList().forEach(u -> {
+            goalStubDB .add(new int [] {u.getUserID(), 1, 0}); // UID, LEVEL, NUM_OF_BOOKS
+        });
     }
 }

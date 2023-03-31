@@ -5,6 +5,7 @@ import com.eecs3311.persistence.Database;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,11 +30,12 @@ class RegisterDBTest {
         assertEquals(users.get(3).getEmail(), "different@mail.com");
 
         //Register new user in db
-        result = register.registerUser("testnewuser", "testnewuser@mail.com", "pass1");
+        int rand = Math.abs(new Random().nextInt());
+        result = register.registerUser("testnewuser"+rand, "testnewuser"+rand+"@mail.com", "pass1");
         assertEquals(result, "Successfully registered!");
 
         //check if user name is already registered in db
-        result = register.registerUser("testnewuser", "usertrieswithnewemail@mail.com", "pass1");
+        result = register.registerUser("testnewuser"+rand, "usertrieswithnewemail@mail.com", "pass1");
         assertEquals(result, "A SamePage account with this username already exists");
     }
 
@@ -41,5 +43,13 @@ class RegisterDBTest {
     void getUserList(){
         registerStub.registerUser("test1", "test1@mail.com", "pass1");
         assertEquals(registerStub.getUserList().get(0), "test1");
+    }
+
+    @Test
+    void getLatestRegisteredID(){
+        int num = Math.abs(new Random().nextInt());
+        int prevID = registerStub.getLatestRegisterUserID();
+        registerStub.registerUser("SamePageTester"+num, "SamePageTester"+num+"@mail.com", "1");
+        assertEquals(prevID + 1, registerStub.getLatestRegisterUserID());
     }
 }
