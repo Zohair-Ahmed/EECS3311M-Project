@@ -6,6 +6,9 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionListener {
 
@@ -35,6 +38,9 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Layout variables
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private String emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+	private String usernamePattern = "^[a-zA-Z0-9_-]{3,16}$";
+
 
 	/**
 	 * Create the GUI frame. Plan to Refactor in Itr2
@@ -46,6 +52,11 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	@Override
 	public void initComponents() {
+
+		// Compile email and username patterns
+		Pattern emailRegex = Pattern.compile(emailPattern);
+		Pattern usernameRegex = Pattern.compile(usernamePattern);
+
 		// Initializing text labels to be displayed on the register panel
 		initRegisterLabel();
 		initEmailLabel();
@@ -90,6 +101,9 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing the Email text field for input
 	private void initEmailTextField() {
+
+
+
 		tfEmail = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -97,6 +111,20 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		c.gridwidth = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		containerPanel.add(tfEmail, c);
+
+		// Set email regex pattern
+		String emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+		Pattern pattern = Pattern.compile(emailPattern);
+		tfEmail.setInputVerifier(new InputVerifier() {
+			@Override
+			public boolean verify(JComponent input) {
+				JTextField tf = (JTextField) input;
+				Matcher matcher = pattern.matcher(tf.getText());
+				return matcher.matches();
+			}
+		});
+
+
 	}
 
 
@@ -111,6 +139,9 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing username text field
 	private void initUsernameTextField() {
+
+
+
 		tfUsername = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -118,6 +149,19 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		c.gridwidth = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		containerPanel.add(tfUsername, c);
+
+		// Set username regex pattern
+
+		String usernamePattern = "^[a-zA-Z0-9_-]{3,16}$";
+		Pattern pattern = Pattern.compile(usernamePattern);
+		tfUsername.setInputVerifier(new InputVerifier() {
+			@Override
+			public boolean verify(JComponent input) {
+				JTextField tf = (JTextField) input;
+				Matcher matcher = pattern.matcher(tf.getText());
+				return matcher.matches();
+			}
+		});
 	}
 
 	// Initializing password label
@@ -201,12 +245,28 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	}
 
 	public void actionPerformed(ActionEvent e) {
+
 		// Logic for checking all required fields have valid input upon clicking
 		if (e.getSource() == btnRegister) {
+			String email = tfEmail.getText().trim();
+			String username = tfUsername.getText().trim();
+
 			CheckFields(tfUsername, lblUsername);
 			CheckFields(tfEmail, lblEmail);
 			CheckFields(tfPassword, lblPassword);
 			CheckFields(tfConfirmPass, lblConfirmPass);
+
+			// Validate email address
+			if (!Pattern.matches(emailPattern, email)) {
+				JOptionPane.showMessageDialog(containerPanel, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			// Validate username
+			if (!Pattern.matches(usernamePattern, username)) {
+				JOptionPane.showMessageDialog(containerPanel, "Username must be 3-16 characters long and can only contain letters, numbers, hyphens, and underscores", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			if (!cbTerms.isSelected())
 				cbTerms.setForeground(new Color(255, 25, 9));
 			else
