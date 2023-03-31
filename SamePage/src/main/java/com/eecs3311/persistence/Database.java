@@ -1,6 +1,9 @@
 package com.eecs3311.persistence;
 
 import com.eecs3311.persistence.Book.*;
+import com.eecs3311.persistence.Goals.GoalDB;
+import com.eecs3311.persistence.Goals.GoalStub;
+import com.eecs3311.persistence.Goals.IGoals;
 import com.eecs3311.persistence.Login.*;
 import com.eecs3311.persistence.Register.*;
 import com.eecs3311.persistence.Review.*;
@@ -14,6 +17,7 @@ public class Database {
     private static IBook book;
     private static IFavBooks favBooks;
     private static IReview review;
+    private static IGoals goal;
     private static Database database;
     // isUsingStub To use stub = True | To use real db = False
     private static boolean isUsingStubDB = false;
@@ -25,11 +29,13 @@ public class Database {
             book = new BookDB();
             favBooks = new FavBooksDB();
             review = new ReviewDB();
+            goal = new GoalDB();
         } else {
             login = LoginStub.getInstance();
             register = RegisterStub.getInstance();
             book = BookStub.getInstance();
             review = ReviewStub.getInstance();
+            goal = GoalStub.getInstance();
         }
     }
 
@@ -69,5 +75,10 @@ public class Database {
     public static IReview getReviewInstance() {
         database = Database.getInstance();
         return review;
+    }
+
+    public static IGoals getGoalInstance(){
+        database = Database.getInstance();
+        return goal;
     }
 }

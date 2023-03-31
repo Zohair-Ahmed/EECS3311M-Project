@@ -78,4 +78,17 @@ public class RegisterDB extends AbstractDatabase implements IRegister {
         return users;
     }
 
+    @Override
+    public int getLatestRegisterUserID() {
+        try {
+            Statement temp = getConnection().createStatement();
+            ResultSet rs = temp.executeQuery("SELECT UserID FROM Users ORDER BY UserID DESC LIMIT 1");
+            while (rs.next()) {
+                return rs.getInt("UserID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

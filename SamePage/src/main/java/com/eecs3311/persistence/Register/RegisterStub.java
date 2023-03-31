@@ -37,7 +37,7 @@ public class RegisterStub implements IRegister{
             i++;
         }
         if (!matchingCredentials) {
-            userStub.addNewUser(email, username, password);
+            userStub.addNewUser(UserStub.getInstance().userList().size()+1, email, username, password);
             //users.add(new UserStub(email,username,password));
             result = "Successfully registered!";
         }
@@ -52,5 +52,13 @@ public class RegisterStub implements IRegister{
             usernames.add(user.getUsername());
         }
         return usernames;
+    }
+
+    @Override
+    public int getLatestRegisterUserID() {
+        int n = UserStub.getInstance().userList().size();
+        if (n == 0)
+            return -1;
+        return UserStub.getInstance().userList().get(n-1).getUserID();
     }
 }

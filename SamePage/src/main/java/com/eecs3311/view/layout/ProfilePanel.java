@@ -1,7 +1,13 @@
 package com.eecs3311.view.layout;
 
+import com.eecs3311.model.Goals.GoalModel;
+import com.eecs3311.model.Goals.IGoalModel;
 import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.Database;
+import com.eecs3311.presenter.Goals.GoalPresenter;
+import com.eecs3311.presenter.Goals.IGoalPresenter;
+import com.eecs3311.view.Goals.GoalView;
+import com.eecs3311.view.Goals.IGoalView;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
 import com.eecs3311.view.components.ResultsPanel;
@@ -18,11 +24,11 @@ public class ProfilePanel implements IPanelView {
     private Spring width = Spring.constant(0);
     private Spring height = Spring.constant(0);
 
-
     private ResultsPanel lbv;
 
     private JPanel bookView;
-    private JPanel userPanel;
+    private JPanel userPanel = new JPanel();
+    private JPanel userGoalPanel = new JPanel();
 
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
@@ -32,6 +38,7 @@ public class ProfilePanel implements IPanelView {
         bookView = lbv.getView();
         initComponents();
     }
+
     @Override
     public JPanel getView() {
         return root;
@@ -50,11 +57,13 @@ public class ProfilePanel implements IPanelView {
     @Override
     public void initComponents() {
         initUserPanel();
+        initGoalPanel();
         initBooksLayout();
 
         // Set the vertical split between userPanel and bookView
         root.setLayout(new BorderLayout());
-        root.add(userPanel, BorderLayout.NORTH);
+        root.add(userPanel, BorderLayout.WEST);
+        root.add(userGoalPanel, BorderLayout.EAST);
         root.add(bookView);
     }
 
@@ -66,7 +75,7 @@ public class ProfilePanel implements IPanelView {
 
     private void initUserPanel() {
         userPanel = new JPanel();
-        ProfileIcon profileIcon = new ProfileIcon("SamePage");
+        ProfileIcon profileIcon = new ProfileIcon(generateInitials());
         JLabel username = new JLabel("  My Profile");
         username.setFont(new Font("Futura", Font.BOLD, 30));
 
@@ -84,5 +93,41 @@ public class ProfilePanel implements IPanelView {
         layout.putConstraint(SpringLayout.WEST, userPanel, x, SpringLayout.WEST, root);
         layout.putConstraint(SpringLayout.EAST, userPanel, width, SpringLayout.WEST, userPanel);
         layout.putConstraint(SpringLayout.SOUTH, userPanel, height, SpringLayout.NORTH, userPanel);
+    }
+
+    /**
+     * Generate the initials foe the default profile picture based on the Username
+     * @return initials of Username
+     */
+    private String generateInitials() {
+        String[] username = User.getInstance().getUsername().split(" ");
+        StringBuilder initial = new StringBuilder();
+        for (String s : username)
+            initial.append(s.charAt(0));
+        return initial.toString().toUpperCase();
+    }
+
+    /**
+     * Initialize the Goal Panel for User Goals
+     */
+    private void initGoalPanel() {
+        IGoalModel igm = new GoalModel(User.getInstance().getUserID());
+        IGoalPresenter igp = new GoalPresenter();
+        IGoalView igv = new GoalView();
+        igm.setPresenter(igp);
+        igp.setModel(igm);
+        igv.setPresenter(igp);
+        igp.setView(igv);
+        igv.initComponents(); // Temp Fix - initiates the current user goal text
+        userGoalPanel.add(igv.getView());
+        root.add(userGoalPanel);
+        x = Spring.constant(0);
+        y = Spring.constant(0);
+        width = Spring.width(bookView); // set the width of userPanel to be same as bookView
+        height = Spring.scale(height, 1f/2); //
+        layout.putConstraint(SpringLayout.NORTH, userGoalPanel, y, SpringLayout.NORTH, root);
+        layout.putConstraint(SpringLayout.WEST, userGoalPanel, x, SpringLayout.WEST, root);
+        layout.putConstraint(SpringLayout.EAST, userGoalPanel, width, SpringLayout.WEST, userGoalPanel);
+        layout.putConstraint(SpringLayout.SOUTH, userGoalPanel, height, SpringLayout.NORTH, userGoalPanel);
     }
 }
