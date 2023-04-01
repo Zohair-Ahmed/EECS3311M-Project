@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Review;
 
 import com.eecs3311.model.Review.ReviewModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.presenter.Review.IReviewPresenter;
@@ -18,7 +18,7 @@ public class ReviewDB extends AbstractDatabase implements IReview{
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
-        String query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ User.getInstance().getUsername()+"\", CURDATE());";
+        String query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ UserModel.getInstance().getUsername()+"\", CURDATE());";
 
         try {
             Statement temp = getConnection().createStatement();

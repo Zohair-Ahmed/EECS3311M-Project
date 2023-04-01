@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
@@ -234,7 +234,7 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
+      if (UserModel.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
         setLandingPanel(new LandingPanel());
       }
       cards.show(container, "Landing");

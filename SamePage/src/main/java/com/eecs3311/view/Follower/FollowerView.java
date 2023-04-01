@@ -1,15 +1,16 @@
-package com.eecs3311.view.User;
+package com.eecs3311.view.Follower;
 
-import com.eecs3311.model.User.User;
-import com.eecs3311.model.enums.State;
-import com.eecs3311.view.IPanelView;
+import com.eecs3311.model.User.UserModel;
+import com.eecs3311.presenter.User.IFollowerPresenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class UserView implements ActionListener, IPanelView {
+public class FollowerView implements ActionListener, IFollowerView {
     private JPanel mainPanel = new JPanel();
+
+    private IFollowerPresenter iup;
     private JLabel titleLbl;
     private GridBagConstraints c = new GridBagConstraints();
     private ImageIcon imageIcon;
@@ -17,7 +18,7 @@ public class UserView implements ActionListener, IPanelView {
     private String username;
     private JLabel followers;
     private JButton followBtn;
-    public UserView(String username){
+    public FollowerView(String username){
         mainPanel.setLayout(new GridBagLayout());
         this.username = username;
         titleLbl = new JLabel(username);
@@ -28,6 +29,12 @@ public class UserView implements ActionListener, IPanelView {
         initFollowBtn();
         followBtn.setBackground(initFollowBtnColour());
     }
+
+    @Override
+    public IFollowerPresenter getPresenter() { return iup; }
+
+    @Override
+    public void setPresenter(IFollowerPresenter iup) { this.iup = iup; }
 
     @Override
     public JPanel getView() {
@@ -72,14 +79,16 @@ public class UserView implements ActionListener, IPanelView {
 
     public void initFollowBtn() {
         followBtn.addActionListener(e -> {
-            if (followBtn.getText().equals("Follow")) {
-//                JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favourites");
-                followBtn.setText("Unfollow");
-                User.getInstance().getMainInit().addProfilePanel();
+            System.out.println(getPresenter().checkModelFollowing());
+            if (getPresenter().checkModelFollowing()) {
+                // Remove follower
+                followBtn.setText("Follow");
+                UserModel.getInstance().getMainInit().addProfilePanel();
                 // TO DO - add call to DB
             } else {
-                followBtn.setText("Follow");
-                User.getInstance().getMainInit().addProfilePanel();
+                // Add follower
+                followBtn.setText("Unfollow");
+                UserModel.getInstance().getMainInit().addProfilePanel();
                 // TO DO - add call to DB
             }
             followBtn.setBackground(initFollowBtnColour());
@@ -91,20 +100,7 @@ public class UserView implements ActionListener, IPanelView {
             return new Color(3, 83, 196, 255);
         else return new Color (89, 87, 87, 255);
     }
-    @Override
-    public JPanel getParentContainer() {
-        return null;
-    }
 
-    @Override
-    public void setParentContainer(JPanel parent) {
-
-    }
-
-    @Override
-    public void initComponents() {
-
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

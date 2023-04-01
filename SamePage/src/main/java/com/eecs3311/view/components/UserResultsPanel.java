@@ -2,7 +2,7 @@ package com.eecs3311.view.components;
 
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
-import com.eecs3311.view.User.UserView;
+import com.eecs3311.view.Follower.FollowerView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());
-        initReleaseContainer(Database.getRegisterInstance().getUserList());
+        initReleaseContainer(Database.getFollowerInstance().getUserList());
     }
 
     // Update book view from search input from search bar
@@ -83,7 +83,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
         results.parallelStream().forEach(ibm -> {
-            UserView userView = new UserView(ibm);
+            FollowerView userView = new FollowerView(ibm);
             releaseContainer.add(userView.getView(),c);
         });
         initTextLayout();

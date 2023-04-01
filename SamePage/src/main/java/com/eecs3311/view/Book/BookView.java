@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
@@ -40,20 +40,20 @@ public class BookView implements IBookView {
      */
     public void initFavouriteBtn(JPanel mainPanel, JButton favouriteBtn) {
         favouriteBtn.addActionListener(e -> {
-            if (User.getInstance().getLoginState() == State.GUEST) {
+            if (UserModel.getInstance().getLoginState() == State.GUEST) {
                 JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favourites");
             } else {
                 if (getPresenter().checkModelFavBooks()) {
                     getPresenter().removeFavBook();
                     favouriteBtn.setText("Favourite");
-                    User.getInstance().getMainInit().addProfilePanel();
-                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
-                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    UserModel.getInstance().getMainInit().addProfilePanel();
+                    if (UserModel.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        UserModel.getInstance().getMainInit().getCard().show(UserModel.getInstance().getMainInit().getContainer(), "Profile");
                     }
                 } else {
                     getPresenter().updateModelFavBooks();
                     favouriteBtn.setText("Remove");
-                    User.getInstance().getMainInit().addProfilePanel();
+                    UserModel.getInstance().getMainInit().addProfilePanel();
                 }
             }
             favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));

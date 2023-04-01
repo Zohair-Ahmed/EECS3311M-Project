@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Register;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,7 +69,7 @@ public class RegisterDB extends AbstractDatabase implements IRegister {
                     }
                 }
                 //removes the user currently logged in from the list
-                this.users.remove(User.getInstance().getUsername());
+                this.users.remove(UserModel.getInstance().getUsername());
             }
             catch (SQLException e) {
                 e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Login;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.User.UserStub;
 
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ public class LoginStub implements ILogin{
         int i =0;
         while(i < users.size()){
             if(users.get(i).getEmail().equals(email) && users.get(i).getPassword().equals(password)){
-                User.getInstance().setEmail(email);
-                User.getInstance().setUsername(users.get(i).getUsername());
-                User.getInstance().setPassword(password);
+                UserModel.getInstance().setEmail(email);
+                UserModel.getInstance().setUsername(users.get(i).getUsername());
+                UserModel.getInstance().setPassword(password);
                 return true;
             }
             i++;
