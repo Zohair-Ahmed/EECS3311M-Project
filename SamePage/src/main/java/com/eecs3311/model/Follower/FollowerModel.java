@@ -47,6 +47,7 @@ public class FollowerModel implements IFollowerModel {
 
         if (userFollowers != null) {
             for (IFollowerModel ifm : userFollowers) {
+                System.out.println(ifm.getUsername());
                 if (this.getUsername().equals(ifm.getUsername())) {
                     checkFollow = true;
                 }

@@ -79,9 +79,7 @@ public class FollowerView implements ActionListener, IFollowerView {
 
     public void initFollowBtn() {
         followBtn.addActionListener(e -> {
-            System.out.println(getPresenter().checkModelFollowing());
             if (getPresenter().checkModelFollowing()) {
-                // Remove follower
                 followBtn.setText("Follow");
                 UserModel.getInstance().getMainInit().addProfilePanel();
                 // TO DO - add call to DB
