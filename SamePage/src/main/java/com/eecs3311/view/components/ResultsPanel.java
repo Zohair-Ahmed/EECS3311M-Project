@@ -36,6 +36,21 @@ public class ResultsPanel implements ActionListener, IPanelView {
         initReleaseContainer(books);
     }
 
+    public void UpdateResultsPage() {
+        System.out.println("Here");
+        ArrayList<IBookModel> results = Database.getBookInstance().getLatestReleases();
+        ArrayList<IBookModel> userFavs = Database.getFavBooksInstance().getFavBooks();
+        for(IBookModel resultBook : results) {
+            for (IBookModel favBook : userFavs) {
+                if (resultBook.getTitle().equals(favBook.getTitle())){
+                    resultBook.getPresenter().getView().changeFavouriteBtnText(true);
+                } else {
+                    resultBook.getPresenter().getView().changeFavouriteBtnText(false);
+                }
+            }
+        }
+    }
+
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());
@@ -93,9 +108,16 @@ public class ResultsPanel implements ActionListener, IPanelView {
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         releaseContainer.setLayout(gridLayout);
-        results.parallelStream().forEach(ibm -> {
+
+        // Revert back to this
+//        results.parallelStream().forEach(ibm -> {
+//            releaseContainer.add(ibm.getPresenter().getView().getView());
+//        });
+
+        // Temp Code
+        for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
-        });
+        }
 
         initTextLayout();
         initScrollPaneView(results);
