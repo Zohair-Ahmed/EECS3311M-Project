@@ -1,6 +1,12 @@
 package com.eecs3311.view.components;
 
+import com.eecs3311.model.Follower.FollowerModel;
+import com.eecs3311.model.Follower.IFollowerModel;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
+import com.eecs3311.presenter.User.FollowerPresenter;
+import com.eecs3311.presenter.User.IFollowerPresenter;
+import com.eecs3311.view.Follower.IFollowerView;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.Follower.FollowerView;
 
@@ -82,9 +88,18 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         c.gridheight = 100;
         c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
+        System.out.println();
         results.parallelStream().forEach(ibm -> {
-            FollowerView userView = new FollowerView(ibm);
-            releaseContainer.add(userView.getView(),c);
+            IFollowerModel ifm = new FollowerModel(""+UserModel.getInstance().getUserID(), ibm, UserModel.getInstance().getUsername());
+            IFollowerPresenter ifp = new FollowerPresenter();
+            IFollowerView ifv = new FollowerView(ibm);
+
+            ifm.setPresenter(ifp);
+            ifp.setModel(ifm);
+            ifp.setView(ifv);
+            ifv.setPresenter(ifp);
+
+            releaseContainer.add(ifv.getView(),c);
         });
         initTextLayout();
         initScrollPaneView(results);
