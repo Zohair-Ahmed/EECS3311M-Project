@@ -135,7 +135,7 @@ public class Main extends JFrame implements ActionListener {
   }
 
   private void initFindFriendsButtonUI(){
-    findFriendsButton = new JButton("Find Friends");
+    findFriendsButton = new JButton("Social");
     findFriendsButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
     findFriendsButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -237,10 +237,9 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-//      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing") && updateLanding) {
-//        setLandingPanel(new LandingPanel());
-//        updateLanding = false;
-//      }
+      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
+        this.landingPanel.updateResultsPanel();
+      }
       cards.show(container, "Landing");
     }
     if (e.getSource() == profileButton) {

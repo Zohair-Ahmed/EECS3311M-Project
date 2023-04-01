@@ -32,12 +32,16 @@ public class LandingPanel implements IPanelView {
         JLabel title = new JLabel("Same Page Books"); // Title text and UI configurations
         title.setForeground(new Color(12, 51, 127));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("Futura", Font.BOLD, 25));
+        title.setFont(new Font("Futura", Font.BOLD, 35));
         herobanner.add(title);
 
         mediator.setLbv(lbv); // Setup the connection between the search bar and results panel
         mediator.setSbf(sbf);
         initComponents();
+    }
+
+    public void updateResultsPanel() {
+        this.lbv.UpdateResultsPage();
     }
 
     @Override

@@ -19,6 +19,9 @@ public class BookView implements IBookView {
     private JFrame bookFrame;
     private DisplayBookInformation book;
 
+    private JPanel mainPanel;
+    private JButton favouriteBtn;
+
     public BookView() {
     }
 
@@ -62,6 +65,12 @@ public class BookView implements IBookView {
         });
     }
 
+    public void changeFavouriteBtnText(boolean addRemoveButton){
+        favouriteBtn.setText(addRemoveButton ? "Remove" : "Favourite");
+        favouriteBtn.repaint();
+        favouriteBtn.revalidate();
+    }
+
     // Initializing whether the favourite button is blue or red
     public Color initFavouriteBtnColour(JButton favouriteBtn) {
         if (favouriteBtn.getText().equals("Favourite"))
@@ -78,7 +87,7 @@ public class BookView implements IBookView {
         JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
         JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
         JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
-        JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
+        favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
 
         initFavouriteBtn(mainPanel, favouriteBtn);
         favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));

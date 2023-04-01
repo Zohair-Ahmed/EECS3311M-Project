@@ -14,7 +14,7 @@ public class User {
     private State loginState = State.GUEST;
     private static User user;
     private Main main;
-    
+
     private User(String email, String password) {
         this.email = email;
         this.password = password;
