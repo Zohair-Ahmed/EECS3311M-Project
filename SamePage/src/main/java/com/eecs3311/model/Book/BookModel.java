@@ -1,5 +1,7 @@
 package com.eecs3311.model.Book;
 
+import com.eecs3311.model.User.User;
+import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
@@ -71,16 +73,17 @@ public class BookModel implements IBookModel {
 
     public boolean checkFavoriteBook() {
         boolean checkBook = false;
-        ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
+        if (User.getInstance().getLoginState().equals(State.MEMBER)) {
+            ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
 
-        if (userBooks != null) {
-            for (IBookModel ibm : userBooks) {
-                if (this.getISBN().equals(ibm.getISBN())) {
-                    checkBook = true;
+            if (userBooks != null) {
+                for (IBookModel ibm : userBooks) {
+                    if (this.getISBN().equals(ibm.getISBN())) {
+                        checkBook = true;
+                    }
                 }
             }
         }
-
         return checkBook;
     }
 

@@ -235,7 +235,7 @@ public class Main extends JFrame implements ActionListener {
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
       if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
-        setLandingPanel(new LandingPanel());
+        this.landingPanel.updateResultsPanel();
       }
       cards.show(container, "Landing");
     }

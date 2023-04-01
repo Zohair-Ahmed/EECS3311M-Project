@@ -40,6 +40,10 @@ public class LandingPanel implements IPanelView {
         initComponents();
     }
 
+    public void updateResultsPanel() {
+        this.lbv.UpdateResultsPage();
+    }
+
     @Override
     public void initComponents() {
 
