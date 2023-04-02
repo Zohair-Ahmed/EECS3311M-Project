@@ -93,9 +93,20 @@ public class ResultsPanel implements ActionListener, IPanelView {
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         releaseContainer.setLayout(gridLayout);
-        results.parallelStream().forEach(ibm -> {
+
+        // Temp Fix
+        for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
-        });
+        }
+
+        /*
+         * Causes ConcurrentModificationException Error
+         * Above for each loop used as replacement
+         */
+
+//        results.parallelStream().forEach(ibm -> {
+//            releaseContainer.add(ibm.getPresenter().getView().getView());
+//        });
 
         initTextLayout();
         initScrollPaneView(results);
