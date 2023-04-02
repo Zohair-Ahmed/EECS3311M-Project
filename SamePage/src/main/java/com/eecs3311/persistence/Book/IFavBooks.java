@@ -22,7 +22,7 @@ public interface IFavBooks {
     void removeFromFavorites(IBookModel book);
 
     /**
-     * Retrieves all favorite books for the logged-in user and stores them in a IBookModel ArraylList
+     * Retrieves all favorite books for the logged-in user and stores them in a IBookModel ArrayList
      */
     void getDBdata();
 

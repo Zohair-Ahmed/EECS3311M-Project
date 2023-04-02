@@ -42,9 +42,9 @@ CREATE TABLE IF NOT EXISTS Reviews (
 
 CREATE TABLE IF NOT EXISTS Followers (
     FollowerID INT NOT NULL AUTO_INCREMENT UNIQUE,
-    UserID INT NOT NULL,
+    CurrentUser VARCHAR(200) NOT NULL,
     FollowedUser VARCHAR(200) NOT NULL,
     PRIMARY KEY (FollowerID),
     FOREIGN KEY (FollowedUser) REFERENCES Users(Username),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+    FOREIGN KEY (CurrentUser) REFERENCES Users(Username)
     );

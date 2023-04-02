@@ -18,10 +18,10 @@ public interface IFollowerModel {
     void setPresenter(IFollowerPresenter ifp);
 
     /**
-     * Gets userID of follower
+     * Gets current follower username
      * @return String userID
      */
-    String getUserID();
+    String getCurrentUser();
 
     /**
      * Gets the followed user's username
@@ -30,10 +30,14 @@ public interface IFollowerModel {
     String getFollowedUser();
 
     /**
-     * Gets the username of follower
-     * @return String username
+     * Sets the current user's username
      */
-    String getUsername();
+    void setCurrentUser(String username);
+
+    /**
+     * Sets the followed user's username
+     */
+    void setFollowedUser(String username);
 
     /**
      * Updates the model from interactions from the view

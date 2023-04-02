@@ -1,5 +1,6 @@
 package com.eecs3311.view.components;
 
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
@@ -75,9 +76,9 @@ public class SearchFriends implements ActionListener, IPanelView {
     // Searches results from list of users db and updates user panel object to update results
     private void getSearchResults(String search) {
         if (!(search == null || search.length() == 0)) {
-            ArrayList<String> results = new ArrayList<>();
-            Database.getRegisterInstance().getUserList().forEach((user) -> {
-                if (user.contains(search.toLowerCase()))
+            ArrayList<IFollowerModel> results = new ArrayList<>();
+            Database.getFollowerInstance().getUserList().forEach((user) -> {
+                if (user.getCurrentUser().contains(search.toLowerCase()))
                     results.add(user);
             });
             userResults.updateFriendsView(results);

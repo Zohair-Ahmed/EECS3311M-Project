@@ -18,16 +18,14 @@ public class FollowerView implements ActionListener, IFollowerView {
     private String username;
     private JLabel followers;
     private JButton followBtn;
-    public FollowerView(String username){
+    public FollowerView(String username, String followerCount){
         mainPanel.setLayout(new GridBagLayout());
         this.username = username;
         titleLbl = new JLabel(username);
         imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource("/images/profileimg.png")).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         picLabel = new JLabel(imageIcon);
-        followers = new JLabel("Followers: NaN");
-        followBtn = new JButton("Follow");
-        initFollowBtn();
-        followBtn.setBackground(initFollowBtnColour());
+        followers = new JLabel("Followers: "+followerCount);
+        followBtn = new JButton();
     }
 
     @Override
@@ -38,7 +36,10 @@ public class FollowerView implements ActionListener, IFollowerView {
 
     @Override
     public JPanel getView() {
+        followBtn = new JButton(getPresenter().checkModelFollowing() == true ? "Unfollow" : "Follow");
         initFonts();
+        initFollowBtn(followBtn);
+        followBtn.setBackground(initFollowBtnColour(followBtn));
         c.gridy = 0;
         c.gridheight = 3;
         mainPanel.add(picLabel, c);
@@ -77,24 +78,23 @@ public class FollowerView implements ActionListener, IFollowerView {
         };
     }
 
-    public void initFollowBtn() {
-        followBtn.addActionListener(e -> {
+    public void initFollowBtn(JButton button) {
+        button.addActionListener(e -> {
             if (getPresenter().checkModelFollowing()) {
-                followBtn.setText("Follow");
+                getPresenter().removeFollower();
+                button.setText("Follow");
                 UserModel.getInstance().getMainInit().addProfilePanel();
-                // TO DO - add call to DB
             } else {
-                // Add follower
-                followBtn.setText("Unfollow");
+                getPresenter().updateModelFollowers();
+                button.setText("Unfollow");
                 UserModel.getInstance().getMainInit().addProfilePanel();
-                // TO DO - add call to DB
             }
-            followBtn.setBackground(initFollowBtnColour());
+            button.setBackground(initFollowBtnColour(button));
         });
     }
 
-    public Color initFollowBtnColour() {
-        if (followBtn.getText().equals("Follow"))
+    public Color initFollowBtnColour(JButton button) {
+        if (button.getText().equals("Follow"))
             return new Color(3, 83, 196, 255);
         else return new Color (89, 87, 87, 255);
     }

@@ -1,6 +1,7 @@
 package com.eecs3311.view.layout;
 
 import com.eecs3311.model.User.UserModel;
+import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.*;
 
@@ -15,6 +16,7 @@ public class FindFriendsPanel implements IPanelView {
 
     // The new find friends frame panel
     public FindFriendsPanel() {
+        Database.getFollowerInstance().getDBdata();
         root = new JPanel(); // Root panel
         herobanner = new JPanel(); // Initial panel containing title
         allUsers = new UserResultsPanel(); // all Users (results panel)

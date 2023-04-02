@@ -31,7 +31,6 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     public void addBook(IBookModel book) {
         try {
             Statement temp = getConnection().createStatement();
-
             temp.executeUpdate("insert into Favorites (BookID, Username, FavID) values ('" + book.getISBN() + "', '" + UserModel.getInstance().getUsername() + "', " + UserModel.getInstance().getUserID() + ")");
         }
 

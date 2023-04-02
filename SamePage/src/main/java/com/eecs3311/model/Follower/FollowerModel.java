@@ -9,16 +9,13 @@ public class FollowerModel implements IFollowerModel {
 
     private IFollowerPresenter UserPresenter;
 
-    private String userID;
+    private String currentUser;
 
     private String followedUser;
 
-    private String username;
-
-    public FollowerModel(String UserID, String FollowedUser, String Username) {
-        this.userID = UserID;
+    public FollowerModel(String CurrentUser, String FollowedUser) {
+        this.currentUser = CurrentUser;
         this.followedUser = FollowedUser;
-        this.username = Username;
     }
     @Override
     public IFollowerPresenter getPresenter() { return UserPresenter; }
@@ -27,13 +24,20 @@ public class FollowerModel implements IFollowerModel {
     public void setPresenter(IFollowerPresenter iup) { this.UserPresenter = iup; }
 
     @Override
-    public String getUserID() { return userID; }
+    public String getCurrentUser() { return currentUser; }
 
     @Override
     public String getFollowedUser() { return followedUser; }
 
     @Override
-    public String getUsername() { return username; }
+    public void setCurrentUser(String username) {
+        currentUser = username;
+    }
+
+    @Override
+    public void setFollowedUser(String username) {
+        followedUser = username;
+    }
 
     @Override
     public void updateModelFromView() {
@@ -44,11 +48,9 @@ public class FollowerModel implements IFollowerModel {
     public boolean checkFollowing() {
         boolean checkFollow = false;
         ArrayList<IFollowerModel> userFollowers = Database.getFollowerInstance().getFollowing();
-
         if (userFollowers != null) {
             for (IFollowerModel ifm : userFollowers) {
-                System.out.println(ifm.getUsername());
-                if (this.getUsername().equals(ifm.getUsername())) {
+                if (this.getCurrentUser().equals(ifm.getCurrentUser())) {
                     checkFollow = true;
                 }
             }
@@ -59,11 +61,11 @@ public class FollowerModel implements IFollowerModel {
 
     @Override
     public void addFollower() {
-
+        Database.getFollowerInstance().addFollower(this);
     }
 
     @Override
     public void removeFollower() {
-
+        Database.getFollowerInstance().removeFollower(this);
     }
 }

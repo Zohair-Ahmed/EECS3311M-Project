@@ -27,11 +27,11 @@ public class FollowerPresenter implements IFollowerPresenter {
 
     @Override
     public void updateModelFollowers() {
-
+        getModel().addFollower();
     }
 
     @Override
     public void removeFollower() {
-
+        getModel().removeFollower();
     }
 }

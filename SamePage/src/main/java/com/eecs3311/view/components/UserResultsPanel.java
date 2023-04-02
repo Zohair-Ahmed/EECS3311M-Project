@@ -33,7 +33,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     }
 
     // Update book view from search input from search bar
-    public void updateFriendsView(ArrayList<String> results) {
+    public void updateFriendsView(ArrayList<IFollowerModel> results) {
         this.releaseContainer.removeAll();
         this.releaseContainer.revalidate();
         this.releaseContainer.repaint();
@@ -60,7 +60,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         container.add(textJLabel, c);
     }
 
-    private void initScrollPaneView(ArrayList<String> results) {
+    private void initScrollPaneView(ArrayList<IFollowerModel> results) {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 1250;
@@ -80,26 +80,14 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         container.add(scroll, c);
     }
 
-    private void initReleaseContainer(ArrayList<String> results) {
+    private void initReleaseContainer(ArrayList<IFollowerModel> results) {
         if (results == null)
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/4)+1, 4);
         GridBagConstraints c = new GridBagConstraints();
-        c.gridheight = 100;
-        c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
-        System.out.println();
-        results.parallelStream().forEach(ibm -> {
-            IFollowerModel ifm = new FollowerModel(""+UserModel.getInstance().getUserID(), ibm, UserModel.getInstance().getUsername());
-            IFollowerPresenter ifp = new FollowerPresenter();
-            IFollowerView ifv = new FollowerView(ibm);
-
-            ifm.setPresenter(ifp);
-            ifp.setModel(ifm);
-            ifp.setView(ifv);
-            ifv.setPresenter(ifp);
-
-            releaseContainer.add(ifv.getView(),c);
+        results.parallelStream().forEach(ifm -> {
+            releaseContainer.add(ifm.getPresenter().getUserView().getView(), c);
         });
         initTextLayout();
         initScrollPaneView(results);
