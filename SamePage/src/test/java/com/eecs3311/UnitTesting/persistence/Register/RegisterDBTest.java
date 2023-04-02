@@ -1,7 +1,9 @@
-package com.eecs3311.persistence.Register;
+package com.eecs3311.UnitTesting.persistence.Register;
 
 import com.eecs3311.model.User.UserStub;
 import com.eecs3311.persistence.Database;
+import com.eecs3311.persistence.Register.IRegister;
+import com.eecs3311.persistence.Register.RegisterStub;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

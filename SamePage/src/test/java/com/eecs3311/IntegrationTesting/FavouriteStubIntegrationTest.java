@@ -1,4 +1,4 @@
-package com.eecs3311.integrationtests;
+package com.eecs3311.IntegrationTesting;
 
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.User.UserStub;

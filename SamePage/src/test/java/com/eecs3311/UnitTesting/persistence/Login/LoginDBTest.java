@@ -1,6 +1,8 @@
-package com.eecs3311.persistence.Login;
+package com.eecs3311.UnitTesting.persistence.Login;
 
 import com.eecs3311.persistence.Database;
+import com.eecs3311.persistence.Login.ILogin;
+import com.eecs3311.persistence.Login.LoginStub;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
