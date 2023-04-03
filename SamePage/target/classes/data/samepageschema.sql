@@ -48,3 +48,30 @@ CREATE TABLE IF NOT EXISTS Followers (
     FOREIGN KEY (FollowedUser) REFERENCES Users(Username),
     FOREIGN KEY (CurrentUser) REFERENCES Users(Username)
     );
+
+CREATE TABLE IF NOT EXISTS Goals (
+   	UserID INT NOT NULL,
+    Level INT NOT NULL DEFAULT 1,
+   	NumOfBooksRead INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+   );
+
+   -- Procedure to update user reading goals
+DELIMITER DD
+CREATE PROCEDURE UpdateGoals (IN UID INT)
+    BEGIN
+   	    DECLARE alreadyExists INT;
+        DECLARE numBooksRead INT;
+        DECLARE maxBooks INT;
+        IF NOT EXISTS (SELECT * FROM Goals WHERE UserID = UID) THEN
+   		    INSERT INTO Goals VALUES (UID, 1, 1);
+        ELSE
+   		    SET numBooksRead = (SELECT NumOfBooksRead FROM Goals WHERE UserID = UID);
+            SET maxBooks = (SELECT Level FROM Goals WHERE UserID = UID) * 10;
+   		    IF numBooksRead + 1 >= maxBooks THEN
+               UPDATE Goals SET Level = ((maxBooks/10)+1) WHERE UserID = UID;
+            END IF;
+   		    UPDATE Goals SET NumOfBooksRead = NumOfBooksRead + 1 WHERE UserID = UID;
+        END IF;
+    END DD
+DELIMITER ;

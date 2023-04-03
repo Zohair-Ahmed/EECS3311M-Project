@@ -22,4 +22,6 @@ public interface IRegister {
      * @return List of usernames
      */
     ArrayList<String> getUserList();
+
+    int getLatestRegisterUserID();
 }

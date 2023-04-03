@@ -77,10 +77,7 @@ public class FavouritesBooksIntegrationTest {
         assertEquals(2, favs.size());
 
         for (int i=0; i<favs.size(); i++) {
-            IBookModel userFav = favs.get(i);
-            IBookModel stubFav = bookStub.get(i);
-            // Checks for if UI shows the same content
-            assertEquals(userFav.getPresenter().getModel().getTitle(), stubFav.getPresenter().getModel().getTitle());
+            assertTrue(bookStub.contains(favs.get(i)));
         }
 
 
