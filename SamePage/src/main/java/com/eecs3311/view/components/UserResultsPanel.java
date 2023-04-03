@@ -36,7 +36,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         initReleaseContainer(Database.getFollowerInstance().getUserList());
     }
 
-    // Update book view from search input from search bar
+    // Update user view from search input from search bar
     public void updateFriendsView(ArrayList<IFollowerModel> results) {
         this.releaseContainer.removeAll();
         this.releaseContainer.revalidate();

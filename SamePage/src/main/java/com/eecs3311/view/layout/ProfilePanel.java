@@ -81,7 +81,7 @@ public class ProfilePanel implements IPanelView {
     }
 
     private void initFollowingLayout() {
-        followersView.setPreferredSize(new Dimension(0, 300));
+        followersView.setPreferredSize(new Dimension(300, 300));
     }
 
     private void initUserPanel() {

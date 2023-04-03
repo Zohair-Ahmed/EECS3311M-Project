@@ -73,12 +73,16 @@ public class BookModel implements IBookModel {
         boolean checkBook = false;
         ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
 
-        if (userBooks != null) {
-            for (IBookModel ibm : userBooks) {
-                if (this.getISBN().equals(ibm.getISBN())) {
-                    checkBook = true;
+        try {
+            if (userBooks != null) {
+                for (IBookModel ibm : userBooks) {
+                    if (this.getISBN().equals(ibm.getISBN())) {
+                        checkBook = true;
+                    }
                 }
             }
+        } catch(Exception e) {
+
         }
 
         return checkBook;

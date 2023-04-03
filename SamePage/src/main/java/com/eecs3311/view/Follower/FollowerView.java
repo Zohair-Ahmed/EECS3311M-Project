@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class FollowerView implements ActionListener, IFollowerView {
+public class FollowerView implements IFollowerView {
     private JPanel mainPanel = new JPanel();
 
     private IFollowerPresenter iup;
@@ -83,7 +83,8 @@ public class FollowerView implements ActionListener, IFollowerView {
             if (getPresenter().checkModelFollowing()) {
                 getPresenter().removeFollower();
                 button.setText("Follow");
-                UserModel.getInstance().getMainInit().addProfilePanel();
+//                UserModel.getInstance().getMainInit().addProfilePanel();
+//                UserModel.getInstance().getMainInit().addFindFriendsPanel();
                 followerCount--;
                 followers.setText("Followers:"+followerCount);
                 if (UserModel.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
@@ -94,7 +95,8 @@ public class FollowerView implements ActionListener, IFollowerView {
                 followers.setText("Followers:"+followerCount);
                 getPresenter().updateModelFollowers();
                 button.setText("Unfollow");
-                UserModel.getInstance().getMainInit().addProfilePanel();
+//                UserModel.getInstance().getMainInit().addProfilePanel();
+//                UserModel.getInstance().getMainInit().addFindFriendsPanel();
             }
             button.setBackground(initFollowBtnColour(button));
             mainPanel.repaint();
@@ -111,11 +113,5 @@ public class FollowerView implements ActionListener, IFollowerView {
 
     public JLabel initFollowerLabel(int count) {
         return new JLabel("Followers: "+this.followerCount);
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 }
