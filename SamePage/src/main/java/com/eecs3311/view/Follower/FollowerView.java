@@ -36,7 +36,6 @@ public class FollowerView implements IFollowerView {
 
     @Override
     public JPanel getView() {
-        System.out.println(username + " - " + followerCount);
         followers = initFollowerLabel(this.followerCount);
         followBtn = new JButton(getPresenter().checkModelFollowing() == true ? "Unfollow" : "Follow");
         initFonts();
