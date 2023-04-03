@@ -71,8 +71,8 @@ public class ProfilePanel implements IPanelView {
         root.setLayout(new BorderLayout());
         root.add(userPanel, BorderLayout.WEST);
         root.add(userGoalPanel, BorderLayout.EAST);
-        root.add(followersView);
         root.add(bookView);
+        root.add(followersView, BorderLayout.SOUTH);
     }
 
     private void initBooksLayout() {
@@ -107,7 +107,7 @@ public class ProfilePanel implements IPanelView {
     }
 
     /**
-     * Generate the initials foe the default profile picture based on the Username
+     * Generate the initials for the default profile picture based on the Username
      * @return initials of Username
      */
     private String generateInitials() {

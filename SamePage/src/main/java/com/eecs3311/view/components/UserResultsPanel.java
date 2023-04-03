@@ -27,7 +27,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     }
 
     public UserResultsPanel(ArrayList<IFollowerModel> following) {
-        initReleaseContainer(following);
+        initReleaseContainer(Database.getFollowerInstance().getUserList());
     }
 
     @Override
@@ -65,6 +65,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     }
 
     private void initScrollPaneView(ArrayList<IFollowerModel> results) {
+        results = Database.getFollowerInstance().getUserList();
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipadx = 1250;
@@ -75,7 +76,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         c.gridy = 1;
 
         JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        if (state.equals("resultPage")) {
+        if (state.equals("releasePage")) {
             this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
             scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                     JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -85,6 +86,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     }
 
     private void initReleaseContainer(ArrayList<IFollowerModel> results) {
+        results = Database.getFollowerInstance().getUserList();
         if (results == null)
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/4)+1, 4);
@@ -93,11 +95,13 @@ public class UserResultsPanel implements ActionListener, IPanelView {
 //        results.parallelStream().forEach(ifm -> {
 //            releaseContainer.add(ifm.getPresenter().getUserView().getView(), c);
 //        });
+
         for (IFollowerModel ifm : results) {
             releaseContainer.add(ifm.getPresenter().getUserView().getView(), c);
         }
+
         initTextLayout();
-        initScrollPaneView(results);
+        initScrollPaneView(Database.getFollowerInstance().getUserList());
     }
 
 
@@ -107,6 +111,9 @@ public class UserResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getView() {
+
+        System.out.println(this.container.getComponents());
+
         return this.container;
     }
 
