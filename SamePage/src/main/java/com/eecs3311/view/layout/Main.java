@@ -307,20 +307,7 @@ public class Main extends JFrame implements ActionListener {
     return card.getName();
   }
 
-  public void updateLanding(IBookView temp) {
-//    Component[] components = landingPanel.getResultsPanel().getParentContainer().getComponents();
-//    for (Component component : components) {
-//      if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
-//        int index = landingPanel.getResultsPanel().getParentContainer().getComponentZOrder(component);
-//        landingPanel.getResultsPanel().getParentContainer().remove(component);
-//        landingPanel.getResultsPanel().getParentContainer().add(temp.getView(), index);
-//        break;
-//      }
-//    }
-
-    landingPanel.getResultsPanel().getParentContainer().invalidate();
-    landingPanel.getResultsPanel().getParentContainer().repaint();
-    landingPanel.getView().invalidate();
-    landingPanel.getView().repaint();
+  public LandingPanel getLandingPanel() {
+    return landingPanel;
   }
 }

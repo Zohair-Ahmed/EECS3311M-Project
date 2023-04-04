@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import com.eecs3311.model.User.User;
+import com.eecs3311.view.Book.IBookView;
 import com.eecs3311.view.components.ResultsPanel;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ResultsMediator;
@@ -38,10 +39,6 @@ public class LandingPanel implements IPanelView {
         mediator.setLbv(lbv); // Setup the connection between the search bar and results panel
         mediator.setSbf(sbf);
         initComponents();
-    }
-
-    public void updateResultsPanel() {
-        this.lbv.UpdateResultsPage();
     }
 
     @Override
@@ -106,6 +103,28 @@ public class LandingPanel implements IPanelView {
 
     public ResultsPanel getResultsPanel() {
         return lbv;
+    }
+
+    public void updateLanding(IBookView temp) {
+        int indexOfBook = temp.getPresenter().getModel().getBookIndex();
+//        Component[] components = this.getResultsPanel().getParentContainer().getComponents();
+//        for (Component component : components) {
+//            if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
+//            int index = this.getResultsPanel().getParentContainer().getComponentZOrder(component);
+//            this.getResultsPanel().getParentContainer().remove(component);
+//            this.getResultsPanel().getParentContainer().add(temp.getView(), index);
+//            break;
+//            }
+//        }
+
+        Component oldView = this.getResultsPanel().getParentContainer().getComponent(indexOfBook);
+        this.getResultsPanel().getParentContainer().remove(oldView);
+        this.getResultsPanel().getParentContainer().add(temp.getView(), indexOfBook);
+
+        this.getResultsPanel().getParentContainer().revalidate();
+        this.getResultsPanel().getParentContainer().repaint();
+        this.getView().revalidate();
+        this.getView().repaint();
     }
 
 }
