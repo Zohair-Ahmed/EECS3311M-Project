@@ -1,12 +1,9 @@
 package com.eecs3311.persistence.Follower;
 
-import com.eecs3311.model.Book.BookModel;
-import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Follower.FollowerModel;
-import com.eecs3311.model.Follower.IFollowerModel;
+import com.eecs3311.model.Login.Follower.FollowerModel;
+import com.eecs3311.model.Login.Follower.IFollowerModel;
 import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
-import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.User.FollowerPresenter;
 import com.eecs3311.presenter.User.IFollowerPresenter;
 import com.eecs3311.view.Follower.FollowerView;
@@ -22,7 +19,8 @@ import java.util.Set;
 public class FollowerDB extends AbstractDatabase implements IFollower {
 
     private ArrayList<IFollowerModel> followedUsers;
-    private ArrayList<IFollowerModel> users  = new ArrayList<>();
+    private ArrayList<IFollowerModel> followers;
+    private ArrayList<IFollowerModel> users = new ArrayList<>();
     private String user;
 
     /**
@@ -30,34 +28,37 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
      */
     public FollowerDB() {
         super();
-//        try {
-//            if (following == null) {
-//                getAllFollowers();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    }
+
+    @Override
+    public ArrayList<IFollowerModel> getAllUsers() {
+        return users;
     }
 
     @Override
     public ArrayList<IFollowerModel> getFollowing() {
-        getDBdata();
+        getDBFollowedUsers();
         return followedUsers;
     }
 
-    public void getDBdata() {
+    @Override
+    public ArrayList<IFollowerModel> getFollowers() {
+        getDBFollowers();
+        return followers;
+    }
+
+    public void getDBFollowedUsers() {
         try {
             if (getConnection() != null) {
                 Set<String> userFollowing = new HashSet<>();
-                System.out.println("Connection is successful");
-                String query = "SELECT FollowedUser " + "FROM Followers " + "WHERE CurrentUser = " + UserModel.getInstance().getUserID();
+                String query = "SELECT FollowedUser " + "FROM Followers " + "WHERE CurrentUser = \'" + UserModel.getInstance().getUsername()+"\'";
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
                     user = rs.getString("FollowedUser");
                     userFollowing.add(user);
                 }
-                addExistingFollowedUsers(userFollowing);
+                followedUsers = addExistingFollowedUsers(userFollowing);
             } else {
                 System.out.println("Failed to connect");
             }
@@ -66,30 +67,19 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         }
     }
 
-//    @Override
-//    public void addToList(ArrayList<IFollowerModel> userFollowing) {
-//        following = new ArrayList<>();
-//        for (IFollowerModel ifm : userFollowing) {
-//            IFollowerPresenter ifp = new FollowerPresenter();
-//            IFollowerView ifv = new FollowerView(ifm.getCurrentUser());
-//            ifp.setModel(ifm);
-//            ifm.setPresenter(ifp);
-//            ifp.setView(ifv);
-//            ifv.setPresenter(ifp);
-//            following.add(ifm);
-//        }
-//    }
-
-    public void addExistingFollowedUsers(Set<String> info) {
-        followedUsers = new ArrayList<>();
+    @Override
+    public ArrayList<IFollowerModel> addExistingFollowedUsers(Set<String> info) {
+        ArrayList<IFollowerModel> newFollow = new ArrayList<>();
         users.parallelStream().forEach(user -> {
             if (info.contains(user.getCurrentUser()))
-                this.followedUsers.add(user);
+                newFollow.add(user);
         });
+        return newFollow;
     }
 
     public ArrayList<IFollowerModel> getUserList(){
-        if(users.isEmpty()){
+        if(users == null || users.isEmpty()){
+            users = new ArrayList<>();
             try {
                 Statement temp = getConnection().createStatement();
                 ResultSet rs = temp.executeQuery("SELECT u.Username, COUNT(f.FollowedUser) AS num_followers\n" +
@@ -109,10 +99,9 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
                     ifp.setModel(ifm);
                     ifp.setView(ifv);
                     ifv.setPresenter(ifp);
+                    ifv.initComponents();
                     this.users.add(ifm);
                 }
-                //removes the user currently logged in from the list
-//                this.users.remove(UserModel.getInstance().getUsername());
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -121,34 +110,32 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         return users;
     }
 
-//    public void getAllFollowers() {
-//        try {
-//            if (getConnection() != null) {
-//                ArrayList<IFollowerModel> info = new ArrayList<>();
-//                System.out.println("Connection is successful");
-//                String query = "SELECT * FROM Followers";
-//                Statement st = getConnection().createStatement();
-//                // execute the query, and get a java resultset
-//                ResultSet rs = st.executeQuery(query);
-//                // iterate through the java resultset
-//                while (rs.next()) {
-//                    currentUser = rs.getString("CurrentUser");
-//                    followedUser = rs.getString("FollowedUser");
-//                    info.add(new FollowerModel(currentUser, followedUser));
-//                }
-//                addToList(info);
-//            } else {
-//                System.out.println("Failed to connect");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void getDBFollowers() {
+        try {
+            if (getConnection() != null) {
+                Set<String> userFollowers = new HashSet<>();
+                System.out.println("Connection is successful");
+                String query = "SELECT CurrentUser " + "FROM Followers " + "WHERE FollowedUser = \'" + UserModel.getInstance().getUsername()+"\'";
+                Statement st = getConnection().createStatement();
+                ResultSet rs = st.executeQuery(query);
+                while (rs.next()) {
+                    user = rs.getString("CurrentUser");
+                    userFollowers.add(user);
+                }
+                followers = addExistingFollowedUsers(userFollowers);
+            } else {
+                System.out.println("Failed to connect");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void removeFollower(IFollowerModel followedUser) {
         try {
             if (getConnection() != null) {
-                String sql = "DELETE FROM Followers WHERE FollowedUser='" + followedUser.getCurrentUser() + "' AND CurrentUser=" + UserModel.getInstance().getUsername() + "";
+                String sql = "DELETE FROM Followers WHERE FollowedUser='" + followedUser.getCurrentUser() + "' AND CurrentUser= \'" + UserModel.getInstance().getUsername() + "\'";
                 Statement st = getConnection().createStatement();
                 st.executeUpdate(sql);
                 st.close();
@@ -169,16 +156,4 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
             e.printStackTrace();
         }
     }
-
-//    public void updateFollowerCount(IFollowerModel followedUser) {
-//        try {
-//            if (getConnection() != null) {
-//                String sql = "SELECT COUNT(*) AS FollowerCount\n" +
-//                        "FROM Followers\n" +
-//                        "WHERE FollowedUser ='" + followedUser.getCurrentUser() + "'";
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

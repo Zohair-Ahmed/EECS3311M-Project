@@ -24,7 +24,6 @@ public class LandingPanel implements IPanelView {
         herobanner = new JPanel(); // Initial panel containing title
         sbf = new SearchBar(mediator); // Search bar frame
         lbv = new ResultsPanel(mediator); // Latest book view (results panel)
-        System.out.println(UserModel.getInstance().toString());
         root.setLayout(new GridBagLayout());
 
         herobanner.setLayout(new GridBagLayout());

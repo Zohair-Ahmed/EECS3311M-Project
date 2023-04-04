@@ -44,6 +44,7 @@ public class LoginPanel implements ILoginPanelView, IPanelView, ActionListener {
 				main.setLandingPanel(new LandingPanel());
 				main.getCard().show(main.getContainer(), "Landing");
 				main.addProfilePanel();
+				main.addFindFriendsPanel();
 				UserModel.getInstance().setMain(main);
 			}
 		});

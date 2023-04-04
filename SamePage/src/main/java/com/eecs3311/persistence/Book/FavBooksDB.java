@@ -35,7 +35,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         }
 
         catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 

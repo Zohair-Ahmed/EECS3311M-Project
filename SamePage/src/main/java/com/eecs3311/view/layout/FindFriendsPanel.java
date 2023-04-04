@@ -1,6 +1,5 @@
 package com.eecs3311.view.layout;
 
-import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.*;
@@ -9,19 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FindFriendsPanel implements IPanelView {
-    private JPanel root;
-    private JPanel herobanner;
-    private SearchFriends sbf;
-    private UserResultsPanel allUsers;
 
-    // The new find friends frame panel
+    private FollowerMediator mediator;
+    private JPanel root = new JPanel();
+    private JPanel herobanner = new JPanel();
+    private SearchFriends sbf;
+    private UserResultsPanel lbv;
+
     public FindFriendsPanel() {
-        Database.getFollowerInstance().getDBdata();
-        root = new JPanel(); // Root panel
-        herobanner = new JPanel(); // Initial panel containing title
-        allUsers = new UserResultsPanel(); // all Users (results panel)
-        sbf = new SearchFriends(allUsers); // Search bar frame
-        System.out.println(UserModel.getInstance().toString());
+        mediator = new FollowerMediator();
+        sbf = new SearchFriends(mediator);
+        lbv = new UserResultsPanel(mediator);
+        mediator.setURP(lbv);
+        mediator.setSbf(sbf);
+
+        Database.getFollowerInstance().getDBFollowedUsers();
         root.setLayout(new GridBagLayout());
         herobanner.setLayout(new GridBagLayout());
         JLabel title = new JLabel("Search Users"); // Title text and UI configurations
@@ -30,6 +31,21 @@ public class FindFriendsPanel implements IPanelView {
         title.setFont(new Font("Futura", Font.BOLD, 25));
         herobanner.add(title);
         initComponents();
+    }
+
+    @Override
+    public JPanel getView() {
+        return this.root;
+    }
+
+    @Override
+    public JPanel getParentContainer() {
+        return null;
+    }
+
+    @Override
+    public void setParentContainer(JPanel parent) {
+
     }
 
     @Override
@@ -75,21 +91,6 @@ public class FindFriendsPanel implements IPanelView {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 2;
-        root.add(allUsers.getView(), c);
+        root.add(lbv.getView(), c);
     }
-
-    @Override
-    public JPanel getView() {
-        return this.root;
-    }
-
-    @Override
-    public JPanel getParentContainer() {
-        return null;
-    }
-
-    @Override
-    public void setParentContainer(JPanel parent) {
-    }
-
 }

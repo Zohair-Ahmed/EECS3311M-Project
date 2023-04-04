@@ -19,6 +19,8 @@ public interface IFollowerView {
      */
     void setPresenter(IFollowerPresenter iup);
 
+    void initComponents();
+
     /**
      * Returns the view of the component
      *
