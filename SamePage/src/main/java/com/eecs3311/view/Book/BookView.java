@@ -61,10 +61,7 @@ public class BookView implements IBookView {
                     User.getInstance().getMainInit().addProfilePanel();
                 }
             }
-
-            mainPanel.invalidate();
-            mainPanel.repaint();
-            User.getInstance().getMainInit().updateLanding(this);
+            User.getInstance().getMainInit().getLandingPanel().updateLanding(this);
         });
     }
 

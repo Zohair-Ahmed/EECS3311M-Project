@@ -24,6 +24,10 @@ public interface IBookModel {
 
     void setFavorite(boolean status);
 
+    int getBookIndex();
+
+    void setBookIndex(int index);
+
     /**
      * Add this book to the favorites table in the database to maintain updated favorite
      * list for the logged in user
