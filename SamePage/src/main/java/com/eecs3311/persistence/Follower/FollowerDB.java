@@ -32,6 +32,7 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
 
     @Override
     public ArrayList<IFollowerModel> getAllUsers() {
+        users = getUserList();
         ArrayList<IFollowerModel> newUsers = new ArrayList<>();
         users.parallelStream().forEach(user -> {
             if (!user.getCurrentUser().equals(UserModel.getInstance().getUsername()))

@@ -49,7 +49,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     @Override
     public void initComponents() {
         container.setLayout(new GridBagLayout());
-        initReleaseContainer(Database.getFollowerInstance().getUserList());
+        initReleaseContainer(Database.getFollowerInstance().getAllUsers());
     }
 
     private void initReleaseContainer(ArrayList<IFollowerModel> results) {

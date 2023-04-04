@@ -110,7 +110,10 @@ public class FollowerView implements ActionListener, IFollowerView {
         userFrame.setSize(360, 300);
         userFrame.setVisible(true);
         userFrame.setLocationRelativeTo(null);
-        userFrame.addWindowListener((WindowListener) userFrame);
+        try {
+            userFrame.addWindowListener((WindowListener) userFrame);
+        } catch (Exception e) {
+        }
     }
 
     public Color initFollowBtnColour(JButton button) {
