@@ -17,8 +17,6 @@ import com.eecs3311.presenter.Review.IReviewPresenter;
 import com.eecs3311.presenter.Review.ReviewPresenter;
 import com.eecs3311.model.Review.ReviewModel;
 import com.eecs3311.view.IPanelView;
-import com.eecs3311.view.Review.IReviewPanelView;
-import com.eecs3311.view.Review.ReviewPanelView;
 import com.eecs3311.view.components.ReviewsPanel;
 
 /**
@@ -280,11 +278,16 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             if (User.getInstance().getLoginState().equals(State.MEMBER)) {
-                reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
-                root.remove(reviewLabel);
-                root.remove(reviews.getView());
-                initAllReviews();
-                root.updateUI();
+                if(!getReviewText().isEmpty()){
+                    reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+                    root.remove(reviewLabel);
+                    root.remove(reviews.getView());
+                    initAllReviews();
+                    root.updateUI();
+                }
+                else{
+                    errMsg.setText("Please enter a review!");
+                }
             }
             else
                 errMsg.setText("Please login to leave a review!");

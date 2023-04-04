@@ -18,10 +18,18 @@ public class ReviewDB extends AbstractDatabase implements IReview{
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
-        String query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ User.getInstance().getUsername()+"\", CURDATE());";
-
+        String query = "SELECT COUNT(*) FROM Reviews WHERE BookID = \""+isbn+"\" AND Username =\""+User.getInstance().getUsername()+"\";";
         try {
             Statement temp = getConnection().createStatement();
+            ResultSet rs = temp.executeQuery(query);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count > 0){
+                query = "UPDATE Reviews SET ReviewDesc = \""+review+"\", Rating = \""+rating+"\", DatePosted = CURDATE() WHERE BookID = \""+isbn+"\" AND Username =\""+User.getInstance().getUsername()+"\";";
+            }
+            else{
+                query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ User.getInstance().getUsername()+"\", CURDATE());";
+            }
             temp.executeUpdate(query);
         }
 
