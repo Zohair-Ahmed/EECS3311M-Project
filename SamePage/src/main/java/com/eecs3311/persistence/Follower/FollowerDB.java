@@ -56,7 +56,6 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         try {
             if (getConnection() != null) {
                 Set<String> userFollowing = new HashSet<>();
-                System.out.println("Connection is successful");
                 String query = "SELECT FollowedUser " + "FROM Followers " + "WHERE CurrentUser = '" + username+"'";
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);
@@ -102,6 +101,7 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
                     ifp.setModel(ifm);
                     ifp.setView(ifv);
                     ifv.setPresenter(ifp);
+                    ifv.initComponents();
                     this.users.add(ifm);
                 }
             }
@@ -119,7 +119,6 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         try {
             if (getConnection() != null) {
                 Set<String> userFollowers = new HashSet<>();
-                System.out.println("Connection is successful");
                 String query = "SELECT CurrentUser " + "FROM Followers " + "WHERE FollowedUser = \'" + username+"\'";
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);

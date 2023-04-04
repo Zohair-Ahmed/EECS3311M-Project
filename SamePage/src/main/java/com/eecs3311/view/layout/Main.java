@@ -265,7 +265,6 @@ public class Main extends JFrame implements ActionListener {
     JPanel profilePanel = profile.getView();
     profilePanel.setName("Profile");
     container.add(profile.getView(), profilePanel.getName());
-    addFindFriendsPanel();
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);

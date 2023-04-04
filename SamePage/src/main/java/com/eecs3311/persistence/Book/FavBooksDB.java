@@ -35,7 +35,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         }
 
         catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -49,7 +49,6 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         ArrayList<String> favourites = new ArrayList<>();
         try {
             if (getConnection() != null) {
-                System.out.println("Connection is successful");
                 String query = "SELECT Book.Title " +
                         "FROM Favorites " +
                         "JOIN Book ON Favorites.BookID = Book.ISBN13 " +
@@ -74,7 +73,6 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         try {
             if (getConnection() != null) {
                 Set<String> bookISBN = new HashSet<>();
-                System.out.println("Connection is successful");
                 String query = "SELECT Book.* " + "FROM Favorites " + "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " + "WHERE Favorites.FavID = " + UserModel.getInstance().getUserID();
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);

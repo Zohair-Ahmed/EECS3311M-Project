@@ -9,18 +9,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FindFriendsPanel implements IPanelView {
-    private JPanel root;
-    private JPanel herobanner;
+
+    private FollowerMediator mediator;
+    private JPanel root = new JPanel();
+    private JPanel herobanner = new JPanel();
     private SearchFriends sbf;
-    private UserResultsPanel allUsers;
+    private UserResultsPanel lbv;
 
     // The new find friends frame panel
     public FindFriendsPanel() {
+        mediator = new FollowerMediator();
+        sbf = new SearchFriends(mediator);
+        lbv = new UserResultsPanel(mediator);
+        mediator.setURP(lbv);
+        mediator.setSbf(sbf);
+
         Database.getFollowerInstance().getDBFollowedUsers(UserModel.getInstance().getUsername());
-        root = new JPanel(); // Root panel
-        herobanner = new JPanel(); // Initial panel containing title
-        allUsers = new UserResultsPanel(); // all Users (results panel)
-        sbf = new SearchFriends(allUsers); // Search bar frame
         root.setLayout(new GridBagLayout());
         herobanner.setLayout(new GridBagLayout());
         JLabel title = new JLabel("Search Users"); // Title text and UI configurations
@@ -29,6 +33,21 @@ public class FindFriendsPanel implements IPanelView {
         title.setFont(new Font("Futura", Font.BOLD, 25));
         herobanner.add(title);
         initComponents();
+    }
+
+    @Override
+    public JPanel getView() {
+        return this.root;
+    }
+
+    @Override
+    public JPanel getParentContainer() {
+        return null;
+    }
+
+    @Override
+    public void setParentContainer(JPanel parent) {
+
     }
 
     @Override
@@ -74,21 +93,6 @@ public class FindFriendsPanel implements IPanelView {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 2;
-        root.add(allUsers.getView(), c);
+        root.add(lbv.getView(), c);
     }
-
-    @Override
-    public JPanel getView() {
-        return this.root;
-    }
-
-    @Override
-    public JPanel getParentContainer() {
-        return null;
-    }
-
-    @Override
-    public void setParentContainer(JPanel parent) {
-    }
-
 }

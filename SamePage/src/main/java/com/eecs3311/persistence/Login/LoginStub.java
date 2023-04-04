@@ -33,7 +33,6 @@ public class LoginStub implements ILogin{
             }
             i++;
         }
-        System.out.println("This is the Login Stub DB");
         return false;
     }
 }

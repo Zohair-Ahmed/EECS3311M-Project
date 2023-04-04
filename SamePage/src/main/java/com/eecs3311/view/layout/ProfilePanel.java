@@ -11,7 +11,6 @@ import com.eecs3311.view.Goals.IGoalView;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
 import com.eecs3311.view.components.ResultsPanel;
-import com.eecs3311.view.components.UserResultsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,8 +25,6 @@ public class ProfilePanel implements IPanelView {
     private Spring height = Spring.constant(0);
 
     private ResultsPanel lbv;
-    private UserResultsPanel urp;
-    private JPanel followersView;
 
     private JPanel bookView;
     private JPanel userPanel = new JPanel();
@@ -39,9 +36,7 @@ public class ProfilePanel implements IPanelView {
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
-        urp = new UserResultsPanel(Database.getFollowerInstance().getFollowing(UserModel.getInstance().getUsername()));
         bookView = lbv.getView();
-        followersView = urp.getView();
         initComponents();
     }
 
@@ -64,7 +59,6 @@ public class ProfilePanel implements IPanelView {
     public void initComponents() {
         initUserPanel();
         initGoalPanel();
-        initFollowingLayout();
         initBooksLayout();
 
         // Set the vertical split between userPanel and bookView
@@ -72,16 +66,11 @@ public class ProfilePanel implements IPanelView {
         root.add(userPanel, BorderLayout.WEST);
         root.add(userGoalPanel, BorderLayout.EAST);
         root.add(bookView);
-        root.add(followersView, BorderLayout.SOUTH);
     }
 
     private void initBooksLayout() {
         // Set the preferred size of bookView
         bookView.setPreferredSize(new Dimension(0, 300));
-    }
-
-    private void initFollowingLayout() {
-        followersView.setPreferredSize(new Dimension(300, 300));
     }
 
     private void initUserPanel() {
