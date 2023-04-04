@@ -16,7 +16,7 @@ public class FindFriendsPanel implements IPanelView {
 
     // The new find friends frame panel
     public FindFriendsPanel() {
-        Database.getFollowerInstance().getDBdata();
+        Database.getFollowerInstance().getDBFollowedUsers(UserModel.getInstance().getUsername());
         root = new JPanel(); // Root panel
         herobanner = new JPanel(); // Initial panel containing title
         allUsers = new UserResultsPanel(); // all Users (results panel)

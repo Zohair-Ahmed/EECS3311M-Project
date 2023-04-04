@@ -1,4 +1,4 @@
-package com.eecs3311.presenter.User;
+package com.eecs3311.presenter.Follower;
 
 import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.view.Follower.IFollowerView;

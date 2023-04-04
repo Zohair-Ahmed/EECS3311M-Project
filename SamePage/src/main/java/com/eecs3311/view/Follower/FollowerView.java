@@ -1,11 +1,13 @@
 package com.eecs3311.view.Follower;
 
 import com.eecs3311.model.User.UserModel;
-import com.eecs3311.presenter.User.IFollowerPresenter;
+import com.eecs3311.persistence.Database;
+import com.eecs3311.presenter.Follower.IFollowerPresenter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class FollowerView implements IFollowerView {
     private JPanel mainPanel = new JPanel();
@@ -19,11 +21,11 @@ public class FollowerView implements IFollowerView {
     private JLabel followers;
     private int followerCount;
     private JButton followBtn;
+    private JFrame userFrame;
+    private DisplayFollowInformation user;
     public FollowerView(String username, String followerCount){
         this.followerCount = Integer.parseInt(followerCount);
         this.username = username;
-        mainPanel.setLayout(new GridBagLayout());
-        titleLbl = new JLabel(username);
         imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource("/images/profileimg.png")).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         picLabel = new JLabel(imageIcon);
     }
@@ -36,11 +38,14 @@ public class FollowerView implements IFollowerView {
 
     @Override
     public JPanel getView() {
+        mainPanel.setLayout(new GridBagLayout());
+        titleLbl = new JLabel(username);
         followers = initFollowerLabel(this.followerCount);
         followBtn = new JButton(getPresenter().checkModelFollowing() == true ? "Unfollow" : "Follow");
         initFonts();
         initFollowBtn(followBtn);
         followBtn.setBackground(initFollowBtnColour(followBtn));
+        c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 3;
         mainPanel.add(picLabel, c);
@@ -67,15 +72,44 @@ public class FollowerView implements IFollowerView {
     }
 
     private MouseListener onUserClicked(String label) {
-        return new MouseAdapter()
-        {
+        return new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e)
             {
-                System.out.printf("Clicked %s\n",label);
-                JOptionPane.showMessageDialog(mainPanel, "Selected user "+label);
+                if (userFrame == null) {
+                    displaySelectedUser();
+                } else if (user != null && !user.getUsername().equals(getPresenter().getModel().getCurrentUser())) {
+                    userFrame.dispose();
+                    displaySelectedUser();
+                } else {
+                    userFrame.setVisible(true);
+                    userFrame.toFront();
+                }
             }
         };
+    }
+
+    /**
+     * Opens a bigger display for the Book View on a mouse click
+     */
+    private void displaySelectedUser(){
+        try {
+            user = DisplayFollowInformation.getInstance(this.username,
+                    imageIcon,
+                    Database.getFollowerInstance().getFollowing(this.username),
+                    followerCount,
+                    Database.getFavBooksInstance().getUsersFavBooks(this.username),
+                    getPresenter());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        userFrame = new JFrame(""+this.username+"'s Profile");
+        userFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        userFrame.add(user.getView());
+        userFrame.setSize(360, 300);
+        userFrame.setVisible(true);
+        userFrame.setLocationRelativeTo(null);
+        addWindowListener();
     }
 
     public void initFollowBtn(JButton button) {
@@ -83,8 +117,6 @@ public class FollowerView implements IFollowerView {
             if (getPresenter().checkModelFollowing()) {
                 getPresenter().removeFollower();
                 button.setText("Follow");
-//                UserModel.getInstance().getMainInit().addProfilePanel();
-//                UserModel.getInstance().getMainInit().addFindFriendsPanel();
                 followerCount--;
                 followers.setText("Followers:"+followerCount);
                 if (UserModel.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
@@ -95,13 +127,9 @@ public class FollowerView implements IFollowerView {
                 followers.setText("Followers:"+followerCount);
                 getPresenter().updateModelFollowers();
                 button.setText("Unfollow");
-//                UserModel.getInstance().getMainInit().addProfilePanel();
-//                UserModel.getInstance().getMainInit().addFindFriendsPanel();
             }
+            System.out.println(followerCount);
             button.setBackground(initFollowBtnColour(button));
-            mainPanel.repaint();
-            mainPanel.revalidate();
-            mainPanel.updateUI();
         });
     }
 
@@ -113,5 +141,16 @@ public class FollowerView implements IFollowerView {
 
     public JLabel initFollowerLabel(int count) {
         return new JLabel("Followers: "+this.followerCount);
+    }
+
+    private void addWindowListener() {
+        WindowListener wl = new WindowAdapter() {
+            @Override
+            public void windowDeactivated(WindowEvent e){
+                userFrame.dispose();
+                userFrame.setVisible(false);
+            }
+        };
+        userFrame.addWindowListener(wl);
     }
 }

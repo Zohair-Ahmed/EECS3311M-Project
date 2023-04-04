@@ -1,6 +1,6 @@
 package com.eecs3311.view.Follower;
 
-import com.eecs3311.presenter.User.IFollowerPresenter;
+import com.eecs3311.presenter.Follower.IFollowerPresenter;
 
 import javax.swing.*;
 

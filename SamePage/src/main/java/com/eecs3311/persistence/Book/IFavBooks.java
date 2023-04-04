@@ -33,4 +33,10 @@ public interface IFavBooks {
      */
     ArrayList<IBookModel> getFavBooks();
 
+    /**
+     * Gets list of names of favourite books based on a passed user
+     * @returns String[] of favourite book names
+     */
+    ArrayList<String> getUsersFavBooks(String username);
+
 }

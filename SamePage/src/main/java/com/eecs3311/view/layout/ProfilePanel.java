@@ -35,11 +35,11 @@ public class ProfilePanel implements IPanelView {
 
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
-        Database.getFollowerInstance().getDBdata();
+        Database.getFollowerInstance().getDBFollowedUsers(UserModel.getInstance().getUsername());
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
-        urp = new UserResultsPanel(Database.getFollowerInstance().getFollowing());
+        urp = new UserResultsPanel(Database.getFollowerInstance().getFollowing(UserModel.getInstance().getUsername()));
         bookView = lbv.getView();
         followersView = urp.getView();
         initComponents();

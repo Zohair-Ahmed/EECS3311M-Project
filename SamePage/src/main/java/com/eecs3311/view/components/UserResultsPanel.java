@@ -1,14 +1,8 @@
 package com.eecs3311.view.components;
 
-import com.eecs3311.model.Follower.FollowerModel;
 import com.eecs3311.model.Follower.IFollowerModel;
-import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
-import com.eecs3311.presenter.User.FollowerPresenter;
-import com.eecs3311.presenter.User.IFollowerPresenter;
-import com.eecs3311.view.Follower.IFollowerView;
 import com.eecs3311.view.IPanelView;
-import com.eecs3311.view.Follower.FollowerView;
 
 import javax.swing.*;
 import java.awt.*;

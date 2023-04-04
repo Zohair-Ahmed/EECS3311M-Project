@@ -44,6 +44,31 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         return favBooks;
     }
 
+    @Override
+    public ArrayList<String> getUsersFavBooks(String username) {
+        ArrayList<String> favourites = new ArrayList<>();
+        try {
+            if (getConnection() != null) {
+                System.out.println("Connection is successful");
+                String query = "SELECT Book.Title " +
+                        "FROM Favorites " +
+                        "JOIN Book ON Favorites.BookID = Book.ISBN13 " +
+                        "WHERE Favorites.Username = '" + username + "'";
+                Statement st = getConnection().createStatement();
+                ResultSet rs = st.executeQuery(query);
+                while (rs.next()) {
+                    title = rs.getString("Title");
+                    favourites.add(title);
+                }
+            } else {
+                System.out.println("Failed to connect");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return favourites;
+    }
+
     public void getDBdata() {
         favBooks = new ArrayList<>();
         try {

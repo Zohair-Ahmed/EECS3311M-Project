@@ -1,7 +1,8 @@
 package com.eecs3311.model.Follower;
 
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
-import com.eecs3311.presenter.User.IFollowerPresenter;
+import com.eecs3311.presenter.Follower.IFollowerPresenter;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class FollowerModel implements IFollowerModel {
     @Override
     public boolean checkFollowing() {
         boolean checkFollow = false;
-        ArrayList<IFollowerModel> userFollowers = Database.getFollowerInstance().getFollowing();
+        ArrayList<IFollowerModel> userFollowers = Database.getFollowerInstance().getFollowing(UserModel.getInstance().getUsername());
         if (userFollowers != null) {
             for (IFollowerModel ifm : userFollowers) {
                 if (this.getCurrentUser().equals(ifm.getCurrentUser())) {

@@ -1,6 +1,6 @@
 package com.eecs3311.model.Follower;
 
-import com.eecs3311.presenter.User.IFollowerPresenter;
+import com.eecs3311.presenter.Follower.IFollowerPresenter;
 
 public interface IFollowerModel {
     /**
