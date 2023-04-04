@@ -14,6 +14,7 @@ public class BookModel implements IBookModel {
     private final String author;
     private final String img;
     private final String genre;
+    private boolean isFavorite = false;
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, String ISBN,
@@ -57,6 +58,9 @@ public class BookModel implements IBookModel {
         return img;
     }
 
+    public boolean getFavBookStatus() { return isFavorite; }
+
+    public void setFavorite(boolean status) { isFavorite = status; }
     @Override
     public IBookPresenter getPresenter() {
         return this.bookPresenter;

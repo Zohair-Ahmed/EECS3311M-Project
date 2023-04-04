@@ -69,14 +69,17 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     public void addToList(Set<String> info) {
         ArrayList<IBookModel> allBooks = Database.getBookInstance().getLatestReleases();
         allBooks.parallelStream().forEach(book -> {
-            if (info.contains(book.getISBN()))
+            if (info.contains(book.getISBN())) {
+                book.setFavorite(true);
                 this.favBooks.add(book);
+            }
         });
     }
 
     public void removeFromFavorites(IBookModel book) {
         try {
             if (getConnection() != null) {
+                book.setFavorite(false);
                 String sql = "DELETE FROM Favorites WHERE BookID='" + book.getISBN() + "' AND FavID=" + User.getInstance().getUserID() + "";
                 Statement st = getConnection().createStatement();
                 st.executeUpdate(sql);

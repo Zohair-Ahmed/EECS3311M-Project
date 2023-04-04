@@ -20,6 +20,10 @@ public interface IBookModel {
 
     String getImg();
 
+    boolean getFavBookStatus();
+
+    void setFavorite(boolean status);
+
     /**
      * Add this book to the favorites table in the database to maintain updated favorite
      * list for the logged in user

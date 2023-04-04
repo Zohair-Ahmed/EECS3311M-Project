@@ -237,9 +237,9 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
-        this.landingPanel.updateResultsPanel();
-      }
+//      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
+//        this.landingPanel.updateResultsPanel();
+//      }
       cards.show(container, "Landing");
     }
     if (e.getSource() == profileButton) {
@@ -308,19 +308,19 @@ public class Main extends JFrame implements ActionListener {
   }
 
   public void updateLanding(IBookView temp) {
-    Component[] components = landingPanel.getResultsPanel().getParentContainer().getComponents();
-    for (Component component : components) {
-      if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
-        int index = landingPanel.getResultsPanel().getParentContainer().getComponentZOrder(component);
-        landingPanel.getResultsPanel().getParentContainer().remove(component);
-        landingPanel.getResultsPanel().getParentContainer().add(temp.getView(), index);
-        break;
-      }
-    }
+//    Component[] components = landingPanel.getResultsPanel().getParentContainer().getComponents();
+//    for (Component component : components) {
+//      if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
+//        int index = landingPanel.getResultsPanel().getParentContainer().getComponentZOrder(component);
+//        landingPanel.getResultsPanel().getParentContainer().remove(component);
+//        landingPanel.getResultsPanel().getParentContainer().add(temp.getView(), index);
+//        break;
+//      }
+//    }
 
-    landingPanel.getResultsPanel().getParentContainer().revalidate();
+    landingPanel.getResultsPanel().getParentContainer().invalidate();
     landingPanel.getResultsPanel().getParentContainer().repaint();
-    landingPanel.getView().revalidate();
+    landingPanel.getView().invalidate();
     landingPanel.getView().repaint();
   }
 }

@@ -61,6 +61,9 @@ public class BookView implements IBookView {
                     User.getInstance().getMainInit().addProfilePanel();
                 }
             }
+
+            mainPanel.invalidate();
+            mainPanel.repaint();
             User.getInstance().getMainInit().updateLanding(this);
         });
     }
@@ -80,25 +83,29 @@ public class BookView implements IBookView {
 
     @Override
     public JPanel getView() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setName(bookPresenter.getModel().getTitle());
-        mainPanel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
-        JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
-        JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
-        favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
+        if (mainPanel != null)
+            return mainPanel;
+        else {
+            JPanel mainPanel = new JPanel();
+            mainPanel.setName(bookPresenter.getModel().getTitle());
+            mainPanel.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
+            JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
+            JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
+            favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
 
-        initFavouriteBtn(mainPanel, favouriteBtn);
-        favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+            initFavouriteBtn(mainPanel, favouriteBtn);
+            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
 
-        initBookImage(mainPanel, c);
-        initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
-        initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
+            initBookImage(mainPanel, c);
+            initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
+            initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
 
-        mainPanel.addMouseListener(onBookClicked());
-        mainPanel.revalidate();
-        return mainPanel;
+            mainPanel.addMouseListener(onBookClicked());
+            mainPanel.revalidate();
+            return mainPanel;
+        }
     }
 
     /**
