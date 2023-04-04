@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Follower;
 
-import com.eecs3311.model.Login.Follower.FollowerModel;
-import com.eecs3311.model.Login.Follower.IFollowerModel;
+import com.eecs3311.model.Follower.FollowerModel;
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.User.FollowerPresenter;

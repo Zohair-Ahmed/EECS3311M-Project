@@ -1,6 +1,6 @@
 package com.eecs3311.view.components;
 
-import com.eecs3311.model.Login.Follower.IFollowerModel;
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 

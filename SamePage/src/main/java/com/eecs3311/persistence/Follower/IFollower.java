@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Follower;
 
-import com.eecs3311.model.Login.Follower.IFollowerModel;
+import com.eecs3311.model.Follower.IFollowerModel;
 
 import java.util.*;
 
