@@ -278,11 +278,14 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             if (UserModel.getInstance().getLoginState().equals(State.MEMBER)) {
+                if(!getReviewText().isEmpty()){
                 reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
                 root.remove(reviewLabel);
                 root.remove(reviews.getView());
                 initAllReviews();
                 root.updateUI();
+                }
+                else errMsg.setText("Please enter a review!");
             }
             else
                 errMsg.setText("Please login to leave a review!");

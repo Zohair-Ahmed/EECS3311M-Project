@@ -1,4 +1,4 @@
-package com.eecs3311.model.Book;
+package com.eecs3311.UnitTesting.model.Book;
 
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.persistence.Book.BookStub;

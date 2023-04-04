@@ -1,6 +1,7 @@
-package com.eecs3311.persistence.Book;
+package com.eecs3311.UnitTesting.persistence.Book;
 
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.persistence.Book.BookStub;
 import com.eecs3311.persistence.Database;
 import org.junit.jupiter.api.Test;
 

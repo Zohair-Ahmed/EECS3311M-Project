@@ -1,5 +1,7 @@
-package com.eecs3311.model.Goals;
+package com.eecs3311.UnitTesting.model.Goals;
 
+import com.eecs3311.model.Goals.GoalModel;
+import com.eecs3311.model.Goals.IGoalModel;
 import com.eecs3311.persistence.Database;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
