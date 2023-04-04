@@ -124,7 +124,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getParentContainer() {
-        return null;
+        return releaseContainer;
     }
 
     @Override

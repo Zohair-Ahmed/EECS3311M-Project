@@ -82,7 +82,7 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         c.gridheight = 100;
         c.gridwidth = 100;
         releaseContainer.setLayout(gridLayout);
-        results.parallelStream().forEach(ibm -> {
+        results.forEach(ibm -> {
             UserView userView = new UserView(ibm);
             releaseContainer.add(userView.getView(),c);
         });
