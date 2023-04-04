@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import com.eecs3311.model.Review.IReviewModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
@@ -277,17 +277,12 @@ public class DisplayBookInformation implements ActionListener, IPanelView {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
-            if (User.getInstance().getLoginState().equals(State.MEMBER)) {
-                if(!getReviewText().isEmpty()){
-                    reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
-                    root.remove(reviewLabel);
-                    root.remove(reviews.getView());
-                    initAllReviews();
-                    root.updateUI();
-                }
-                else{
-                    errMsg.setText("Please enter a review!");
-                }
+            if (UserModel.getInstance().getLoginState().equals(State.MEMBER)) {
+                reviewPresenter.updateModelFromView(getReviewText(), getRating(), isbn);
+                root.remove(reviewLabel);
+                root.remove(reviews.getView());
+                initAllReviews();
+                root.updateUI();
             }
             else
                 errMsg.setText("Please login to leave a review!");

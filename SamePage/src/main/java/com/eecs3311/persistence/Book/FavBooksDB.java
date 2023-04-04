@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Book;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.persistence.Database;
 
@@ -31,12 +31,11 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     public void addBook(IBookModel book) {
         try {
             Statement temp = getConnection().createStatement();
-
-            temp.executeUpdate("insert into Favorites (BookID, Username, FavID) values ('" + book.getISBN() + "', '" + User.getInstance().getUsername() + "', " + User.getInstance().getUserID() + ")");
+            temp.executeUpdate("insert into Favorites (BookID, Username, FavID) values ('" + book.getISBN() + "', '" + UserModel.getInstance().getUsername() + "', " + UserModel.getInstance().getUserID() + ")");
         }
 
         catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -45,13 +44,36 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         return favBooks;
     }
 
+    @Override
+    public ArrayList<String> getUsersFavBooks(String username) {
+        ArrayList<String> favourites = new ArrayList<>();
+        try {
+            if (getConnection() != null) {
+                String query = "SELECT Book.Title " +
+                        "FROM Favorites " +
+                        "JOIN Book ON Favorites.BookID = Book.ISBN13 " +
+                        "WHERE Favorites.Username = '" + username + "'";
+                Statement st = getConnection().createStatement();
+                ResultSet rs = st.executeQuery(query);
+                while (rs.next()) {
+                    title = rs.getString("Title");
+                    favourites.add(title);
+                }
+            } else {
+                System.out.println("Failed to connect");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return favourites;
+    }
+
     public void getDBdata() {
         favBooks = new ArrayList<>();
         try {
             if (getConnection() != null) {
                 Set<String> bookISBN = new HashSet<>();
-                System.out.println("Connection is successful");
-                String query = "SELECT Book.* " + "FROM Favorites " + "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " + "WHERE Favorites.FavID = " + User.getInstance().getUserID();
+                String query = "SELECT Book.* " + "FROM Favorites " + "INNER JOIN Book ON Favorites.BookID = Book.ISBN13 " + "WHERE Favorites.FavID = " + UserModel.getInstance().getUserID();
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {
@@ -77,7 +99,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
     public void removeFromFavorites(IBookModel book) {
         try {
             if (getConnection() != null) {
-                String sql = "DELETE FROM Favorites WHERE BookID='" + book.getISBN() + "' AND FavID=" + User.getInstance().getUserID() + "";
+                String sql = "DELETE FROM Favorites WHERE BookID='" + book.getISBN() + "' AND FavID=" + UserModel.getInstance().getUserID() + "";
                 Statement st = getConnection().createStatement();
                 st.executeUpdate(sql);
                 st.close();

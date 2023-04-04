@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Users (
     Username VARCHAR(200) NOT NULL UNIQUE,
     Email VARCHAR(200) NOT NULL UNIQUE,
     UserPassword VARCHAR(20) NOT NULL,
-    UserID INT NOT NULL auto_increment,
+    UserID INT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (UserID)
     );
 
@@ -38,6 +38,15 @@ CREATE TABLE IF NOT EXISTS Reviews (
     PRIMARY KEY (ReviewID),
     FOREIGN KEY (BookID) REFERENCES Book(ISBN13),
     FOREIGN KEY (Username) REFERENCES Users(Username)
+    );
+
+CREATE TABLE IF NOT EXISTS Followers (
+    FollowerID INT NOT NULL AUTO_INCREMENT UNIQUE,
+    CurrentUser VARCHAR(200) NOT NULL,
+    FollowedUser VARCHAR(200) NOT NULL,
+    PRIMARY KEY (FollowerID),
+    FOREIGN KEY (FollowedUser) REFERENCES Users(Username),
+    FOREIGN KEY (CurrentUser) REFERENCES Users(Username)
     );
 
 CREATE TABLE IF NOT EXISTS Goals (

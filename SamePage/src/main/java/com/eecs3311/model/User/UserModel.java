@@ -4,7 +4,7 @@ import com.eecs3311.model.enums.State;
 import com.eecs3311.view.layout.Main;
 
 // Singleton pattern
-public class User {
+public class UserModel {
 
     private String username;
     private String email;
@@ -12,10 +12,10 @@ public class User {
     private int userID;
 
     private State loginState = State.GUEST;
-    private static User user;
+    private static UserModel userModel;
     private Main main;
-
-    private User(String email, String password) {
+    
+    private UserModel(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -24,10 +24,10 @@ public class User {
      * Manages one class creation
      * @return class instance
      */
-    public static User getInstance() {
-        if (user == null)
-            user = new User("x", "x");
-        return user;
+    public static UserModel getInstance() {
+        if (userModel == null)
+            userModel = new UserModel("x", "x");
+        return userModel;
     }
 
     public String getUsername() {
@@ -84,6 +84,4 @@ public class User {
     public State getLoginState() {
         return loginState;
     }
-
-
 }

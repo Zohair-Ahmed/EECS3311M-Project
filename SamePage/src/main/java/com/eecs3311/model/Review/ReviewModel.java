@@ -1,6 +1,6 @@
 package com.eecs3311.model.Review;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Review.IReviewPresenter;
@@ -65,7 +65,7 @@ public class ReviewModel implements IReviewModel{
     }
 
     public void createReview(String review, String rating, String isbn) {
-        if (User.getInstance().getLoginState().equals(State.MEMBER)) {
+        if (UserModel.getInstance().getLoginState().equals(State.MEMBER)) {
             Database.getReviewInstance().submitReview(review, rating, isbn);
         }
     }
