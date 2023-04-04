@@ -73,7 +73,6 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (getConnection() != null) {
-                System.out.println("Connection is successful");
                 String query = " INSERT INTO BOOK (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = getConnection().prepareStatement(query);
@@ -114,7 +113,6 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             if (getConnection() != null) {
                 ArrayList<IBookModel> info = new ArrayList<>();
-                System.out.println("Connection is successful");
                 String query = "SELECT * FROM book";
                 Statement st = getConnection().createStatement();
                 // execute the query, and get a java resultset

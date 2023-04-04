@@ -2,7 +2,7 @@ package com.eecs3311.integrationtests;
 
 import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.model.Review.IReviewModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Book.IBook;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.persistence.Review.IReview;
@@ -46,7 +46,7 @@ public class BookIntegrationTest {
     //user adds reviews to book, compare
     @Test
     public void getUserReviews(){
-        User.getInstance().setUsername("test1");
+        UserModel.getInstance().setUsername("test1");
         IReview addedRev = Database.getReviewInstance();
         addedRev.submitReview("A new reviews added to the db","4","9780552159722");
         ArrayList<IReviewModel> results = addedRev.getReviewData("9780552159722");

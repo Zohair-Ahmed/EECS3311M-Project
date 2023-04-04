@@ -25,7 +25,6 @@ public class FavouritesBooksIntegrationTest {
         Database.getLoginInstance().isLoginValid("SamePageTester@gmail.com", "1");
 
         Database.getFavBooksInstance().addBook(bookStub.get(0));
-        System.out.println(Database.getFavBooksInstance().getFavBooks().size());
     }
 
     @Test
