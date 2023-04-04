@@ -38,9 +38,9 @@ public class WishlistModel implements IWishlistModel {
     }
 
     public String toString() {
-        return ConsoleLogs.USER("Wishlist Username - " + this.username) +
-                "\nWishlist Book - " + this.getBookTitle() +
-                "\nWishList Author - " + this.author;
+        return ConsoleLogs.DATABASE("Wishlist Book - " + this.getBookTitle() +
+                "\nWishList Author - " + this.author
+        );
     }
 
     @Override
@@ -62,16 +62,13 @@ public class WishlistModel implements IWishlistModel {
     public void updateModelFromView(String username, String bookTitle, String author, String additionalNotes) {
 
         if (!isFieldValid(username)) {
-            //this.getPresenter().updateViewFromModel("Please login to add this book to your wishlist!");
-            System.out.println(ConsoleLogs.ERROR("INVALID USERNAME FOR WISHLIST"));
+            this.getPresenter().updateViewFromModel("Please login to add this book to your wishlist!");
             return;
         }  else if (!isFieldValid(bookTitle)) {
-            //this.getPresenter().updateViewFromModel("Please provide a book title!");
-            System.out.println(ConsoleLogs.ERROR("INVALID BOOK TITLE FOR WISHLIST"));
+            this.getPresenter().updateViewFromModel("Please provide a book title!");
             return;
         } else if (!isFieldValid(author)) {
-            //this.getPresenter().updateViewFromModel("Please enter an author!");
-            System.out.println(ConsoleLogs.ERROR("INVALID AUTHOR FOR WISHLIST"));
+            this.getPresenter().updateViewFromModel("Please enter an author!");
             return;
         }
 
@@ -96,8 +93,7 @@ public class WishlistModel implements IWishlistModel {
     private void addBookToWishlist(String username, String bookTitle, String author, String additionalNotes) {
         if (User.getInstance().getLoginState().equals(State.MEMBER)) {
             Database.getWishlistInstance().submitBook(username, bookTitle, author, additionalNotes);
-            System.out.println(ConsoleLogs.SUCCESSFUL("Added book! We will review it shortly..."));
-            //this.getPresenter().updateViewFromModel("Book added! We'll review it shortly!");
+            this.getPresenter().updateViewFromModel("Book added! We'll review it shortly!");
         }
     }
 

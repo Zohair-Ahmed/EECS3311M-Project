@@ -18,8 +18,7 @@ public interface IWishlist {
     /**
      * Returns all the books submitted by this username
      *
-     * @param username username of the user to get reviews for
      * @return a list of books submitted by this user
      */
-    ArrayList<IWishlistModel> getBooksSubmitted(String username);
+    ArrayList<IWishlistModel> getBooksSubmitted();
 }

@@ -87,7 +87,7 @@ public class NoBookFoundPanel implements IPanelView {
             @Override
             public void mousePressed(MouseEvent e) {
                 System.out.println(ConsoleLogs.ACTION("`Add button!` button clicked..."));
-                if (wishlistPanel == null) {
+                if (wishlistPanel == null || WishlistPanel.getInstance() == null || !WishlistPanel.isActive()) {
                     wishlistPanel = WishlistPanel.getInstance();
                     wishlistPanel.setPresenter(WishlistPanel.getInstance().getPresenter());
                     WishlistPanel.displayWishlistFrame();

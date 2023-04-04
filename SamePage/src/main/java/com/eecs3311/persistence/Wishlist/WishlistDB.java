@@ -1,13 +1,16 @@
 package com.eecs3311.persistence.Wishlist;
 
+import com.eecs3311.model.User.User;
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.model.Wishlist.WishlistModel;
 import com.eecs3311.persistence.AbstractDatabase;
+import com.eecs3311.util.log.console.ConsoleLogs;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class WishlistDB extends AbstractDatabase implements IWishlist {
     public WishlistDB() {
@@ -27,8 +30,8 @@ public class WishlistDB extends AbstractDatabase implements IWishlist {
     }
 
     @Override
-    public ArrayList<IWishlistModel> getBooksSubmitted(String username) {
-        String query = "SELECT (BookTitle, Author, AdditionalNotes) FROM Wishlist WHERE Wishlist.Username = " + username;
+    public ArrayList<IWishlistModel> getBooksSubmitted() {
+        String query = "SELECT BookTitle, Author, AdditionalNotes FROM Wishlist WHERE Username = '" + User.getInstance().getUsername() + "'";
 
         ArrayList<IWishlistModel> wishlist = new ArrayList<>();
 
@@ -51,6 +54,8 @@ public class WishlistDB extends AbstractDatabase implements IWishlist {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println(ConsoleLogs.DATABASE(wishlist.get(0).toString()));
 
         return wishlist;
     }

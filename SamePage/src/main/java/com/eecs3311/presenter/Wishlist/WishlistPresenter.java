@@ -3,6 +3,8 @@ package com.eecs3311.presenter.Wishlist;
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.view.Wishlist.IWishlistPanelView;
 
+import javax.swing.*;
+
 public class WishlistPresenter implements IWishlistPreseter {
 
     private IWishlistModel wishlistModel;
@@ -67,7 +69,10 @@ public class WishlistPresenter implements IWishlistPreseter {
      */
     @Override
     public void updateViewFromModel(String wishlistMessage) {
-        this.wishlistPanelView.updateWishlistStatus(wishlistMessage);
+        this.getWishlistPanelView().updateWishlistStatus(wishlistMessage);
+        Timer timer = new Timer(3000, event -> this.getWishlistPanelView().updateWishlistStatus(""));
+        timer.setRepeats(false);
+        timer.start();
     }
 
     /**

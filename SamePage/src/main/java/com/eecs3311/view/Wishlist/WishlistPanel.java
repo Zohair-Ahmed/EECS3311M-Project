@@ -39,6 +39,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
         initComponents();
         iwp.setModel(iwm);
         iwm.setPresenter(iwp);
+        iwp.setView(this);
         containerPanel.setLayout(sl_containerPanel);
     }
 
@@ -153,7 +154,6 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      * Init message status style and functionality
      */
     private void initMessageLabel() {
-        //lblConfirmation = new JLabel("");
         sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblConfirmation, 0,
                 SpringLayout.HORIZONTAL_CENTER, containerPanel);
         sl_containerPanel.putConstraint(SpringLayout.SOUTH, lblConfirmation, -60, SpringLayout.SOUTH, containerPanel);
@@ -164,7 +164,6 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      * Init Add book style and functionality
      */
     private void initAddBookButton() {
-        //JButton addBookBtn = new JButton("Add book!");
         sl_containerPanel.putConstraint(SpringLayout.HORIZONTAL_CENTER, addBookBtn, 0,
                 SpringLayout.HORIZONTAL_CENTER, containerPanel);
         sl_containerPanel.putConstraint(SpringLayout.SOUTH, addBookBtn, -15, SpringLayout.SOUTH, containerPanel);
@@ -179,7 +178,6 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      */
     private ActionListener onAddButtonClicked() {
         return e -> {
-            System.out.println(ConsoleLogs.ACTION("`Add book!` button clicked..."));
             lblConfirmation.setText(lblConfirmation.getText());
             lblConfirmation.revalidate();
             iwp.updateModelFromView(
@@ -188,9 +186,6 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
                     getAuthor(),
                     getAdditionalNotes()
             );
-            Timer timer = new Timer(3000, event -> lblConfirmation.setText(""));
-            timer.setRepeats(false);
-            timer.start();
         };
     }
 
@@ -293,7 +288,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
      * Display the main wishlist frame
      */
     public static void displayWishlistFrame() {
-        if (instance != null) {
+        if (instance != null || wishlistFrame != null) {
             instance = new WishlistPanel();
             wishlistFrame = new JFrame("Adding book to your wishlist!");
             wishlistFrame.add(containerPanel);
@@ -314,6 +309,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
             public void windowDeactivated(WindowEvent e){
                 System.out.println(ConsoleLogs.ACTION("Closed wishlist frame..."));
                 wishlistFrame.dispose();
+                wishlistFrame = null;
                 instance = null;
             }
         };

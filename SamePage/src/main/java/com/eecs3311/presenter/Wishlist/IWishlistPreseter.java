@@ -45,8 +45,9 @@ public interface IWishlistPreseter {
     void updateViewFromModel(String wishlistMessage);
 
     /**
+     * Update view from model
      *
-     * @return
+     * @return the wishlist model
      */
     IWishlistModel getUpdateViewFromModel();
 }

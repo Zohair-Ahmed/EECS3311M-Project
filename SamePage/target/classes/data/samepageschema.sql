@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS Users (
     PRIMARY KEY (UserID)
     );
 
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS Favorites(
     BookID VARCHAR(500) NOT NULL,
     Username VARCHAR(200) NOT NULL,

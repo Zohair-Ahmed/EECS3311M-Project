@@ -12,12 +12,10 @@ public class WishlistStub implements IWishlist{
     }
 
     @Override
-    public void submitBook(String username, String bookTitle, String author, String additionalDetails) {
-
-    }
+    public void submitBook(String username, String bookTitle, String author, String additionalDetails) {}
 
     @Override
-    public ArrayList<IWishlistModel> getBooksSubmitted(String username) {
+    public ArrayList<IWishlistModel> getBooksSubmitted() {
         return null;
     }
 }
