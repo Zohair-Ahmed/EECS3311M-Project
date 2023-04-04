@@ -39,7 +39,7 @@ public class ReviewPresenter implements IReviewPresenter{
 
     @Override
     public boolean hasReviewedBook(String isbn) {
-        return getModel().hasReviewedBook(isbn, User.getInstance().getUsername());
+        return false;
     }
 
 
