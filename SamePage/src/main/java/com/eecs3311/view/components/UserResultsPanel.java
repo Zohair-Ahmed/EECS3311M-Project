@@ -86,10 +86,6 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/4)+1, 4);
         GridBagConstraints c = new GridBagConstraints();
         releaseContainer.setLayout(gridLayout);
-//        results.parallelStream().forEach(ifm -> {
-//            releaseContainer.add(ifm.getPresenter().getUserView().getView(), c);
-//        });
-
         for (IFollowerModel ifm : results) {
             releaseContainer.add(ifm.getPresenter().getUserView().getView(), c);
         }
@@ -105,9 +101,6 @@ public class UserResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getView() {
-
-        System.out.println(this.container.getComponents());
-
         return this.container;
     }
 

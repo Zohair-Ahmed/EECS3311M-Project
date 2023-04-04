@@ -161,27 +161,3 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         }
     }
 }
-
-//    public void getAllFollowers() {
-//        try {
-//            if (getConnection() != null) {
-//                ArrayList<IFollowerModel> info = new ArrayList<>();
-//                System.out.println("Connection is successful");
-//                String query = "SELECT * FROM Followers";
-//                Statement st = getConnection().createStatement();
-//                // execute the query, and get a java resultset
-//                ResultSet rs = st.executeQuery(query);
-//                // iterate through the java resultset
-//                while (rs.next()) {
-//                    currentUser = rs.getString("CurrentUser");
-//                    followedUser = rs.getString("FollowedUser");
-//                    info.add(new FollowerModel(currentUser, followedUser));
-//                }
-//                addToList(info);
-//            } else {
-//                System.out.println("Failed to connect");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }

@@ -128,7 +128,6 @@ public class FollowerView implements IFollowerView {
                 getPresenter().updateModelFollowers();
                 button.setText("Unfollow");
             }
-            System.out.println(followerCount);
             button.setBackground(initFollowBtnColour(button));
         });
     }

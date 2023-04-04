@@ -21,7 +21,6 @@ public class FindFriendsPanel implements IPanelView {
         herobanner = new JPanel(); // Initial panel containing title
         allUsers = new UserResultsPanel(); // all Users (results panel)
         sbf = new SearchFriends(allUsers); // Search bar frame
-        System.out.println(UserModel.getInstance().toString());
         root.setLayout(new GridBagLayout());
         herobanner.setLayout(new GridBagLayout());
         JLabel title = new JLabel("Search Users"); // Title text and UI configurations
