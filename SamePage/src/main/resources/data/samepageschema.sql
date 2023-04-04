@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS Book (
     ISBN13 VARCHAR(500) NOT NULL,
     Img VARCHAR(200),
     Genre VARCHAR(200),
-    PRIMARY KEY (ISBN13)
+    BookID INT NOT NULL auto_increment,
+    PRIMARY KEY (ISBN13),
+    unique(BookID)
     );
 
 CREATE TABLE IF NOT EXISTS Users (
