@@ -48,4 +48,8 @@ public interface IReviewPresenter {
      *
      */
     void updateViewFromModel();
+
+    public boolean hasReviewedBook(String isbn);
+
+
 }

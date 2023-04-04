@@ -40,6 +40,23 @@ public class ReviewPanelView implements IReviewPanelView{
         root.add(userRating, c);
         c.gridx = 1;
         root.add(review, c);
+
+
+        // Check if user has already left a review for the book
+        boolean reviewed = getPresenter().hasReviewedBook(getPresenter().getModel().getISBN());
+        if (!reviewed) {
+            c.gridx = 0;
+            c.gridy = 1;
+            c.gridwidth = 2;
+            JButton submitButton = new JButton("Submit Review");
+            submitButton.addActionListener(e -> {
+                String reviewText = JOptionPane.showInputDialog(root, "Enter your review:");
+                String ratingText = JOptionPane.showInputDialog(root, "Enter your rating (1-5):");
+                getPresenter().updateModelFromView(reviewText, ratingText, getPresenter().getModel().getISBN());
+            });
+            root.add(submitButton, c);
+        }
+
         return root;
     }
 }

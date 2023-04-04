@@ -6,12 +6,15 @@ import com.eecs3311.model.User.User;
 import com.eecs3311.persistence.Book.IBook;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.persistence.Review.IReview;
+import com.eecs3311.view.components.SearchBar;
 import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
 
 import java.util.ArrayList;
 
 public class BookIntegrationTest {
+    private SearchBar searchBar;
     IBook book = Database.getBookInstance();
     ArrayList<IBookModel> results = new ArrayList<>();
     ArrayList<IBookModel> bookModels = book.getLatestReleases();
