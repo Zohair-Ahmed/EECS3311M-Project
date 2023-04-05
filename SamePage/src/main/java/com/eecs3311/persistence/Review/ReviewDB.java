@@ -1,7 +1,7 @@
 package com.eecs3311.persistence.Review;
 
 import com.eecs3311.model.Review.ReviewModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.presenter.Review.IReviewPresenter;
@@ -18,10 +18,18 @@ public class ReviewDB extends AbstractDatabase implements IReview{
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
-        String query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ User.getInstance().getUsername()+"\", CURDATE());";
-
+        String query = "SELECT COUNT(*) FROM Reviews WHERE BookID = \""+isbn+"\" AND Username =\""+UserModel.getInstance().getUsername()+"\";";
         try {
             Statement temp = getConnection().createStatement();
+            ResultSet rs = temp.executeQuery(query);
+            rs.next();
+            int count = rs.getInt(1);
+            if(count > 0){
+                query = "UPDATE Reviews SET ReviewDesc = \""+review+"\", Rating = \""+rating+"\", DatePosted = CURDATE() WHERE BookID = \""+isbn+"\" AND Username =\""+UserModel.getInstance().getUsername()+"\";";
+            }
+            else{
+                query = "INSERT INTO Reviews VALUES ("+isbn+", 0, \""+review+"\", \""+rating+"\", \""+ UserModel.getInstance().getUsername()+"\", CURDATE());";
+            }
             temp.executeUpdate(query);
         }
 

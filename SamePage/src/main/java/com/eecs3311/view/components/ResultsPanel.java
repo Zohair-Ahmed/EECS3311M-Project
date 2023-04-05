@@ -1,12 +1,14 @@
 package com.eecs3311.view.components;
 
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 
 public class ResultsPanel implements ActionListener, IPanelView {
@@ -88,14 +90,24 @@ public class ResultsPanel implements ActionListener, IPanelView {
     }
 
     private void initReleaseContainer(ArrayList<IBookModel> results) {
-
         if (results == null)
             return;
         GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
         releaseContainer.setLayout(gridLayout);
-        results.parallelStream().forEach(ibm -> {
+
+        // Temp Fix
+        for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
-        });
+        }
+
+        /*
+         * Causes ConcurrentModificationException Error
+         * Above for each loop used as replacement
+         */
+
+//        results.parallelStream().forEach(ibm -> {
+//            releaseContainer.add(ibm.getPresenter().getView().getView());
+//        });
 
         initTextLayout();
         initScrollPaneView(results);
@@ -113,7 +125,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getParentContainer() {
-        return null;
+        return releaseContainer;
     }
 
     @Override

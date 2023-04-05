@@ -2,7 +2,7 @@ package com.eecs3311.view.layout;
 
 import com.eecs3311.model.Goals.GoalModel;
 import com.eecs3311.model.Goals.IGoalModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Goals.GoalPresenter;
 import com.eecs3311.presenter.Goals.IGoalPresenter;
@@ -11,6 +11,7 @@ import com.eecs3311.view.Goals.IGoalView;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
 import com.eecs3311.view.components.ResultsPanel;
+import com.eecs3311.view.components.UserResultsPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,7 @@ public class ProfilePanel implements IPanelView {
 
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
+        Database.getFollowerInstance().getDBFollowedUsers(UserModel.getInstance().getUsername());
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
@@ -62,15 +64,27 @@ public class ProfilePanel implements IPanelView {
 
         // Set the vertical split between userPanel and bookView
         root.setLayout(new BorderLayout());
-        root.add(userPanel, BorderLayout.WEST);
-        root.add(userGoalPanel, BorderLayout.EAST);
-        root.add(bookView);
+        JPanel topPanel = new JPanel();
+        JPanel botPanel = new JPanel();
+
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(userPanel, BorderLayout.WEST);
+        topPanel.add(userGoalPanel, BorderLayout.EAST);
+
+        botPanel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.weightx = 1.0;
+        c.gridwidth = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        botPanel.add(bookView, c);
+
+        root.add(topPanel, BorderLayout.NORTH);
+        root.add(botPanel);
     }
 
     private void initBooksLayout() {
-
         // Set the preferred size of bookView
-        bookView.setPreferredSize(new Dimension(0, 300));
+        bookView.setPreferredSize(new Dimension(2000, 1000));
     }
 
     private void initUserPanel() {
@@ -96,11 +110,11 @@ public class ProfilePanel implements IPanelView {
     }
 
     /**
-     * Generate the initials foe the default profile picture based on the Username
+     * Generate the initials for the default profile picture based on the Username
      * @return initials of Username
      */
     private String generateInitials() {
-        String[] username = User.getInstance().getUsername().split(" ");
+        String[] username = UserModel.getInstance().getUsername().split(" ");
         StringBuilder initial = new StringBuilder();
         for (String s : username)
             initial.append(s.charAt(0));
@@ -111,7 +125,7 @@ public class ProfilePanel implements IPanelView {
      * Initialize the Goal Panel for User Goals
      */
     private void initGoalPanel() {
-        IGoalModel igm = new GoalModel(User.getInstance().getUserID());
+        IGoalModel igm = new GoalModel(UserModel.getInstance().getUserID());
         IGoalPresenter igp = new GoalPresenter();
         IGoalView igv = new GoalView();
         igm.setPresenter(igp);

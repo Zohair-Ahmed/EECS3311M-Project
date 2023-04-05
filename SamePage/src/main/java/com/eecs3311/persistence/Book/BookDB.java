@@ -25,6 +25,7 @@ public class BookDB extends AbstractDatabase implements IBook {
     private String author;
     private String genre;
     private String img;
+    private int bookIndex;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private final ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -73,7 +74,6 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (getConnection() != null) {
-                System.out.println("Connection is successful");
                 String query = " INSERT INTO BOOK (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = getConnection().prepareStatement(query);
@@ -115,7 +115,7 @@ public class BookDB extends AbstractDatabase implements IBook {
             if (getConnection() != null) {
                 ArrayList<IBookModel> info = new ArrayList<>();
                 System.out.println("Connection is successful");
-                String query = "SELECT * FROM book";
+                String query = "SELECT * FROM Book ORDER BY BookID ASC";
                 Statement st = getConnection().createStatement();
                 // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
@@ -127,7 +127,11 @@ public class BookDB extends AbstractDatabase implements IBook {
                     ISBN = rs.getString("ISBN13");
                     genre = rs.getString("Genre");
                     img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description,  ISBN, genre, img));
+                    bookIndex = rs.getInt("BookID") - 1;
+
+                    IBookModel temp = new BookModel(title, author, description,  ISBN, genre, img);
+                    temp.setBookIndex(bookIndex);
+                    info.add(temp);
                 }
                 addToList(info);
                 getConnection().close();
