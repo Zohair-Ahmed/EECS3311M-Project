@@ -26,10 +26,6 @@ public class SearchBar implements ActionListener, IPanelView {
         this.container.setSize(new Dimension(500, 500));
     }
 
-    public SearchBar() {
-
-    }
-
     @Override
     public void initComponents() {
         this.searchInputField = new JTextField("Search...");
@@ -62,28 +58,6 @@ public class SearchBar implements ActionListener, IPanelView {
         c.ipady = 20;
         c.weightx = 0.0;
         c.gridwidth = 1;
-
-        //regex to define allowed characters
-
-        String regex = "[a-zA-Z0-9 ]*"; // Allows alphanumeric characters and spaces
-        JTextField restrictedTextField = new JTextField("Search...") {
-            private static final long  serialVersionUID = 1L;
-            @Override
-            public void replaceSelection(String text) {
-                if (text.matches(regex)) {
-                    super.replaceSelection(text);
-                }
-            }
-
-            @Override
-            public void setText(String text) {
-                if (text.matches(regex)) {
-                    super.setText(text);
-                }
-            }
-        };
-        this.searchInputField = restrictedTextField;
-
         this.searchInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {

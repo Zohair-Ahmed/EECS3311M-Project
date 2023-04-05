@@ -36,7 +36,4 @@ public interface IReviewModel {
 
     String getISBN();
 
-    public boolean hasReviewedBook(String isbn, String username);
-
-
 }

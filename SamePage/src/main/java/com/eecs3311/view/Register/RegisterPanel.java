@@ -52,11 +52,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	@Override
 	public void initComponents() {
-
-		// Compile email and username patterns
-		Pattern emailRegex = Pattern.compile(emailPattern);
-		Pattern usernameRegex = Pattern.compile(usernamePattern);
-
 		// Initializing text labels to be displayed on the register panel
 		initRegisterLabel();
 		initEmailLabel();
@@ -101,9 +96,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing the Email text field for input
 	private void initEmailTextField() {
-
-
-
 		tfEmail = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -123,8 +115,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 				return matcher.matches();
 			}
 		});
-
-
 	}
 
 
@@ -139,9 +129,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing username text field
 	private void initUsernameTextField() {
-
-
-
 		tfUsername = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -258,13 +245,13 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 			// Validate email address
 			if (!Pattern.matches(emailPattern, email)) {
-				JOptionPane.showMessageDialog(containerPanel, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(containerPanel, "Invalid email address", "Error", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 
 			// Validate username
 			if (!Pattern.matches(usernamePattern, username)) {
-				JOptionPane.showMessageDialog(containerPanel, "Username must be 3-16 characters long and can only contain letters, numbers, hyphens, and underscores", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(containerPanel, "Username must be 3-16 characters long and can only contain letters, numbers, hyphens, and underscores", "Error", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
 			if (!cbTerms.isSelected())

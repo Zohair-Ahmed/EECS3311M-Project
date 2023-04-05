@@ -36,10 +36,4 @@ public class ReviewPresenter implements IReviewPresenter{
     public void updateViewFromModel() {
     }
 
-    @Override
-    public boolean hasReviewedBook(String isbn) {
-        return false;
-    }
-
-
 }

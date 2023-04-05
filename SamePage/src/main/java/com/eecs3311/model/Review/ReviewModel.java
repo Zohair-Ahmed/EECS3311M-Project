@@ -5,10 +5,6 @@ import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Review.IReviewPresenter;
 
-import java.sql.*;
-
-import static java.sql.DriverManager.getConnection;
-
 /**
  * Reviews class with intended functionality in itr2
  * Obtains Reviews for each Book.
@@ -34,11 +30,6 @@ public class ReviewModel implements IReviewModel{
 
     @Override
     public String getISBN() {return isbn;}
-
-    @Override
-    public boolean hasReviewedBook(String isbn, String username) {
-        return false;
-    }
 
     private String username;
     private String review;
@@ -67,12 +58,10 @@ public class ReviewModel implements IReviewModel{
 
     @Override
     public void updateModelFromView(String review, String rating, String isbn) {
-
-                    this.review = review;
-                    this.rating = rating;
-                    this.isbn = isbn;
-
-                createReview(review, rating, isbn);
+        this.review = review;
+        this.rating = rating;
+        this.isbn = isbn;
+        createReview(review, rating, isbn);
     }
 
     public void createReview(String review, String rating, String isbn) {
@@ -80,8 +69,4 @@ public class ReviewModel implements IReviewModel{
             Database.getReviewInstance().submitReview(review, rating, isbn);
         }
     }
-
-
-
-
 }
