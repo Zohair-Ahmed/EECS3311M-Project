@@ -31,12 +31,7 @@ public class FollowerView implements ActionListener, IFollowerView {
         titleLbl = new JLabel(username);
         imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource("/images/profileimg.png")).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         picLabel = new JLabel(imageIcon);
-        followBtn = new JButton("Follow");
-        followBtn.addActionListener(this);
         followers = new JLabel("Followers: "+this.followerCount);
-        followBtn.setText(getPresenter().checkModelFollowing() ? "Unfollow" : "Follow");
-        followBtn.setBackground(initFollowBtnColour(followBtn));
-        initFonts();
     }
 
     @Override
@@ -47,7 +42,10 @@ public class FollowerView implements ActionListener, IFollowerView {
 
     @Override
     public JPanel getView() {
+        followBtn = new JButton(getPresenter().checkModelFollowing() ? "Unfollow" : "Follow");;
         followBtn.setBackground(initFollowBtnColour(followBtn));
+        followBtn.addActionListener(this);
+        initFonts();
         c.gridy = 0;
         c.gridheight = 3;
         mainPanel.add(picLabel, c);
@@ -75,17 +73,13 @@ public class FollowerView implements ActionListener, IFollowerView {
     private MouseListener onUserClicked(String label) {
         return new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e)
-            {
-                if (userFrame == null) {
-                    displaySelectedUser();
-                } else if (user != null && !user.getUsername().equals(getPresenter().getModel().getCurrentUser())) {
+            public void mousePressed(MouseEvent e) {
+                if (userFrame != null) {
                     userFrame.dispose();
-                    displaySelectedUser();
-                } else {
-                    userFrame.setVisible(true);
-                    userFrame.toFront();
                 }
+                displaySelectedUser();
+                userFrame.setVisible(true);
+                userFrame.toFront();
             }
         };
     }
@@ -107,7 +101,7 @@ public class FollowerView implements ActionListener, IFollowerView {
         userFrame = new JFrame(""+this.username+"'s Profile");
         userFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         userFrame.add(user.getView());
-        userFrame.setSize(360, 300);
+        userFrame.setSize(390, 300);
         userFrame.setVisible(true);
         userFrame.setLocationRelativeTo(null);
         try {
@@ -131,13 +125,13 @@ public class FollowerView implements ActionListener, IFollowerView {
             initComponents();
             mainPanel = getView();
             if (getPresenter().checkModelFollowing()) {
-                getPresenter().removeFollower();
                 followBtn.setText("Follow");
+                getPresenter().removeFollower();
                 followers.setText("Followers: "+(--followerCount));
             } else {
+                followBtn.setText("Unfollow");
                 followers.setText("Followers: "+(++followerCount));
                 getPresenter().updateModelFollowers();
-                followBtn.setText("Unfollow");
             }
             followBtn.setBackground(initFollowBtnColour(followBtn));
         }

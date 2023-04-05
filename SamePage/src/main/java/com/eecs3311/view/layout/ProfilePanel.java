@@ -90,12 +90,12 @@ public class ProfilePanel implements IPanelView {
     private void initUserPanel() {
         userPanel = new JPanel();
         ProfileIcon profileIcon = new ProfileIcon(generateInitials());
-        JLabel username = new JLabel("  My Profile");
-        username.setFont(new Font("Futura", Font.BOLD, 30));
+        JLabel username = new JLabel("  "+UserModel.getInstance().getUsername()+"'s Profile");
+        username.setFont(new Font("Futura", Font.BOLD, 40));
+        username.setForeground(new Color(0, 53, 138));
 
         userPanel.add(profileIcon, BorderLayout.NORTH);
-        userPanel.add(username);
-        layout.putConstraint(SpringLayout.NORTH, username, 40, SpringLayout.NORTH, root);
+        userPanel.add(username, BorderLayout.CENTER);
 
         root.add(userPanel);
 
