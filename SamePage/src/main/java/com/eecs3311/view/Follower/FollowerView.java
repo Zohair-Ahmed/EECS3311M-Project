@@ -104,6 +104,7 @@ public class FollowerView implements ActionListener, IFollowerView {
         userFrame.add(user.getView());
         userFrame.setSize(390, 300);
         userFrame.setVisible(true);
+        userFrame.toFront();
         userFrame.setLocationRelativeTo(null);
         try {
             userFrame.addWindowListener((WindowListener) userFrame);
