@@ -75,9 +75,8 @@ public class GoalView implements IGoalView, IPanelView, ActionListener {
         progressBar.setFont(new Font("Futura", Font.BOLD, 12));
         progressBar.setForeground(new Color(64, 192, 87));
         progressBar.setBackground(Color.white);
-        progressBar.setFont(new Font("Futura", Font.BOLD, 12));
         progressBar.setPreferredSize(new Dimension(275, 35));
-        progressBar.setBorder(new LineBorder(Color.lightGray, 1, true));
+//        progressBar.setBorder(new LineBorder(Color.lightGray, 1, true));
         root.add(progressBar, c);
     }
 
@@ -87,11 +86,11 @@ public class GoalView implements IGoalView, IPanelView, ActionListener {
         c.gridwidth = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.EAST;
-        incrementGoalBtn.setBackground(new Color(29, 152, 252));
-        incrementGoalBtn.setForeground(new Color(255, 255, 255));
+//        incrementGoalBtn.setBackground(new Color(29, 152, 252));
+        incrementGoalBtn.setForeground(new Color(29, 126, 252));
         incrementGoalBtn.setFont(new Font("Futura", Font.BOLD, 25));
         incrementGoalBtn.setPreferredSize(new Dimension(50, 30)); // set preferred size to 50x30 pixels
-        incrementGoalBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10)); // add empty border to separate from the right edge
+        incrementGoalBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // add empty border to separate from the right edge
         incrementGoalBtn.setFocusable(false);
         incrementGoalBtn.addActionListener(this);
         root.add(incrementGoalBtn, c);

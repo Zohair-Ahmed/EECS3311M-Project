@@ -53,16 +53,20 @@ public class UserResultsPanel implements ActionListener, IPanelView {
     }
 
     private void initReleaseContainer(ArrayList<IFollowerModel> results) {
-        releaseContainer.setPreferredSize(new Dimension(1250, 425));
-
         if (results == null)
             return;
+        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/6)+1, 4);
+        releaseContainer.setLayout(gridLayout);
 
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER, 10, 10);
-        releaseContainer.setLayout(flowLayout);
 
         for (IFollowerModel ifm : results) {
             IFollowerView ifv = ifm.getPresenter().getUserView();
+            ifv.initComponents();
+            JPanel panel = ifv.getView();
+            panel.removeAll();
+            panel.revalidate();
+            panel.repaint();
+            ifv.initComponents();
             releaseContainer.add(ifv.getView());
         }
 
@@ -95,11 +99,15 @@ public class UserResultsPanel implements ActionListener, IPanelView {
         c.gridx = 0;
         c.gridy = 1;
 
-        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
-        scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/4)+1, 4));
-        container.add(scroll, c);
+        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        if (state.equals("releasePage")) {
+            this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+            scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/4)+1, 4));
+        }
+            container.add(scroll, c);
     }
 
     @Override
