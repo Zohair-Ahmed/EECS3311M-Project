@@ -120,7 +120,7 @@ public class FollowerDB extends AbstractDatabase implements IFollower {
         try {
             if (getConnection() != null) {
                 Set<String> userFollowers = new HashSet<>();
-                String query = "SELECT CurrentUser " + "FROM Followers " + "WHERE FollowedUser = \'" + username+"\'";
+                String query = "SELECT CurrentUser " + "FROM Followers " + "WHERE FollowedUser = '" + username+"';";
                 Statement st = getConnection().createStatement();
                 ResultSet rs = st.executeQuery(query);
                 while (rs.next()) {

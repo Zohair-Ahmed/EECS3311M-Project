@@ -61,6 +61,12 @@ public class UserResultsPanel implements ActionListener, IPanelView {
 
         for (IFollowerModel ifm : results) {
             IFollowerView ifv = ifm.getPresenter().getUserView();
+            ifv.initComponents();
+            JPanel panel = ifv.getView();
+            panel.removeAll();
+            panel.revalidate();
+            panel.repaint();
+            ifv.initComponents();
             releaseContainer.add(ifv.getView());
         }
 

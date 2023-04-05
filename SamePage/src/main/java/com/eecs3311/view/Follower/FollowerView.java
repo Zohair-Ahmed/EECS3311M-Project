@@ -32,6 +32,10 @@ public class FollowerView implements ActionListener, IFollowerView {
         imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource("/images/profileimg.png")).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
         picLabel = new JLabel(imageIcon);
         followers = new JLabel("Followers: "+this.followerCount);
+        followBtn = new JButton(getPresenter().checkModelFollowing() ? "Unfollow" : "Follow");
+        followBtn.setBackground(initFollowBtnColour(followBtn));
+        followBtn.addActionListener(this);
+        initFonts();
     }
 
     @Override
@@ -42,10 +46,7 @@ public class FollowerView implements ActionListener, IFollowerView {
 
     @Override
     public JPanel getView() {
-        followBtn = new JButton(getPresenter().checkModelFollowing() ? "Unfollow" : "Follow");;
-        followBtn.setBackground(initFollowBtnColour(followBtn));
-        followBtn.addActionListener(this);
-        initFonts();
+
         c.gridy = 0;
         c.gridheight = 3;
         mainPanel.add(picLabel, c);

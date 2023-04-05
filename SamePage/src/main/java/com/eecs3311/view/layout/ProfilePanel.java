@@ -1,5 +1,6 @@
 package com.eecs3311.view.layout;
 
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.model.Goals.GoalModel;
 import com.eecs3311.model.Goals.IGoalModel;
 import com.eecs3311.model.User.UserModel;
@@ -15,6 +16,7 @@ import com.eecs3311.view.components.UserResultsPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ProfilePanel implements IPanelView {
 
@@ -90,12 +92,15 @@ public class ProfilePanel implements IPanelView {
     private void initUserPanel() {
         userPanel = new JPanel();
         ProfileIcon profileIcon = new ProfileIcon(generateInitials());
-        JLabel username = new JLabel("  "+UserModel.getInstance().getUsername()+"'s Profile");
+        JLabel username = new JLabel("  "+UserModel.getInstance().getUsername()+"'s Profile -- ");
+        ArrayList<IFollowerModel> users = Database.getFollowerInstance().getAllUsers();
+        JLabel followers = new JLabel(Database.getFollowerInstance().getFollowers(UserModel.getInstance().getUsername()).size()+" Followers");
         username.setFont(new Font("Futura", Font.BOLD, 40));
-        username.setForeground(new Color(0, 53, 138));
+        followers.setFont(new Font("Futura", Font.ITALIC, 25));
 
         userPanel.add(profileIcon, BorderLayout.NORTH);
         userPanel.add(username, BorderLayout.CENTER);
+        userPanel.add(followers, BorderLayout.NORTH);
 
         root.add(userPanel);
 

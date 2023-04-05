@@ -31,11 +31,8 @@ public class DisplayFollowInformation implements IPanelView {
                                                        int usersFollowing,
                                                        ArrayList<String> favBookTitles,
                                                        IFollowerPresenter presenter) throws IOException {
-        if(instance == null){
-            instance = new DisplayFollowInformation(name, image, followedUsers, usersFollowing, favBookTitles);
-        } else if (!instance.getUsername().equals(presenter.getModel().getCurrentUser())) {
-            instance = new DisplayFollowInformation(name, image, followedUsers, usersFollowing, favBookTitles);
-        }
+
+        instance = new DisplayFollowInformation(name, image, followedUsers, usersFollowing, favBookTitles);
         return instance;
     }
 
