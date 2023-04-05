@@ -23,9 +23,10 @@ public class BookIntegrationTest {
                 results.add(book);
             }
         }
-        assertEquals(results.get(0).getTitle(),"Safe Haven");
-        assertEquals(results.get(1).getTitle(), "In het hart");
+        assertEquals(results.get(0).getTitle(),"Harry Potter");
+        assertEquals(results.get(1).getTitle(), "Safe Haven");
         assertEquals(results.get(2).getTitle(),"Winter Chalet");
+        assertEquals(results.get(3).getTitle(), "In het hart");
         //search not found
         search = "hfkjahdsf";
         ArrayList<IBookModel> emptyResults = new ArrayList<>();

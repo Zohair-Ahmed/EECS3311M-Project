@@ -25,6 +25,7 @@ public class BookDB extends AbstractDatabase implements IBook {
     private String author;
     private String genre;
     private String img;
+    private int bookIndex;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private final ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -113,7 +114,8 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             if (getConnection() != null) {
                 ArrayList<IBookModel> info = new ArrayList<>();
-                String query = "SELECT * FROM book";
+                System.out.println("Connection is successful");
+                String query = "SELECT * FROM Book ORDER BY BookID ASC";
                 Statement st = getConnection().createStatement();
                 // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
@@ -125,7 +127,11 @@ public class BookDB extends AbstractDatabase implements IBook {
                     ISBN = rs.getString("ISBN13");
                     genre = rs.getString("Genre");
                     img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description,  ISBN, genre, img));
+                    bookIndex = rs.getInt("BookID") - 1;
+
+                    IBookModel temp = new BookModel(title, author, description,  ISBN, genre, img);
+                    temp.setBookIndex(bookIndex);
+                    info.add(temp);
                 }
                 addToList(info);
                 getConnection().close();
