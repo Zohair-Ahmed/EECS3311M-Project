@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
@@ -264,11 +264,10 @@ public class Main extends JFrame implements ActionListener {
    * When successful login is apparent as well, once the profile button is added, we can add find friends button too
    */
   public void addProfilePanel() {
-    profile= new ProfilePanel();
+    profile = new ProfilePanel();
     JPanel profilePanel = profile.getView();
     profilePanel.setName("Profile");
     container.add(profile.getView(), profilePanel.getName());
-    addFindFriendsPanel();
     JMenuBar tempBar = new Menubar();
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);

@@ -2,7 +2,7 @@ package com.eecs3311.view.layout;
 
 import com.eecs3311.model.Goals.GoalModel;
 import com.eecs3311.model.Goals.IGoalModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Goals.GoalPresenter;
 import com.eecs3311.presenter.Goals.IGoalPresenter;
@@ -33,6 +33,7 @@ public class ProfilePanel implements IPanelView {
 
     public ProfilePanel() {
         Database.getFavBooksInstance().getDBdata();
+        Database.getFollowerInstance().getDBFollowedUsers(UserModel.getInstance().getUsername());
         root = new JPanel(); // Root panel
         root.setLayout(new GridBagLayout());
         lbv = new ResultsPanel(Database.getFavBooksInstance().getFavBooks()); // Favorite books
@@ -113,7 +114,7 @@ public class ProfilePanel implements IPanelView {
      * @return initials of Username
      */
     private String generateInitials() {
-        String[] username = User.getInstance().getUsername().split(" ");
+        String[] username = UserModel.getInstance().getUsername().split(" ");
         StringBuilder initial = new StringBuilder();
         for (String s : username)
             initial.append(s.charAt(0));
@@ -124,7 +125,7 @@ public class ProfilePanel implements IPanelView {
      * Initialize the Goal Panel for User Goals
      */
     private void initGoalPanel() {
-        IGoalModel igm = new GoalModel(User.getInstance().getUserID());
+        IGoalModel igm = new GoalModel(UserModel.getInstance().getUserID());
         IGoalPresenter igp = new GoalPresenter();
         IGoalView igv = new GoalView();
         igm.setPresenter(igp);
