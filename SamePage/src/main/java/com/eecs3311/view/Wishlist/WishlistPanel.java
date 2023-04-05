@@ -1,6 +1,6 @@
 package com.eecs3311.view.Wishlist;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.model.Wishlist.WishlistModel;
 import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
@@ -181,7 +181,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
             lblConfirmation.setText(lblConfirmation.getText());
             lblConfirmation.revalidate();
             iwp.updateModelFromView(
-                    User.getInstance().getUsername(),
+                    UserModel.getInstance().getUsername(),
                     getBookTitle(),
                     getAuthor(),
                     getAdditionalNotes()

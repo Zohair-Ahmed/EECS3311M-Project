@@ -1,6 +1,6 @@
 package com.eecs3311.model.Wishlist;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
@@ -91,7 +91,7 @@ public class WishlistModel implements IWishlistModel {
     }
 
     private void addBookToWishlist(String username, String bookTitle, String author, String additionalNotes) {
-        if (User.getInstance().getLoginState().equals(State.MEMBER)) {
+        if (UserModel.getInstance().getLoginState().equals(State.MEMBER)) {
             Database.getWishlistInstance().submitBook(username, bookTitle, author, additionalNotes);
             this.getPresenter().updateViewFromModel("Book added! We'll review it shortly!");
         }

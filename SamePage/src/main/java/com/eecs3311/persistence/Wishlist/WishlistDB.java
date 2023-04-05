@@ -1,6 +1,6 @@
 package com.eecs3311.persistence.Wishlist;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.model.Wishlist.WishlistModel;
 import com.eecs3311.persistence.AbstractDatabase;
@@ -31,7 +31,7 @@ public class WishlistDB extends AbstractDatabase implements IWishlist {
 
     @Override
     public ArrayList<IWishlistModel> getBooksSubmitted() {
-        String query = "SELECT BookTitle, Author, AdditionalNotes FROM Wishlist WHERE Username = '" + User.getInstance().getUsername() + "'";
+        String query = "SELECT BookTitle, Author, AdditionalNotes FROM Wishlist WHERE Username = '" + UserModel.getInstance().getUsername() + "'";
 
         ArrayList<IWishlistModel> wishlist = new ArrayList<>();
 
