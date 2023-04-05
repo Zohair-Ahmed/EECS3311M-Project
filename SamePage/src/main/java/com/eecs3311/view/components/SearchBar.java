@@ -92,10 +92,17 @@ public class SearchBar implements ActionListener, IPanelView {
         }
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.searchButton) {
-            getSearchResults(this.searchInputField.getText());
+            String searchInput = this.searchInputField.getText();
+            if (searchInput.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this.container, "Please enter Book name.", "Empty search input", JOptionPane.WARNING_MESSAGE);
+            } else {
+                getSearchResults(this.searchInputField.getText());
+            }
         }
 
     }
