@@ -1,7 +1,6 @@
 package com.eecs3311.presenter.Review;
 
 import com.eecs3311.model.Review.IReviewModel;
-import com.eecs3311.model.User.User;
 import com.eecs3311.view.Review.IReviewPanelView;
 
 public class ReviewPresenter implements IReviewPresenter{
