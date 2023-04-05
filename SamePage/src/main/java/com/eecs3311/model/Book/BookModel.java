@@ -85,23 +85,6 @@ public class BookModel implements IBookModel {
         Database.getFavBooksInstance().removeFromFavorites(this);
     }
 
-    public boolean checkFavoriteBook() {
-        boolean checkBook = false;
-        if (User.getInstance().getLoginState().equals(State.MEMBER)) {
-            ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
-
-            if (userBooks != null) {
-                for (IBookModel ibm : userBooks) {
-                    if (this.getISBN().equals(ibm.getISBN())) {
-                        checkBook = true;
-                    }
-                }
-            }
-        }
-        return checkBook;
-    }
-
-
     @Override
     public double getAverageReview() {
         return Database.getReviewInstance().getAverageRating(getISBN());

@@ -46,7 +46,6 @@ public interface IBookModel {
      *
      * @return boolean value for book favorite status
      */
-    boolean checkFavoriteBook();
 
     double getAverageReview();
 }
