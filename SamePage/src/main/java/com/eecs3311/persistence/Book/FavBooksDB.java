@@ -102,7 +102,7 @@ public class FavBooksDB extends AbstractDatabase implements IFavBooks {
         try {
             if (getConnection() != null) {
                 book.setFavorite(false);
-                String sql = "DELETE FROM Favorites WHERE BookID='" + book.getISBN() + "' AND FavID=" + User.getInstance().getUserID() + "";
+                String sql = "DELETE FROM Favorites WHERE BookID='" + book.getISBN() + "' AND FavID=" + UserModel.getInstance().getUserID() + "";
                 Statement st = getConnection().createStatement();
                 st.executeUpdate(sql);
                 st.close();

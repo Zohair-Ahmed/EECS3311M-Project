@@ -19,7 +19,7 @@ public class BookView implements IBookView {
     private JFrame bookFrame;
     private DisplayBookInformation book;
 
-    private JPanel mainPanel;
+    private JPanel mainPanel = null;
     private JButton favouriteBtn;
 
     public BookView() {
@@ -61,7 +61,7 @@ public class BookView implements IBookView {
                     UserModel.getInstance().getMainInit().addProfilePanel();
                 }
             }
-            User.getInstance().getMainInit().getLandingPanel().updateLanding(this);
+            UserModel.getInstance().getMainInit().getLandingPanel().updateLanding(this);
         });
     }
 

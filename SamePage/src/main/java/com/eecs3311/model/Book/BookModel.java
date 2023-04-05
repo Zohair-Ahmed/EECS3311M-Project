@@ -1,11 +1,7 @@
 package com.eecs3311.model.Book;
 
-import com.eecs3311.model.User.User;
-import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
-
-import java.util.ArrayList;
 
 public class BookModel implements IBookModel {
     private final String title;
