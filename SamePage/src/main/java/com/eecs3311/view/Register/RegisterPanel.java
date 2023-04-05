@@ -6,7 +6,6 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -52,11 +51,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	@Override
 	public void initComponents() {
-
-		// Compile email and username patterns
-		Pattern emailRegex = Pattern.compile(emailPattern);
-		Pattern usernameRegex = Pattern.compile(usernamePattern);
-
 		// Initializing text labels to be displayed on the register panel
 		initRegisterLabel();
 		initEmailLabel();
@@ -101,9 +95,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing the Email text field for input
 	private void initEmailTextField() {
-
-
-
 		tfEmail = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -111,20 +102,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		c.gridwidth = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		containerPanel.add(tfEmail, c);
-
-		// Set email regex pattern
-		String emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-		Pattern pattern = Pattern.compile(emailPattern);
-		tfEmail.setInputVerifier(new InputVerifier() {
-			@Override
-			public boolean verify(JComponent input) {
-				JTextField tf = (JTextField) input;
-				Matcher matcher = pattern.matcher(tf.getText());
-				return matcher.matches();
-			}
-		});
-
-
 	}
 
 
@@ -139,9 +116,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Initializing username text field
 	private void initUsernameTextField() {
-
-
-
 		tfUsername = new JTextField();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0, 0, 20, 0);
@@ -149,19 +123,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 		c.gridwidth = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		containerPanel.add(tfUsername, c);
-
-		// Set username regex pattern
-
-		String usernamePattern = "^[a-zA-Z0-9_-]{3,16}$";
-		Pattern pattern = Pattern.compile(usernamePattern);
-		tfUsername.setInputVerifier(new InputVerifier() {
-			@Override
-			public boolean verify(JComponent input) {
-				JTextField tf = (JTextField) input;
-				Matcher matcher = pattern.matcher(tf.getText());
-				return matcher.matches();
-			}
-		});
 	}
 
 	// Initializing password label
@@ -245,7 +206,6 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
 		// Logic for checking all required fields have valid input upon clicking
 		if (e.getSource() == btnRegister) {
 			String email = tfEmail.getText().trim();
