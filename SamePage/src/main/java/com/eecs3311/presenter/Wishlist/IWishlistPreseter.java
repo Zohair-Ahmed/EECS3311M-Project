@@ -2,6 +2,7 @@ package com.eecs3311.presenter.Wishlist;
 
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.view.Wishlist.IWishlistPanelView;
+import com.eecs3311.view.components.RequestedWishlistPanel;
 
 public interface IWishlistPreseter {
     /**
@@ -29,6 +30,12 @@ public interface IWishlistPreseter {
     void setView(IWishlistPanelView iwv);
 
     /**
+     * Set the requested wishlist pavel
+     * @param rwp the requested wishlist panel
+     */
+    void setView(RequestedWishlistPanel rwp);
+
+    /**
      * Update model from view interaction
      *
      * @param email email of the user adding to the wishlist
@@ -50,4 +57,6 @@ public interface IWishlistPreseter {
      * @return the wishlist model
      */
     IWishlistModel getUpdateViewFromModel();
+
+    void updateRequestedWishlistViewFromModel();
 }

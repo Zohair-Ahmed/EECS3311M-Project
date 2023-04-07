@@ -2,6 +2,7 @@ package com.eecs3311.presenter.Wishlist;
 
 import com.eecs3311.model.Wishlist.IWishlistModel;
 import com.eecs3311.view.Wishlist.IWishlistPanelView;
+import com.eecs3311.view.components.RequestedWishlistPanel;
 
 import javax.swing.*;
 
@@ -9,6 +10,7 @@ public class WishlistPresenter implements IWishlistPreseter {
 
     private IWishlistModel wishlistModel;
     private IWishlistPanelView wishlistPanelView;
+    private RequestedWishlistPanel requestedWishlistPanel;
 
     /**
      * Returns the wishlist model
@@ -40,6 +42,10 @@ public class WishlistPresenter implements IWishlistPreseter {
         return this.wishlistPanelView;
     }
 
+    public RequestedWishlistPanel getRequestedWishlistPanel() {
+        return this.requestedWishlistPanel;
+    }
+
     /**
      * Set the wishlist panel view
      *
@@ -48,6 +54,16 @@ public class WishlistPresenter implements IWishlistPreseter {
     @Override
     public void setView(IWishlistPanelView iwv) {
         this.wishlistPanelView = iwv;
+    }
+
+    /**
+     * Set the requested wishlist pavel
+     *
+     * @param rwp the requested wishlist panel
+     */
+    @Override
+    public void setView(RequestedWishlistPanel rwp) {
+        this.requestedWishlistPanel = rwp;
     }
 
     /**
@@ -73,6 +89,10 @@ public class WishlistPresenter implements IWishlistPreseter {
         Timer timer = new Timer(3000, event -> this.getWishlistPanelView().updateWishlistStatus(""));
         timer.setRepeats(false);
         timer.start();
+    }
+
+    public void updateRequestedWishlistViewFromModel() {
+        this.getRequestedWishlistPanel().updateTable();
     }
 
     /**

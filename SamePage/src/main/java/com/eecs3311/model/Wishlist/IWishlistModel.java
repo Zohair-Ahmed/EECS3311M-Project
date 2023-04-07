@@ -80,4 +80,5 @@ public interface IWishlistModel {
      */
     void setPresenter(IWishlistPreseter iwp);
 
+    void updateRequestedWistlistBooks();
 }

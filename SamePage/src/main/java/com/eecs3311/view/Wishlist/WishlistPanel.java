@@ -7,6 +7,8 @@ import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
 import com.eecs3311.presenter.Wishlist.WishlistPresenter;
 import com.eecs3311.util.log.console.ConsoleLogs;
 import com.eecs3311.view.IPanelView;
+import com.eecs3311.view.components.RequestedWishlistPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -28,6 +30,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
 
     private static IWishlistPreseter iwp = new WishlistPresenter();
     private static IWishlistModel iwm = new WishlistModel();
+    private static RequestedWishlistPanel rwp = new RequestedWishlistPanel();
 
     // layout
     private static final SpringLayout sl_containerPanel = new SpringLayout();
@@ -40,6 +43,7 @@ public class WishlistPanel implements IWishlistPanelView, IPanelView, ActionList
         iwp.setModel(iwm);
         iwm.setPresenter(iwp);
         iwp.setView(this);
+        iwp.setView(rwp);
         containerPanel.setLayout(sl_containerPanel);
     }
 

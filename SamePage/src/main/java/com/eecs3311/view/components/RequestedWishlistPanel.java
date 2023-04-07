@@ -7,17 +7,21 @@ import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
 import com.eecs3311.presenter.Wishlist.WishlistPresenter;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EventObject;
 
 public class RequestedWishlistPanel {
     private JPanel container = new JPanel();
-    private JPanel wishlistContainer = new JPanel();
-
     private IWishlistPreseter iwp = new WishlistPresenter();
-    private IWishlistModel iwm = new WishlistModel();
+    private IWishlistModel iwm;
+
+    private static ArrayList<IWishlistModel> wishlistData;
 
     public RequestedWishlistPanel() {
+        iwp.setView(this);
         initComponents();
     }
 
@@ -25,46 +29,82 @@ public class RequestedWishlistPanel {
         return this.container;
     }
 
+    public IWishlistPreseter getWishlistPresenter() {
+        return this.iwp;
+    }
+
+    public IWishlistModel getWishlistModel() {
+        return this.iwm;
+    }
+
     public void initComponents() {
-        container.setLayout(new GridLayout(0, 1));
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         initHeading();
-        container.add(new JLabel("Book\t\tAuthor"));
         initWishlist();
     }
 
     private void initHeading() {
         JLabel heading = new JLabel("Your Wishlist");
-        heading.setSize(200, 100);
+        heading.setFont(new Font("Futura", Font.BOLD, 25));
         container.add(heading);
     }
 
     private void initWishlist() {
-        ArrayList<IWishlistModel> wishlistData = getWishlistData();
-        if (wishlistData == null || wishlistData.size() == 0)
-            return;
-        initScrollPaneView(wishlistData);
-        wishlistData.forEach(wd -> container.add(singleWishlistPanel(wd.getBookTitle(), wd.getAuthor())));
+        this.wishlistData = getWishlistData();
+        initPanelView();
     }
 
-    private JPanel singleWishlistPanel(String bookTitle, String bookAuthor) {
-        JPanel singleWishlistPanel = new JPanel();
-        JLabel wishlistInfo = new JLabel(bookTitle + "\t" + bookAuthor);
-        singleWishlistPanel.add(wishlistInfo);
-        singleWishlistPanel.add(new JSeparator());
-        return singleWishlistPanel;
-    }
-    private void initScrollPaneView(ArrayList<IWishlistModel> wishlistData) {
-        GridBagConstraints c = new GridBagConstraints();
-        container.setLayout(new GridLayout(wishlistData.size(), 1, 1, 1));
-        JScrollPane scroll = new JScrollPane(wishlistContainer,
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(115, 135));
-        container.add(scroll, c);
+    public void updateTable() {
+        initWishlist();
     }
 
+    /**
+     * Create JPanel consisting of JTable of submitted wishlist
+     */
+    private void initPanelView() {
+        if (wishlistData.size() == 0) {
+            JScrollPane jpane = new JScrollPane(new NoBookFoundPanel().getView());
+            container.add(jpane);
+        } else {
+            // wishlist data
+            String[] columns = {"Book Title", "Author"};
+            String[][] wishlistArray = convertWishlistDate(this.wishlistData);
+
+            JTable wishlistTable = new JTable(wishlistArray, columns) {
+                public boolean editCellAt(int row, int column, EventObject e) {
+                    return false;
+                }
+            };
+            wishlistTable.removeEditor();
+            JScrollPane jpane = new JScrollPane(
+                    wishlistTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+            );
+            jpane.setPreferredSize(new Dimension(300, 135));
+            container.add(jpane);
+        }
+    }
+
+    /**
+     * Get wishlist data from DB
+     * @return wishlist data from DB
+     */
     private ArrayList<IWishlistModel> getWishlistData() {
         return Database.getWishlistInstance().getBooksSubmitted();
+    }
+
+    /**
+     * Convert ArrayList<IWishlistModel> to nested string to create JTable
+     * @param wishlistData wishlist data from DB
+     * @return a nested string array of the wishlist model
+     */
+    private String[][] convertWishlistDate(ArrayList<IWishlistModel> wishlistData) {
+        int wishlistSize = wishlistData.size();
+        String[][] wishlistArray = new String[wishlistSize][2];
+        for (int i = 0; i < wishlistSize; i++) {
+            wishlistArray[i][0] = wishlistData.get(i).getBookTitle();
+            wishlistArray[i][1] = wishlistData.get(i).getAuthor();
+        }
+        return wishlistArray;
     }
 
     public void setPresenter(IWishlistPreseter iwp) {

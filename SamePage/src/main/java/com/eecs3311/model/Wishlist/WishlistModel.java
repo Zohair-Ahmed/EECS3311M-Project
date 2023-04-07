@@ -94,7 +94,12 @@ public class WishlistModel implements IWishlistModel {
         if (UserModel.getInstance().getLoginState().equals(State.MEMBER)) {
             Database.getWishlistInstance().submitBook(username, bookTitle, author, additionalNotes);
             this.getPresenter().updateViewFromModel("Book added! We'll review it shortly!");
+            this.getPresenter().updateRequestedWishlistViewFromModel();
         }
+    }
+
+    public void updateRequestedWistlistBooks() {
+        //this.getPresenter().updateRequestedWishlistViewFromModel(Database.getWishlistInstance().getBooksSubmitted());
     }
 
     private boolean isFieldValid(String field) {

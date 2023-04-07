@@ -55,8 +55,6 @@ public class WishlistDB extends AbstractDatabase implements IWishlist {
             e.printStackTrace();
         }
 
-        System.out.println(ConsoleLogs.DATABASE(wishlist.get(0).toString()));
-
         return wishlist;
     }
 }
