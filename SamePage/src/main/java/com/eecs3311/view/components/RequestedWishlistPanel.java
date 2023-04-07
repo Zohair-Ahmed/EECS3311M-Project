@@ -1,16 +1,13 @@
 package com.eecs3311.view.components;
 
 import com.eecs3311.model.Wishlist.IWishlistModel;
-import com.eecs3311.model.Wishlist.WishlistModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Wishlist.IWishlistPreseter;
 import com.eecs3311.presenter.Wishlist.WishlistPresenter;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EventObject;
 
 public class RequestedWishlistPanel {
