@@ -77,3 +77,12 @@ CREATE PROCEDURE UpdateGoals (IN UID INT)
         END IF;
     END DD
 DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS Wishlist (
+    WishlistID INT NOT NULL AUTO_INCREMENT,
+    Username VARCHAR(20) NOT NULL,
+    BookTitle VARCHAR(50) NOT NULL,
+    Author VARCHAR(200) NOT NULL,
+    AdditionalNotes VARCHAR(500),
+    PRIMARY KEY (WishlistID)
+    );

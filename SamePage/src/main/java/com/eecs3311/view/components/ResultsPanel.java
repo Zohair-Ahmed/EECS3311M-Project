@@ -77,12 +77,25 @@ public class ResultsPanel implements ActionListener, IPanelView {
         c.gridx = 0;
         c.gridy = 1;
 
-        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(
+                releaseContainer,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        );
+
         if (state.equals("resultPage")) {
-            this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
-            scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            this.textJLabel
+                    .setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+
+            if (!results.isEmpty()) {
+                scroll = new JScrollPane(
+                        releaseContainer,
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+                );
+            } else {
+                scroll = new JScrollPane(new NoBookFoundPanel().getView());
+            }
             releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/6)+1, 6));
         }
         container.add(scroll, c);

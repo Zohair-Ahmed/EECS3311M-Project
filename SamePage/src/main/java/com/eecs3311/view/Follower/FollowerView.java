@@ -102,7 +102,7 @@ public class FollowerView implements ActionListener, IFollowerView {
         userFrame = new JFrame(""+this.username+"'s Profile");
         userFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         userFrame.add(user.getView());
-        userFrame.setSize(390, 300);
+        userFrame.setSize(600, 350);
         userFrame.setVisible(true);
         userFrame.toFront();
         userFrame.setLocationRelativeTo(null);
