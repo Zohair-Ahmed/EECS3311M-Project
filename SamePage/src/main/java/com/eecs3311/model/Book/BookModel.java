@@ -3,8 +3,6 @@ package com.eecs3311.model.Book;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
-import java.util.ArrayList;
-
 public class BookModel implements IBookModel {
     private final String title;
     private final String description;
@@ -12,6 +10,8 @@ public class BookModel implements IBookModel {
     private final String author;
     private final String img;
     private final String genre;
+    private boolean isFavorite = false;
+    private int bookIndex;
     private IBookPresenter bookPresenter;
 
     public BookModel(String title, String author, String description, String ISBN,
@@ -55,6 +55,18 @@ public class BookModel implements IBookModel {
         return img;
     }
 
+    public boolean getFavBookStatus() { return isFavorite; }
+
+    public void setFavorite(boolean status) { isFavorite = status; }
+
+    public int getBookIndex() {
+        return bookIndex;
+    }
+
+    public void setBookIndex(int bookIndex) {
+        this.bookIndex = bookIndex;
+    }
+
     @Override
     public IBookPresenter getPresenter() {
         return this.bookPresenter;
@@ -68,22 +80,6 @@ public class BookModel implements IBookModel {
     public void removeFavoriteBook() {
         Database.getFavBooksInstance().removeFromFavorites(this);
     }
-
-    public boolean checkFavoriteBook() {
-        boolean checkBook = false;
-        ArrayList<IBookModel> userBooks = Database.getFavBooksInstance().getFavBooks();
-
-        if (userBooks != null) {
-            for (IBookModel ibm : userBooks) {
-                if (this.getISBN().equals(ibm.getISBN())) {
-                    checkBook = true;
-                }
-            }
-        }
-
-        return checkBook;
-    }
-
 
     @Override
     public double getAverageReview() {

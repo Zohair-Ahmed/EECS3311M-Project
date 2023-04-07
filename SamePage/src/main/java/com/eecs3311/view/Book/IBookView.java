@@ -10,6 +10,12 @@ public interface IBookView {
     void setPresenter(IBookPresenter bp);
 
     /**
+     * Only called when button needs to be updated
+     * @param b - set True if Favourite -> Remove
+     */
+    void changeFavouriteBtnText(boolean b);
+
+    /**
      * Returns a GUI component relating to the model. Include updatedViewFromModel
      * function to ensure the view is up-to-date and change return type as needed
      * 

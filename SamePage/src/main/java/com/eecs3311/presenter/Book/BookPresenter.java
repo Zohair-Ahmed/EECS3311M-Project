@@ -47,7 +47,7 @@ public class BookPresenter implements IBookPresenter {
     }
 
     public boolean checkModelFavBooks() {
-        boolean check = getModel().checkFavoriteBook();
+        boolean check = getModel().getFavBookStatus();
         return check;
     }
 }

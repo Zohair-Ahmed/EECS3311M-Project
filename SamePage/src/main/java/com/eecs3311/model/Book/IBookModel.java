@@ -20,6 +20,14 @@ public interface IBookModel {
 
     String getImg();
 
+    boolean getFavBookStatus();
+
+    void setFavorite(boolean status);
+
+    int getBookIndex();
+
+    void setBookIndex(int index);
+
     /**
      * Add this book to the favorites table in the database to maintain updated favorite
      * list for the logged in user
@@ -38,7 +46,6 @@ public interface IBookModel {
      *
      * @return boolean value for book favorite status
      */
-    boolean checkFavoriteBook();
 
     double getAverageReview();
 }

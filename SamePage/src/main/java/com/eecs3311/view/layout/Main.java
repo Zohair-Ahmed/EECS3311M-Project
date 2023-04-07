@@ -8,11 +8,12 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
+import com.eecs3311.view.Book.IBookView;
 import com.eecs3311.view.Login.ILoginPanelView;
 import com.eecs3311.view.Login.LoginPanel;
 import com.eecs3311.model.Register.IRegisterModel;
@@ -26,32 +27,31 @@ import com.eecs3311.view.components.Menubar;
 public class Main extends JFrame implements ActionListener {
 
   private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  private final int HEIGHT = (int) (screenSize.height);
-  private final int WIDTH = (int) (screenSize.width);
+  private final int HEIGHT = screenSize.height;
+  private final int WIDTH = screenSize.width;
 
+  private boolean updateLanding = false;
   private JButton loginButton;
   private JButton registerButton;
   private JButton homeButton;
-
   private JButton profileButton;
+  private JButton findFriendsButton;
   private JPanel contentPane;
-
   private CardLayout cards = new CardLayout();
   private JPanel container = new JPanel(cards);
   private JPanel loginPanel;
   private JPanel registerPanel;
-
   private ILoginPanelView ilv = new LoginPanel();
   private ILoginPresenter ilp = new LoginPresenter();
   private ILoginModel ilm = new LoginModel();
-
-  
   private IRegisterPanelView irv = new RegisterPanel();
   private IRegisterPresenter irp = new RegisterPresenter();
   private IRegisterModel irm = new RegisterModel();
-
   private ProfilePanel profile;
+  private FindFriendsPanel findFriends;
   private Menubar menuBar;
+  JPanel mainPanel;
+  LandingPanel landingPanel;
 
   private void initHomeButtonUI() {
     homeButton = new JButton("Home");
@@ -134,8 +134,25 @@ public class Main extends JFrame implements ActionListener {
     profileButton.addActionListener(this);
   }
 
-  JPanel mainPanel;
-  LandingPanel landingPanel;
+  private void initFindFriendsButtonUI(){
+    findFriendsButton = new JButton("Social");
+    findFriendsButton.setFont(new Font("Euphemia UCAS", Font.BOLD, 17));
+    findFriendsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        findFriendsButton.setForeground(new Color(0, 66, 131));
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        findFriendsButton.setForeground(new Color(255, 255, 255));
+      }
+    });
+    findFriendsButton.setHorizontalAlignment(SwingConstants.LEFT);
+    findFriendsButton.setForeground(new Color(255, 255, 255));
+    findFriendsButton.setBackground(new Color(0, 128, 255));
+    findFriendsButton.setOpaque(true);
+    findFriendsButton.setBorderPainted(false);
+    findFriendsButton.addActionListener(this);
+  }
+
   private void initPageSetup() {
     contentPane = new JPanel();
     contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
@@ -220,13 +237,16 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
-        setLandingPanel(new LandingPanel());
-      }
+//      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
+//        this.landingPanel.updateResultsPanel();
+//      }
       cards.show(container, "Landing");
     }
     if (e.getSource() == profileButton) {
       cards.show(container, "Profile");
+    }
+    if (e.getSource() == findFriendsButton) {
+      cards.show(container, "Find Friends");
     }
   }
 
@@ -241,9 +261,10 @@ public class Main extends JFrame implements ActionListener {
 
   /**
    * Adds the profile panel on successful login for users to view profile specific information
+   * When successful login is apparent as well, once the profile button is added, we can add find friends button too
    */
   public void addProfilePanel() {
-    profile= new ProfilePanel();
+    profile = new ProfilePanel();
     JPanel profilePanel = profile.getView();
     profilePanel.setName("Profile");
     container.add(profile.getView(), profilePanel.getName());
@@ -251,9 +272,22 @@ public class Main extends JFrame implements ActionListener {
     tempBar.add(Box.createHorizontalGlue());
     setJMenuBar(tempBar);
     initProfileButtonUI();
-
+    initFindFriendsButtonUI();
     tempBar.add(homeButton);
+    tempBar.add(findFriendsButton);
     tempBar.add(profileButton);
+
+//    updateLanding = true;
+  }
+
+  /**
+   * Adds the Find Friends panel on successful login for users to view the option of finding friends
+   */
+  public void addFindFriendsPanel(){
+    findFriends = new FindFriendsPanel();
+    JPanel friendsPanel = findFriends.getView();
+    friendsPanel.setName("Find Friends");
+    container.add(findFriends.getView(), friendsPanel.getName());
   }
 
   /**
@@ -264,7 +298,7 @@ public class Main extends JFrame implements ActionListener {
     JPanel card = null;
 
     for (Component comp : container.getComponents()) {
-      if (comp.isVisible() == true) {
+      if (comp.isVisible()) {
         card = (JPanel) comp;
       }
     }
@@ -272,4 +306,7 @@ public class Main extends JFrame implements ActionListener {
     return card.getName();
   }
 
+  public LandingPanel getLandingPanel() {
+    return landingPanel;
+  }
 }

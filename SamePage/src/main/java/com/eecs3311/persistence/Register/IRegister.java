@@ -1,5 +1,7 @@
 package com.eecs3311.persistence.Register;
 
+import java.util.ArrayList;
+
 public interface IRegister {
     /**
      * Performs a retrieval query first in order to check credentials for possible matches in the database,
@@ -13,4 +15,13 @@ public interface IRegister {
      * @return Message to display onto Register Page
      */
     String registerUser(String username, String email, String password);
+
+    /**
+     * Performs a retrieval query of all registered usernames (excluding the currently logged-in user)
+     *
+     * @return List of usernames
+     */
+    ArrayList<String> getUserList();
+
+    int getLatestRegisterUserID();
 }

@@ -1,0 +1,111 @@
+Meeting Logs:
+/-----------------------------/
+SamePage Itr3 Meeting 1
+March 22nd, 2023 @ 11:00 am
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis, Edward
+
+Meeting topic: Requirements analysis
+    • Go over the iteration 3 requirements, understand that there are different documentations required
+    • New team member, help catch up with the vision, the stories, wiki, and help with technical environment
+    • Review what issues we noted down and QA'd for team 16
+        ◦	we opened a bug report relating to their design issue/feature, https://github.com/BrianNguyen0116/EECS3311SM-T15/issues/2#issue-1628477855
+    • Review what our QA team 3 had discovered and the issues they created on github
+        ◦	- no restrictions on register, rating, and image loading taking long, bug fixes
+    • As a team decide on which bugs to prioritize (regex, and image loading)
+    • Image loading is not slow for our team, this bug is low priority but will be worked on/improved on
+    • Review all the Big User Stories, we currently have 10 (including the one from the client)
+        ◦	Given team capacity, and updated perspectives on what is required for the app, Book Club Big User Story to go for next release
+
+Main dev tasks: usesr goals, finding friends, bug fixes, add favorite books
+Main reporting tasks: QA reports, retros, refactoring reports
+Testing tasks: end to end for each big user story (9), unit testing
+
+/------End of Meeting 1-------/
+
+Itr3 Meeting 2
+March 27th, 2023 @ 5:30 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis, Edward
+
+Meeting topic: Dev Tasks
+    • Go over the iteration 3 progress
+    • Updated the image loading bug by Zohair, task is completed
+    • Nargis - Search for friends is worked on, will need to update UI and connect with Nick
+    • Ammad worked on updating user goals, will continue working on UI
+    • Kyle working on bug that was found with switching from different screens
+    • Edward working on the bugs reported by QA
+    • Go over presentation requirements and remaining tasks
+
+Refactoring Tasks:
+Discussed improvements needed to increase load time for application
+Initital App Load-Time (Expected = 2 days ~ Actual = 1 day)
+Zohair – made changes to increase run-time for initial app load-up from 10s to <2s using parallel streams
+Load-Time for Switching between pages (Expected = 5-6 days ~ Actual = 7 days)
+Kyle and Ammad – made changes to load time for app decreasing load time from avg 20s to <1s
+Multi-threading Implementation (Expected = 3 days ~ Actual = 1 day)
+Assigned spike task to Kyle regarding multi-threading implementation
+Planned how to refactor application to be single page application and how to make components reusable
+Conversion from multiple JFrames to JPanels (Expected = 3-4 days ~ Actual = 2 days)
+Nick, Kyle, Ammad – Identified reusable components and discussed implementation. Converted all popups to JPanels and used interfaces to ease development and standards
+Discussed how to fix design smells identified by QA ~ Review spamming/bombing and invalid inputs
+Input Valdation (Expected = 2 days ~ Actual = 1 day)
+Edward – made changes to include regex for input validation
+Review Spamming/Bombing (Expected = 2 days ~ Actual = 1)
+Nargis – made changes to prevent review spamming/bombing
+
+/------End of Meeting 2-------/
+
+SamePage Itr3 Meeting 3
+April 1st, 2023 @ 5:30 pm
+Attendance: Zohair, Kyle, Ammad, Nick, Nargis, Edward
+
+Meeting topic: Dev Tasks
+Go over the iteration 3 progress
+Updated the image loading bug by Zohair, task is completed
+Search for friends is worked on, will need to update UI
+Ammad worked on updating user goals, will continue working on UI
+Go over presentation requirements and remaining tasks
+
+Big User Stories:
+•	Find Friends - As a member, I want to be able to search for other Same Page users by their username and add them as a friend.
+•	User Goals - As a member, I want to be able to create personalized goals that I can track my progress on.
+•	Add New Book to App - As a user I can request to add the book to the App if I do not see it on SamePage.
+
+Next Release: Book Club - As a member, I want to be able to create or join book clubs.
+
+Itr2 Detailed User Stories:
+•	Add User Goals - As a user, I want to be able to create a customizable reading book list and set goals of how many books to read on my profile page.
+•	Update Goals - As a user, I want to be able to update any goals I created with my progress.
+•	Search for Friends - As a user, I want to be able to find a friend by looking up their username and click their profile from the results.
+•	Add Friend - As a user, after I find my friend I want to be able to add them as my friend.
+•	View Friends Profile & Goals - As a user, I want to be able to find my added friends on my profile page and view their profile page and user goals.
+•	Remove Friends - As a user, I want to be able to remove any friends I have made
+
+
+Development Tasks:
+Iteration 2 Carry Over Tasks/Bugs:
+[BUG] No restriction on leaving a rating -> assigned to Edward & Nargis.Cost=3 day Actual=3 days
+[BUG] Register credentials allow extraneous input -> assigned to Edward.Cost=2 days Actual=2 days
+[BUG] Incorrect text and color for favorite button on random button clicks -> assigned to Kyle.Cost=2 days Actual=2 days
+[BUG] Improve image load performance -> assigned to Zohair.Cost=2 days Actual=2 days
+
+Find Friends - Big User Story
+“Search For Friends/Followers” -> assigned to Nargis. Cost=3days Actual=3days
+“Add Friends/Followers” -> assigned to Nick. Cost=3days Actual=3days
+“Remove Friends/Followers” -> assigned to Nick. Cost=3days Actual=3days
+
+User Goals - Big User Story
+“Add Goals” -> assigned to Ammad Cost=3days Actual=3days
+“Update User Goals” -> assigned to Ammad. Cost=5days Actual=3days
+
+Add New Book to App - Big User Story
+“Add New Book” -> assigned to Zohair. Cost=3days Actual=3days
+“Add New Books Wishlist UI feature and integrate with search” -> assigned to Zohair. Cost=2days Actual=2days
+
+Testing Tickets
+JUnit testing -> assigned to everyone on each dev task to create their unit tests
+Integration testing for DB -> Ammad & Nargis
+End2End Testing - Ammad & Nargis
+Nargis and Ammad – develop manual test scenarios
+Add/Remove Friends (Expected = 2-3 days ~ Actual = 2 )
+Nick and Ammad – develop and implement test scenarios
+Testing QA identified bugs ~ Unassigned
