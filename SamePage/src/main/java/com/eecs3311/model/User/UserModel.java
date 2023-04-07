@@ -2,6 +2,7 @@ package com.eecs3311.model.User;
 
 import com.eecs3311.model.enums.State;
 import com.eecs3311.view.layout.Main;
+import com.eecs3311.util.log.console.ConsoleLogs;
 
 // Singleton pattern
 public class UserModel {
@@ -69,8 +70,8 @@ public class UserModel {
     @Override
     public String toString() {
         if (loginState.equals(State.GUEST))
-            return "Not Logged In";
-        return "Current User = " + getEmail() + " - " + getPassword();
+            return ConsoleLogs.USER( "Not Logged In");
+        return "Current User = " + ConsoleLogs.USER(getEmail() + " - " + getPassword());
     }
 
     public Main getMainInit() {
