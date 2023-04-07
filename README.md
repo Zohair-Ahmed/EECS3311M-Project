@@ -36,7 +36,7 @@ architecture.
 
 # BUILD LOCALLY
 To build this project locally, you will need access to the database credentials. Make sure to have MySQL downloaded and its 
-required drivers to run the application. This video tutorial can help with the download process. Save your MySQL password 
+required drivers to run the application. This <a href="https://www.youtube.com/watch?v=8aTpDfsYTNQ&ab_channel=ComputerClicks">video tutorial</a> can help with the download process. Save your MySQL password 
 and username in a secure location. Once you have MySQL downloaded
 - Go to ***SamePage/src/main/resources/config.properties***
 - Replace the username and password fields with your username and password
