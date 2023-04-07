@@ -3,6 +3,7 @@ package com.eecs3311.view.Goals;
 import com.eecs3311.presenter.Goals.IGoalPresenter;
 import com.eecs3311.view.IPanelView;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
