@@ -60,8 +60,9 @@ public class SearchFriends implements ActionListener, IPanelView {
             ArrayList<IFollowerModel> finalResults = new ArrayList<>();
 
             results.forEach((user -> {
-                if (user.getCurrentUser().contains(finalSearch)){
-                    finalResults.add(user);
+                if (user != null ){
+                    if (user.getCurrentUser().contains(finalSearch))
+                        finalResults.add(user);
                 }
             }));
             mediator.updateUserResultsPanelView(finalResults);
