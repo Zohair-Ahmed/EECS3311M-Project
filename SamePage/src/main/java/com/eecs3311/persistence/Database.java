@@ -18,6 +18,8 @@ import org.apache.ibatis.jdbc.ScriptRunner;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 
 // Single Pattern
@@ -66,15 +68,27 @@ public class Database extends AbstractDatabase {
      * Will configure necessary tables and login if needed
      */
     private void configDBScript() {
-        try {
-            InputStream getDBScript = this.getClass().getClassLoader().getResourceAsStream("data/samepageschema.sql");
-            ScriptRunner sr = new ScriptRunner(getConnection());
-            assert getDBScript != null;
-            Reader readDBScript = new InputStreamReader(getDBScript);
-            sr.runScript(readDBScript);
-            System.out.println( ConsoleLogs.SUCCESSFUL("SUCCESSFULLY CONFIGURED THE DATABASE SETUP SCRIPT..."));
+        try { // Checking if database exists
+            String sql = "SELECT * FROM Book WHERE ISBN13 = 9789000307975";
+            PreparedStatement stmt = getConnection().prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) { // If it does exist, then do not run script
+                System.out.println(ConsoleLogs.DATABASE("Database exists."));
+            } else {
+                try { //If no data exists, then run db script
+                    InputStream getDBScript = this.getClass().getClassLoader().getResourceAsStream("data/samepageschema.sql");
+                    ScriptRunner sr = new ScriptRunner(getConnection());
+                    assert getDBScript != null;
+                    Reader readDBScript = new InputStreamReader(getDBScript);
+                    sr.runScript(readDBScript);
+                    System.out.println( ConsoleLogs.SUCCESSFUL("SUCCESSFULLY CONFIGURED THE DATABASE SETUP SCRIPT..."));
+                } catch (Exception e) {
+                    System.out.println(ConsoleLogs.ERROR("--- !ERROR! COULD NOT CONFIGURE DATABASE SETUP SCRIPT ---"));
+                    e.printStackTrace();
+                }
+            }
         } catch (Exception e) {
-            System.out.println(ConsoleLogs.ERROR("--- !ERROR! COULD NOT CONFIGURE DATABASE SETUP SCRIPT ---"));
             e.printStackTrace();
         }
     }
