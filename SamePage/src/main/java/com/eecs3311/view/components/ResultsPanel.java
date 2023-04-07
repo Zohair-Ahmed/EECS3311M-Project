@@ -1,14 +1,12 @@
 package com.eecs3311.view.components;
 
 import com.eecs3311.model.Book.IBookModel;
-import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.List;
 import javax.swing.*;
 
 public class ResultsPanel implements ActionListener, IPanelView {
@@ -113,15 +111,6 @@ public class ResultsPanel implements ActionListener, IPanelView {
         for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
         }
-
-        /*
-         * Causes ConcurrentModificationException Error
-         * Above for each loop used as replacement
-         */
-
-//        results.parallelStream().forEach(ibm -> {
-//            releaseContainer.add(ibm.getPresenter().getView().getView());
-//        });
 
         initTextLayout();
         initScrollPaneView(results);
