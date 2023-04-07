@@ -12,7 +12,6 @@ import com.eecs3311.view.Goals.IGoalView;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ProfileIcon;
 import com.eecs3311.view.components.ResultsPanel;
-import com.eecs3311.view.components.UserResultsPanel;
 
 import javax.swing.*;
 import java.awt.*;

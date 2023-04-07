@@ -8,12 +8,9 @@ import java.awt.event.*;
 
 import com.eecs3311.model.Login.ILoginModel;
 import com.eecs3311.model.Login.LoginModel;
-import com.eecs3311.model.User.UserModel;
-import com.eecs3311.model.enums.State;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.presenter.Login.ILoginPresenter;
 import com.eecs3311.presenter.Login.LoginPresenter;
-import com.eecs3311.view.Book.IBookView;
 import com.eecs3311.view.Login.ILoginPanelView;
 import com.eecs3311.view.Login.LoginPanel;
 import com.eecs3311.model.Register.IRegisterModel;
@@ -237,9 +234,6 @@ public class Main extends JFrame implements ActionListener {
     if (e.getSource() == registerButton)
       cards.show(container, "Register");
     if (e.getSource() == homeButton) {
-//      if (User.getInstance().getLoginState() != State.GUEST && !checkCurrentCard().equals("Landing")) {
-//        this.landingPanel.updateResultsPanel();
-//      }
       cards.show(container, "Landing");
     }
     if (e.getSource() == profileButton) {

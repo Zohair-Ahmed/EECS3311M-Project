@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Random;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class ProfileIcon extends JPanel {

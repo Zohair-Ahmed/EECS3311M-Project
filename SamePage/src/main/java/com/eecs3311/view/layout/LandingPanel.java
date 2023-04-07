@@ -3,7 +3,6 @@ package com.eecs3311.view.layout;
 import javax.swing.*;
 import java.awt.*;
 
-import com.eecs3311.model.User.UserModel;
 import com.eecs3311.view.Book.IBookView;
 import com.eecs3311.view.components.ResultsPanel;
 import com.eecs3311.view.IPanelView;
@@ -104,17 +103,13 @@ public class LandingPanel implements IPanelView {
         return lbv;
     }
 
+    /**
+     * Method is passed the IBookView of the book object that is being added/removed from favorites list and
+     * will dynamically update the landing panel
+     * @param temp
+     */
     public void updateLanding(IBookView temp) {
         int indexOfBook = temp.getPresenter().getModel().getBookIndex();
-//        Component[] components = this.getResultsPanel().getParentContainer().getComponents();
-//        for (Component component : components) {
-//            if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
-//            int index = this.getResultsPanel().getParentContainer().getComponentZOrder(component);
-//            this.getResultsPanel().getParentContainer().remove(component);
-//            this.getResultsPanel().getParentContainer().add(temp.getView(), index);
-//            break;
-//            }
-//        }
 
         Component oldView = this.getResultsPanel().getParentContainer().getComponent(indexOfBook);
         this.getResultsPanel().getParentContainer().remove(oldView);
