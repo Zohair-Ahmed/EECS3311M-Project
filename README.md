@@ -35,14 +35,26 @@ architecture.
 <img width="1247" alt="image" src="https://user-images.githubusercontent.com/77363160/224368622-9e2edd3e-fa96-45fb-a081-5a4f8984d645.png">
 
 # BUILD LOCALLY
-To build this project locally, you will need access to the database credentials. Please create a `config.properties` file
-under the `resources` directory. Please reach out to your teammates for the respective credentials.
-```shell
-db.driver=${db.driver}
-db.url=${db.url}
-db.username=${username}
-db.password=${password}
-```
+To build this project locally, you will need access to the database credentials. Make sure to have MySQL downloaded and its 
+required drivers to run the application. This video tutorial can help with the download process. Save your MySQL password 
+and username in a secure location. Once you have MySQL downloaded
+- Go to ***SamePage/src/main/resources/config.properties***
+- Replace the username and password fields with your username and password
+  - ```shell
+      db.driver=${db.driver}
+      db.url=${db.url}
+      db.username=${username}
+      db.password=${password}
+      ```
+- Go to ***SamePage/src/main/java/com/eecs3311***
+- There will be 4 Packages and one Java File called ***App.java***
+- Click on the App.java file and run the application from there
+
+
+
+
+
+
 
 # Stub Data
 If you want to run the application with stub data only, refer to src/main/java/com/eecs3311/persistence/Database.java and turn the stub data flag on: 
