@@ -63,4 +63,4 @@ private static boolean isUsingStubDB = true;
 ```
 
 # TESTING NOTES
-You can either test with stub data only or test fully with a database, ensure you have a schema created refer to resources/data/samepageschema.sql
+Testing is done using both Stub and Database, ensure you have a schema created and the correct credentials, refer to resources/data/samepageschema.sql
