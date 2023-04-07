@@ -55,7 +55,7 @@ public class BookStub implements IBook{
     }
 
     public void sort(ArrayList<IBookModel> list){
-        list.sort(Comparator.comparing(IBookModel::getISBN));
+        list.sort(Comparator.comparing(IBookModel::getBookIndex));
     }
 
     @Override

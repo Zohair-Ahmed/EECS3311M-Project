@@ -1,12 +1,14 @@
 package com.eecs3311.view.components;
 
 import com.eecs3311.model.Book.IBookModel;
+import com.eecs3311.model.Follower.IFollowerModel;
 import com.eecs3311.persistence.Database;
 import com.eecs3311.view.IPanelView;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 import javax.swing.*;
 
 public class ResultsPanel implements ActionListener, IPanelView {
@@ -77,25 +79,49 @@ public class ResultsPanel implements ActionListener, IPanelView {
         c.gridx = 0;
         c.gridy = 1;
 
-        JScrollPane scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scroll = new JScrollPane(
+                releaseContainer,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        );
+
         if (state.equals("resultPage")) {
-            this.textJLabel.setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
-            scroll = new JScrollPane(releaseContainer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/7)+1, 7));
+            this.textJLabel
+                    .setText(results.size() + " " + ((results.size() == 1 ? "result" : "results") + " found..."));
+
+            if (!results.isEmpty()) {
+                scroll = new JScrollPane(
+                        releaseContainer,
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+                );
+            } else {
+                scroll = new JScrollPane(new NoBookFoundPanel().getView());
+            }
+            releaseContainer.setLayout(new GridLayout((int)Math.ceil(results.size()/6)+1, 6));
         }
         container.add(scroll, c);
     }
 
     private void initReleaseContainer(ArrayList<IBookModel> results) {
-
         if (results == null)
             return;
-        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/7)+1, 7);
+        GridLayout gridLayout = new GridLayout((int)Math.ceil(results.size()/6)+1, 6);
         releaseContainer.setLayout(gridLayout);
+
+        // Temp Fix
         for (IBookModel ibm : results) {
             releaseContainer.add(ibm.getPresenter().getView().getView());
         }
+
+        /*
+         * Causes ConcurrentModificationException Error
+         * Above for each loop used as replacement
+         */
+
+//        results.parallelStream().forEach(ibm -> {
+//            releaseContainer.add(ibm.getPresenter().getView().getView());
+//        });
 
         initTextLayout();
         initScrollPaneView(results);
@@ -113,7 +139,7 @@ public class ResultsPanel implements ActionListener, IPanelView {
 
     @Override
     public JPanel getParentContainer() {
-        return null;
+        return releaseContainer;
     }
 
     @Override

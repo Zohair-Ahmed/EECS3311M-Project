@@ -82,20 +82,25 @@ public class SearchBar implements ActionListener, IPanelView {
     // Searches results through db and updates mediator object to update results
     // panel
     private void getSearchResults(String search) {
-        if (!(search == null || search.length() == 0)) {
-            ArrayList<IBookModel> results = new ArrayList<>();
-            Database.getBookInstance().getLatestReleases().forEach((book) -> {
-                if (book.getTitle().toLowerCase().contains(search.toLowerCase()))
-                    results.add(book);
-            });
-            mediator.updateBookView(results);
-        }
+        ArrayList<IBookModel> results = new ArrayList<>();
+        Database.getBookInstance().getLatestReleases().forEach((book) -> {
+            if (book.getTitle().toLowerCase().contains(search.toLowerCase()))
+                results.add(book);
+        });
+        mediator.updateBookView(results);
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.searchButton) {
-            getSearchResults(this.searchInputField.getText());
+            String searchInput = this.searchInputField.getText();
+            if (searchInput.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this.container, "Please enter Book name.", "Empty search input", JOptionPane.WARNING_MESSAGE);
+            } else {
+                getSearchResults(this.searchInputField.getText());
+            }
         }
 
     }

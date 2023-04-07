@@ -6,6 +6,8 @@ import java.awt.*;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.regex.Pattern;
+
 
 public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionListener {
 
@@ -35,6 +37,9 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 
 	// Layout variables
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private String emailPattern = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+	private String usernamePattern = "^[a-zA-Z0-9_-]{3,16}$";
+
 
 	/**
 	 * Create the GUI frame. Plan to Refactor in Itr2
@@ -203,10 +208,25 @@ public class RegisterPanel implements IRegisterPanelView, IPanelView, ActionList
 	public void actionPerformed(ActionEvent e) {
 		// Logic for checking all required fields have valid input upon clicking
 		if (e.getSource() == btnRegister) {
+			String email = tfEmail.getText().trim();
+			String username = tfUsername.getText().trim();
+
 			CheckFields(tfUsername, lblUsername);
 			CheckFields(tfEmail, lblEmail);
 			CheckFields(tfPassword, lblPassword);
 			CheckFields(tfConfirmPass, lblConfirmPass);
+
+			// Validate email address
+			if (!Pattern.matches(emailPattern, email)) {
+				JOptionPane.showMessageDialog(containerPanel, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			// Validate username
+			if (!Pattern.matches(usernamePattern, username)) {
+				JOptionPane.showMessageDialog(containerPanel, "Username must be 3-16 characters long and can only contain letters, numbers, hyphens, and underscores", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			if (!cbTerms.isSelected())
 				cbTerms.setForeground(new Color(255, 25, 9));
 			else

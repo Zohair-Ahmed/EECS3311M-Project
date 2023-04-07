@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.enums.State;
 import com.eecs3311.presenter.Book.IBookPresenter;
 
@@ -18,6 +18,9 @@ public class BookView implements IBookView {
     private IBookPresenter bookPresenter;
     private JFrame bookFrame;
     private DisplayBookInformation book;
+
+    private JPanel mainPanel = null;
+    private JButton favouriteBtn;
 
     public BookView() {
     }
@@ -40,24 +43,32 @@ public class BookView implements IBookView {
      */
     public void initFavouriteBtn(JPanel mainPanel, JButton favouriteBtn) {
         favouriteBtn.addActionListener(e -> {
-            if (User.getInstance().getLoginState() == State.GUEST) {
+            if (UserModel.getInstance().getLoginState() == State.GUEST) {
                 JOptionPane.showMessageDialog(mainPanel, "Only members signed into SamePage can add books to favourites");
             } else {
                 if (getPresenter().checkModelFavBooks()) {
                     getPresenter().removeFavBook();
                     favouriteBtn.setText("Favourite");
-                    User.getInstance().getMainInit().addProfilePanel();
-                    if (User.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
-                        User.getInstance().getMainInit().getCard().show(User.getInstance().getMainInit().getContainer(), "Profile");
+                    favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+                    UserModel.getInstance().getMainInit().addProfilePanel();
+                    if (UserModel.getInstance().getMainInit().checkCurrentCard().equals("Profile")) {
+                        UserModel.getInstance().getMainInit().getCard().show(UserModel.getInstance().getMainInit().getContainer(), "Profile");
                     }
                 } else {
                     getPresenter().updateModelFavBooks();
                     favouriteBtn.setText("Remove");
-                    User.getInstance().getMainInit().addProfilePanel();
+                    favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+                    UserModel.getInstance().getMainInit().addProfilePanel();
                 }
             }
-            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+            UserModel.getInstance().getMainInit().getLandingPanel().updateLanding(this);
         });
+    }
+
+    public void changeFavouriteBtnText(boolean addRemoveButton){
+        favouriteBtn.setText(addRemoveButton ? "Remove" : "Favourite");
+        favouriteBtn.repaint();
+        favouriteBtn.revalidate();
     }
 
     // Initializing whether the favourite button is blue or red
@@ -69,24 +80,29 @@ public class BookView implements IBookView {
 
     @Override
     public JPanel getView() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
-        JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
-        JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
-        JButton favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
+        if (mainPanel != null)
+            return mainPanel;
+        else {
+            JPanel mainPanel = new JPanel();
+            mainPanel.setName(bookPresenter.getModel().getTitle());
+            mainPanel.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            JLabel titleLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getTitle());
+            JLabel authorLbl = new JLabel(getPresenter().getUpdatedViewFromModel().getAuthor());
+            JLabel avgReviews = new JLabel(String.format("%.1f",getPresenter().getUpdatedViewFromModel().getAverageReview())+" ☆");
+            favouriteBtn = new JButton(getPresenter().checkModelFavBooks() == true ? "Remove" : "Favourite");
 
-        initFavouriteBtn(mainPanel, favouriteBtn);
-        favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
+            initFavouriteBtn(mainPanel, favouriteBtn);
+            favouriteBtn.setBackground(initFavouriteBtnColour(favouriteBtn));
 
-        initBookImage(mainPanel, c);
-        initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
-        initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
+            initBookImage(mainPanel, c);
+            initFonts(titleLbl, authorLbl, avgReviews, favouriteBtn);
+            initLayout(mainPanel, titleLbl, authorLbl, avgReviews, favouriteBtn, c);
 
-        mainPanel.addMouseListener(onBookClicked());
-        mainPanel.revalidate();
-        return mainPanel;
+            mainPanel.addMouseListener(onBookClicked());
+            mainPanel.revalidate();
+            return mainPanel;
+        }
     }
 
     /**

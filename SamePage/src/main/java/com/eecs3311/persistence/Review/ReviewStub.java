@@ -2,7 +2,7 @@ package com.eecs3311.persistence.Review;
 
 import com.eecs3311.model.Review.IReviewModel;
 import com.eecs3311.model.Review.ReviewModel;
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
 import com.eecs3311.model.User.UserStub;
 import com.eecs3311.presenter.Review.IReviewPresenter;
 import com.eecs3311.presenter.Review.ReviewPresenter;
@@ -50,8 +50,8 @@ public class ReviewStub implements IReview{
 
     @Override
     public void submitReview(String review, String rating, String isbn) {
-        int i = UserStub.getInstance().userList().indexOf(User.getInstance().getUsername())+1;
-        IReviewModel newReview = new ReviewModel(User.getInstance().getUsername(),
+        int i = UserStub.getInstance().userList().indexOf(UserModel.getInstance().getUsername())+1;
+        IReviewModel newReview = new ReviewModel(UserModel.getInstance().getUsername(),
                 review, "2013-01-05", rating, isbn );
         UserStub.getInstance().userList().get(i).getUserReviews().add(newReview);
         reviewList.add(newReview);

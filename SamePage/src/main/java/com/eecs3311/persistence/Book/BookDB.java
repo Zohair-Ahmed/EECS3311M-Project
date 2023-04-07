@@ -5,6 +5,7 @@ import com.eecs3311.model.Book.IBookModel;
 import com.eecs3311.persistence.AbstractDatabase;
 import com.eecs3311.presenter.Book.BookPresenter;
 import com.eecs3311.presenter.Book.IBookPresenter;
+import com.eecs3311.util.log.console.ConsoleLogs;
 import com.eecs3311.view.Book.BookView;
 import com.eecs3311.view.Book.IBookView;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,6 +26,7 @@ public class BookDB extends AbstractDatabase implements IBook {
     private String author;
     private String genre;
     private String img;
+    private int bookIndex;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final InputStream bookMocksFile = this.getClass().getClassLoader().getResourceAsStream("data/bookMocks.json");
     private final ArrayList<IBookModel> bookList = new ArrayList<>();
@@ -36,9 +38,8 @@ public class BookDB extends AbstractDatabase implements IBook {
     public BookDB() {
         super();
         try {
-            if (!dataExists()) {
+            if (!dataExists())
                 prepopulateData();
-            }
             getDBdata();
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,10 +58,10 @@ public class BookDB extends AbstractDatabase implements IBook {
         // been called and data exists. Else return false.
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            System.out.println("Data exists in table.");
+            System.out.println(ConsoleLogs.DATABASE("Data exists in Book table of BookDB."));
             return true;
         } else {
-            System.out.println("Data does not exist in table.");
+            System.out.println(ConsoleLogs.DATABASE("Data does not exist in Book table of BookDB."));
             return false;
         }
     }
@@ -73,7 +74,7 @@ public class BookDB extends AbstractDatabase implements IBook {
         try {
             JsonNode jsonNode = objectMapper.readTree(bookMocksFile);
             if (getConnection() != null) {
-                System.out.println("Connection is successful");
+                System.out.println(ConsoleLogs.DATABASE("Prepopulating data..."));
                 String query = " INSERT INTO BOOK (Title, Author, Description, ISBN13, Img, Genre)"
                         + " values (?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = getConnection().prepareStatement(query);
@@ -94,7 +95,7 @@ public class BookDB extends AbstractDatabase implements IBook {
                 }
             }
             else {
-                System.out.println("Failed to connect");
+                System.out.println(ConsoleLogs.ERROR("Failed to prepopulate BookDB data"));
             }
         }
         catch(Exception e){
@@ -115,7 +116,7 @@ public class BookDB extends AbstractDatabase implements IBook {
             if (getConnection() != null) {
                 ArrayList<IBookModel> info = new ArrayList<>();
                 System.out.println("Connection is successful");
-                String query = "SELECT * FROM book";
+                String query = "SELECT * FROM Book ORDER BY BookID ASC";
                 Statement st = getConnection().createStatement();
                 // execute the query, and get a java resultset
                 ResultSet rs = st.executeQuery(query);
@@ -127,7 +128,11 @@ public class BookDB extends AbstractDatabase implements IBook {
                     ISBN = rs.getString("ISBN13");
                     genre = rs.getString("Genre");
                     img = rs.getString("Img");
-                    info.add(new BookModel(title, author, description,  ISBN, genre, img));
+                    bookIndex = rs.getInt("BookID") - 1;
+
+                    IBookModel temp = new BookModel(title, author, description,  ISBN, genre, img);
+                    temp.setBookIndex(bookIndex);
+                    info.add(temp);
                 }
                 addToList(info);
                 getConnection().close();
@@ -141,8 +146,7 @@ public class BookDB extends AbstractDatabase implements IBook {
 
     @Override
     public void addToList(ArrayList<IBookModel> info) {
-        for (IBookModel ibm : info) {
-            // Set Model <-> Presenter <-> View connection to model
+        info.forEach(ibm -> {
             IBookPresenter bp = new BookPresenter();
             IBookView bv = new BookView();
             bp.setModel(ibm);
@@ -150,6 +154,6 @@ public class BookDB extends AbstractDatabase implements IBook {
             bp.setView(bv);
             bv.setPresenter(bp);
             this.bookList.add(ibm);
-        }
+        });
     }
 }

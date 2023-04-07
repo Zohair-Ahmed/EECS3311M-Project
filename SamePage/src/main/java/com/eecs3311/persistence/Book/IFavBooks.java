@@ -22,7 +22,7 @@ public interface IFavBooks {
     void removeFromFavorites(IBookModel book);
 
     /**
-     * Retrieves all favorite books for the logged-in user and stores them in a IBookModel ArraylList
+     * Retrieves all favorite books for the logged-in user and stores them in a IBookModel ArrayList
      */
     void getDBdata();
 
@@ -32,5 +32,11 @@ public interface IFavBooks {
      * @return list of book models in the favorites list of the logged-in user
      */
     ArrayList<IBookModel> getFavBooks();
+
+    /**
+     * Gets list of names of favourite books based on a passed user
+     * @returns String[] of favourite book names
+     */
+    ArrayList<String> getUsersFavBooks(String username);
 
 }

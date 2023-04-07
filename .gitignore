@@ -1,3 +1,9 @@
+# idea folder
+.idea
+
+# credentials
+/SamePage/src/main/resources/config.properties
+
 # Compiled class file
 *.class
 

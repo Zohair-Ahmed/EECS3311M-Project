@@ -3,7 +3,8 @@ package com.eecs3311.view.layout;
 import javax.swing.*;
 import java.awt.*;
 
-import com.eecs3311.model.User.User;
+import com.eecs3311.model.User.UserModel;
+import com.eecs3311.view.Book.IBookView;
 import com.eecs3311.view.components.ResultsPanel;
 import com.eecs3311.view.IPanelView;
 import com.eecs3311.view.components.ResultsMediator;
@@ -24,7 +25,6 @@ public class LandingPanel implements IPanelView {
         herobanner = new JPanel(); // Initial panel containing title
         sbf = new SearchBar(mediator); // Search bar frame
         lbv = new ResultsPanel(mediator); // Latest book view (results panel)
-        System.out.println(User.getInstance().toString());
         root.setLayout(new GridBagLayout());
 
         herobanner.setLayout(new GridBagLayout());
@@ -32,7 +32,7 @@ public class LandingPanel implements IPanelView {
         JLabel title = new JLabel("Same Page Books"); // Title text and UI configurations
         title.setForeground(new Color(12, 51, 127));
         title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setFont(new Font("Futura", Font.BOLD, 25));
+        title.setFont(new Font("Futura", Font.BOLD, 35));
         herobanner.add(title);
 
         mediator.setLbv(lbv); // Setup the connection between the search bar and results panel
@@ -42,7 +42,6 @@ public class LandingPanel implements IPanelView {
 
     @Override
     public void initComponents() {
-
         // Initialize panels for the gridbaglayout, herobanner, search bar, results
         initHeroBannerPanelLayout();
         initSearchBarPanel();
@@ -99,6 +98,32 @@ public class LandingPanel implements IPanelView {
 
     @Override
     public void setParentContainer(JPanel parent) {
+    }
+
+    public ResultsPanel getResultsPanel() {
+        return lbv;
+    }
+
+    public void updateLanding(IBookView temp) {
+        int indexOfBook = temp.getPresenter().getModel().getBookIndex();
+//        Component[] components = this.getResultsPanel().getParentContainer().getComponents();
+//        for (Component component : components) {
+//            if (component instanceof JPanel && component.getName() != null && component.getName().equals(temp.getPresenter().getModel().getTitle())) {
+//            int index = this.getResultsPanel().getParentContainer().getComponentZOrder(component);
+//            this.getResultsPanel().getParentContainer().remove(component);
+//            this.getResultsPanel().getParentContainer().add(temp.getView(), index);
+//            break;
+//            }
+//        }
+
+        Component oldView = this.getResultsPanel().getParentContainer().getComponent(indexOfBook);
+        this.getResultsPanel().getParentContainer().remove(oldView);
+        this.getResultsPanel().getParentContainer().add(temp.getView(), indexOfBook);
+
+        this.getResultsPanel().getParentContainer().revalidate();
+        this.getResultsPanel().getParentContainer().repaint();
+        this.getView().revalidate();
+        this.getView().repaint();
     }
 
 }
