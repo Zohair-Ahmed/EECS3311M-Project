@@ -41,7 +41,7 @@ Initital App Load-Time (Expected = 2 days ~ Actual = 1 day)
 Zohair – made changes to increase run-time for initial app load-up from 10s to <2s using parallel streams
 Load-Time for Switching between pages (Expected = 5-6 days ~ Actual = 7 days)
 Kyle and Ammad – made changes to load time for app decreasing load time from avg 20s to <1s
-Multi-threading Implementation (Expected = 3 days ~ Actual = ?)
+Multi-threading Implementation (Expected = 3 days ~ Actual = 1 day)
 Assigned spike task to Kyle regarding multi-threading implementation
 Planned how to refactor application to be single page application and how to make components reusable
 Conversion from multiple JFrames to JPanels (Expected = 3-4 days ~ Actual = 2 days)
@@ -49,8 +49,8 @@ Nick, Kyle, Ammad – Identified reusable components and discussed implementatio
 Discussed how to fix design smells identified by QA ~ Review spamming/bombing and invalid inputs
 Input Valdation (Expected = 2 days ~ Actual = 1 day)
 Edward – made changes to include regex for input validation
-Review Spamming/Bombing (Expected = 2 days ~ Actual = ?)
-Edward – to make changes
+Review Spamming/Bombing (Expected = 2 days ~ Actual = 1)
+Nargis – made changes to prevent review spamming/bombing
 
 /------End of Meeting 2-------/
 
@@ -106,6 +106,6 @@ JUnit testing -> assigned to everyone on each dev task to create their unit test
 Integration testing for DB -> Ammad & Nargis
 End2End Testing - Ammad & Nargis
 Nargis and Ammad – develop manual test scenarios
-Add/Remove Friends (Expected = 2-3 days ~ Actual = ? )
+Add/Remove Friends (Expected = 2-3 days ~ Actual = 2 )
 Nick and Ammad – develop and implement test scenarios
 Testing QA identified bugs ~ Unassigned
